@@ -11,6 +11,8 @@ on:
     - cron: "20 14 * * 1-5"   # 9:20 ET in winter time (EST)
     - cron: "35 19 * * 1-5"   # 15:35 ET (EDT)
     - cron: "35 20 * * 1-5"   # 15:35 ET (EST)
+  push:
+    paths: [".github/run-now"]   # Claude can start a run by pushing this file ("morning" or "close" inside)
   workflow_dispatch:
     inputs:
       job:
@@ -44,6 +46,8 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "job=${{ inputs.job }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            echo "job=$(tr -d '[:space:]' < .github/run-now)" >> "$GITHUB_OUTPUT"
           elif python3 scripts/in_window.py 09:05 10:30; then
             echo "job=morning" >> "$GITHUB_OUTPUT"
           elif python3 scripts/in_window.py 15:20 16:30; then
