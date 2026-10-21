@@ -1,1 +1,17 @@
 Cloud log starts 10/21/2026 (laptop log before that).
+===== Wed 10/21/2026 12:19:51 morning (GitHub) =====
+[12:19:52] Risk per trade today: $101.61 (compound sizing, factor 1.02)
+[12:19:52] ORB bot (orb_fvg, 1-min) | paper | broker orders: ON
+[12:19:52] Morning run: taking entries until 11:35 ET; Alpaca holds stops/targets after that
+[12:19:53] SPY: levels {'prior day high': 772.29, 'prior day low': 764.25, 'premarket high': 770.72, 'premarket low': 770.72}
+[12:19:53] QQQ: levels {'prior day high': 722.7465, 'prior day low': 710.39, 'premarket high': 722.42, 'premarket low': 721.28}
+[12:19:53] NVDA: levels {'prior day high': 218.46, 'prior day low': 212.77, 'premarket high': 220.52, 'premarket low': 220.14}
+[12:19:53] TSLA: levels {'prior day high': 377.59, 'prior day low': 363.64, 'premarket high': 379.99, 'premarket low': 378.88}
+[12:19:53] AAPL: levels {'prior day high': 343.06, 'prior day low': 338.7}
+[12:19:53] SPY: no_data
+[12:19:53] QQQ: no_data
+[12:19:53] NVDA: no_data
+[12:19:53] TSLA: no_data
+[12:19:53] AAPL: no_data
+[12:19:53] Done for today.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
