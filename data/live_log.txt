@@ -15,3 +15,6 @@ Cloud log starts 10/21/2026 (laptop log before that).
 [12:19:53] AAPL: no_data
 [12:19:53] Done for today.
 Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Wed 10/21/2026 12:20:32 close-out (GitHub) =====
+[12:20:33] Close-out: no open trades.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
