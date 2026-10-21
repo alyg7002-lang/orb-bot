@@ -1,0 +1,146 @@
+# High-impact days the bot will NOT trade. symbol "ALL" = every ticker.
+# Earnings are reported after the close, so the skip day is the NEXT session (the reaction day).
+# Keep this updated: add next year's FOMC / CPI / jobs dates and new earnings dates as they're announced.
+date,symbol,event
+# ---- Oct 2023 - Sep 2025 (for the out-of-sample backtest). CPI + jobs dates from BLS archives, FOMC from the Fed.
+2023-10-12,ALL,CPI
+2023-10-19,TSLA,Tesla earnings reaction (reported prior day after close)
+2023-11-01,ALL,FOMC decision
+2023-11-03,AAPL,Apple earnings reaction (reported prior day after close)
+2023-11-03,ALL,Jobs report
+2023-11-14,ALL,CPI
+2023-11-22,NVDA,Nvidia earnings reaction (reported prior day after close)
+2023-12-08,ALL,Jobs report
+2023-12-12,ALL,CPI
+2023-12-13,ALL,FOMC decision
+2024-01-05,ALL,Jobs report
+2024-01-11,ALL,CPI
+2024-01-25,TSLA,Tesla earnings reaction (reported prior day after close)
+2024-01-31,ALL,FOMC decision
+2024-02-02,AAPL,Apple earnings reaction (reported prior day after close)
+2024-02-02,ALL,Jobs report
+2024-02-13,ALL,CPI
+2024-02-22,NVDA,Nvidia earnings reaction (reported prior day after close)
+2024-03-08,ALL,Jobs report
+2024-03-12,ALL,CPI
+2024-03-20,ALL,FOMC decision
+2024-04-05,ALL,Jobs report
+2024-04-10,ALL,CPI
+2024-04-24,TSLA,Tesla earnings reaction (reported prior day after close)
+2024-05-01,ALL,FOMC decision
+2024-05-03,AAPL,Apple earnings reaction (reported prior day after close)
+2024-05-03,ALL,Jobs report
+2024-05-15,ALL,CPI
+2024-05-23,NVDA,Nvidia earnings reaction (reported prior day after close)
+2024-06-07,ALL,Jobs report
+2024-06-12,ALL,CPI
+2024-06-12,ALL,FOMC decision
+2024-07-05,ALL,Jobs report
+2024-07-11,ALL,CPI
+2024-07-24,TSLA,Tesla earnings reaction (reported prior day after close)
+2024-07-31,ALL,FOMC decision
+2024-08-02,AAPL,Apple earnings reaction (reported prior day after close)
+2024-08-02,ALL,Jobs report
+2024-08-14,ALL,CPI
+2024-08-29,NVDA,Nvidia earnings reaction (reported prior day after close)
+2024-09-06,ALL,Jobs report
+2024-09-11,ALL,CPI
+2024-09-18,ALL,FOMC decision
+2024-10-04,ALL,Jobs report
+2024-10-10,ALL,CPI
+2024-10-24,TSLA,Tesla earnings reaction (reported prior day after close)
+2024-11-01,AAPL,Apple earnings reaction (reported prior day after close)
+2024-11-01,ALL,Jobs report
+2024-11-07,ALL,FOMC decision
+2024-11-13,ALL,CPI
+2024-11-21,NVDA,Nvidia earnings reaction (reported prior day after close)
+2024-12-06,ALL,Jobs report
+2024-12-11,ALL,CPI
+2024-12-18,ALL,FOMC decision
+2025-01-10,ALL,Jobs report
+2025-01-15,ALL,CPI
+2025-01-29,ALL,FOMC decision
+2025-01-30,TSLA,Tesla earnings reaction (reported prior day after close)
+2025-01-31,AAPL,Apple earnings reaction (reported prior day after close)
+2025-02-07,ALL,Jobs report
+2025-02-12,ALL,CPI
+2025-02-27,NVDA,Nvidia earnings reaction (reported prior day after close)
+2025-03-07,ALL,Jobs report
+2025-03-12,ALL,CPI
+2025-03-19,ALL,FOMC decision
+2025-04-04,ALL,Jobs report
+2025-04-10,ALL,CPI
+2025-04-23,TSLA,Tesla earnings reaction (reported prior day after close)
+2025-05-02,AAPL,Apple earnings reaction (reported prior day after close)
+2025-05-02,ALL,Jobs report
+2025-05-07,ALL,FOMC decision
+2025-05-13,ALL,CPI
+2025-05-29,NVDA,Nvidia earnings reaction (reported prior day after close)
+2025-06-06,ALL,Jobs report
+2025-06-11,ALL,CPI
+2025-06-18,ALL,FOMC decision
+2025-07-03,ALL,Jobs report
+2025-07-15,ALL,CPI
+2025-07-24,TSLA,Tesla earnings reaction (reported prior day after close)
+2025-07-30,ALL,FOMC decision
+2025-08-01,AAPL,Apple earnings reaction (reported prior day after close)
+2025-08-01,ALL,Jobs report
+2025-08-12,ALL,CPI
+2025-08-28,NVDA,Nvidia earnings reaction (reported prior day after close)
+2025-09-05,ALL,Jobs report
+2025-09-11,ALL,CPI
+2025-09-17,ALL,FOMC decision
+# ---- Oct 2025 onward
+2025-10-23,TSLA,Tesla earnings reaction (reported Oct 22 after close)
+2025-10-24,ALL,CPI (September data; delayed by shutdown)
+2025-10-29,ALL,FOMC decision
+2025-10-31,AAPL,Apple earnings reaction (reported Oct 30 after close)
+2025-11-20,ALL,Jobs report (September data; delayed by shutdown)
+2025-11-20,NVDA,Nvidia earnings reaction (reported Nov 19 after close)
+2025-12-10,ALL,FOMC decision
+2025-12-16,ALL,Jobs report (Oct+Nov data; delayed)
+2025-12-18,ALL,CPI (November data; delayed)
+2026-01-09,ALL,Jobs report
+2026-01-13,ALL,CPI
+2026-01-28,ALL,FOMC decision
+2026-01-29,TSLA,Tesla earnings reaction (reported Jan 28 after close)
+2026-01-30,AAPL,Apple earnings reaction (reported Jan 29 after close)
+2026-02-11,ALL,Jobs report
+2026-02-13,ALL,CPI
+2026-02-26,NVDA,Nvidia earnings reaction (reported Feb 25 after close)
+2026-03-06,ALL,Jobs report
+2026-03-11,ALL,CPI
+2026-03-18,ALL,FOMC decision
+2026-04-03,ALL,Jobs report
+2026-04-10,ALL,CPI
+2026-04-23,TSLA,Tesla earnings reaction (reported Apr 22 after close)
+2026-04-29,ALL,FOMC decision
+2026-05-01,AAPL,Apple earnings reaction (reported Apr 30 after close)
+2026-05-08,ALL,Jobs report
+2026-05-12,ALL,CPI
+2026-05-21,NVDA,Nvidia earnings reaction (reported May 20 after close)
+2026-06-05,ALL,Jobs report
+2026-06-10,ALL,CPI
+2026-06-17,ALL,FOMC decision
+2026-07-02,ALL,Jobs report
+2026-07-14,ALL,CPI
+2026-07-23,TSLA,Tesla earnings reaction (reported Jul 22 after close)
+2026-07-29,ALL,FOMC decision
+2026-07-31,AAPL,Apple earnings reaction (reported Jul 30 after close)
+2026-08-07,ALL,Jobs report
+2026-08-12,ALL,CPI
+2026-08-27,NVDA,Nvidia earnings reaction (reported Aug 26 after close)
+2026-09-04,ALL,Jobs report
+2026-09-11,ALL,CPI
+2026-09-16,ALL,FOMC decision
+2026-10-02,ALL,Jobs report
+2026-10-14,ALL,CPI
+2026-10-22,TSLA,Tesla earnings reaction (Oct 21 after close; date per company, re-check)
+2026-10-28,ALL,FOMC decision
+2026-11-06,ALL,Jobs report
+2026-11-10,ALL,CPI
+2026-11-18,NVDA,Nvidia earnings reaction (Nov 17 after close; confirmed)
+2026-12-04,ALL,Jobs report
+2026-12-09,ALL,FOMC decision
+2026-12-10,ALL,CPI
+# AAPL's late-Oct/early-Nov 2026 date isn't confirmed yet: add "<day after>,AAPL,..." once Apple announces it.

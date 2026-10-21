@@ -1,0 +1,60 @@
+# ORB Retest Bot settings. Change a number, rerun the backtest, compare.
+
+# The 5 tickers with the heaviest options volume. Swap any of them freely.
+symbols = ["SPY", "QQQ", "NVDA", "TSLA", "AAPL"]
+
+[strategy]
+name             = "orb_fvg"  # "orb_fvg" = 1-min breakout + FVG retest (current rules)
+                              # "orb_retest" = original 5-min version (kept for comparison)
+bar_minutes      = 1          # candle size the rules run on (1 for orb_fvg, 5 for orb_retest)
+fvg_mode         = "edge"     # "edge" = FVG must sit on the 15-min high/low, "any" = any FVG after breakout
+min_fvg_frac     = 0.05       # ignore gaps smaller than 5% of the range width
+skip_news        = true       # skip FOMC / CPI / jobs days + earnings reaction days (orb/news_days.csv)
+range_minutes    = 15         # opening range length
+retest_tolerance = 0.10       # how close to the range edge counts as "on" it (10% of range width)
+stop_mode        = "opposite" # far side of the 15-min range (widest). Backtest: the tight "fvg" stop got
+                              # shaken out a lot (42% of stopped trades later hit target). Also "fvg", "mid"
+target_mode      = "fixed"    # "fixed" = take profit at target_r x risk, "levels" = prior day / premarket levels
+target_r         = 1.5        # take profit at 1.5x the stop distance. Tested 1R/1.5R/2R on 3 years:
+                              # 1.5R was best or tied in both Oct 23-Oct 25 (+0.074R) and Oct 25-Oct 26 (+0.073R)
+confirm_bars     = 1          # after the rejection candle, wait this many extra 1-min candles; enter only if price
+                              # holds above the FVG and closes past the rejection candle's high (low for shorts)
+gap_filter       = false      # OFF: looked great on Oct 2025-Oct 2026 (+0.14R with-gap) but FAILED out-of-sample on
+                              # Oct 2023-Oct 2025 (against-gap trades did better). It was curve-fit. Leave off.
+gap_min_pct      = 0.1        # gaps under 0.1% count as "no gap" (either direction allowed)
+# skip_entries_from  = "10:00"  # optional no-entry window (tested: small extra edge, weakest evidence)
+# skip_entries_until = "10:15"
+breakeven_r      = 0          # move stop to entry once the trade is up this many R (0 = off)
+min_rr           = 1.0      # a key level must be at least 1R away to be the target
+fallback_rr      = 2.0      # target when no key level qualifies
+entry_cutoff     = "11:30"  # no new entries after this (ET)
+flat_time        = "15:55"  # close anything still open (ET)
+
+[risk]
+risk_per_trade     = 100.0    # $ you lose if the stop hits (Alpaca paper starts at $100k)
+max_position_value = 25000.0  # cap on shares x price for any one trade
+slippage_per_share = 0.01     # charged on entry AND exit in backtests
+daily_profit_target = 0       # OFF. 3-year backtest: a daily target almost never hit and only cut the best days
+daily_loss_limit    = 0       # OFF. Each trade already has its own stop; worst backtest day was about -$334 (at $100 risk)
+max_open_trades     = 0       # no limit on trades open at once
+# "No limits" model, live-tested from 10/21/2026. Backtest Oct 2023-Oct 2026: 1,299 trades, +0.08R/trade,
+# +$8,426 at $100 risk, max drawdown $1,645. To go back to the safer "loose" setup: 400 / 300 / 3.
+
+# Position sizing. "compound" = risk grows with profits and shrinks after losses.
+sizing             = "compound"  # "fixed" = always risk_per_trade, "compound" = risk_pct% of the bot's account
+starting_equity    = 10000.0     # the bot's own account: $10,000 x 1% = $100 risk on day one
+risk_pct           = 1.0         # % of (starting_equity + all closed paper profits) risked per trade
+max_risk_per_trade = 1000.0      # safety ceiling on any single trade's risk
+# Size is set once each morning (and any daily limits above scale with it).
+
+[data]
+backtest_days = 365    # calendar days of history to test
+backtest_feed = "sip"  # free Alpaca plans can pull full SIP history (older than 15 min)
+live_feed     = "iex"  # free real-time feed
+
+[alpaca]
+# Leave these blank and set environment variables instead (safer):
+#   ALPACA_API_KEY and ALPACA_SECRET_KEY
+api_key    = ""
+secret_key = ""
+paper      = true      # never change this until you have 30-50 logged trades and a risk plan

@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.env
+data/cache/
+data/*_log.txt
+!data/live_log.txt
+data/python_path.txt
+data/schedule_status.txt
+reports/*
+!reports/dashboard.html
+*.bat
+*.ps1

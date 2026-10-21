@@ -1,0 +1,96 @@
+name: ORB paper bot
+
+# Two short runs each weekday (times are UTC; each job is listed twice to cover daylight saving):
+#   morning: ~9:20 ET  -> waits for the open, takes entries until 11:35 ET, then exits.
+#            Alpaca keeps every stop and target working on its own servers after that.
+#   close:   ~15:35 ET -> records stop/target fills, closes anything still open at 15:55 ET.
+# After each run the trade journal + dashboard are committed back to this repo.
+on:
+  schedule:
+    - cron: "20 13 * * 1-5"   # 9:20 ET in summer time (EDT)
+    - cron: "20 14 * * 1-5"   # 9:20 ET in winter time (EST)
+    - cron: "35 19 * * 1-5"   # 15:35 ET (EDT)
+    - cron: "35 20 * * 1-5"   # 15:35 ET (EST)
+  workflow_dispatch:
+    inputs:
+      job:
+        description: "Which run (morning or close)"
+        required: true
+        default: "morning"
+        type: choice
+        options: [morning, close]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: orb-bot
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 170
+    env:
+      ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+      ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
+      PYTHONUNBUFFERED: "1"
+      TZ: America/New_York
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Decide which run this is
+        id: which
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "job=${{ inputs.job }}" >> "$GITHUB_OUTPUT"
+          elif python3 scripts/in_window.py 09:05 10:30; then
+            echo "job=morning" >> "$GITHUB_OUTPUT"
+          elif python3 scripts/in_window.py 15:20 16:30; then
+            echo "job=close" >> "$GITHUB_OUTPUT"
+          else
+            echo "job=skip" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-python@v5
+        if: steps.which.outputs.job != 'skip'
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        if: steps.which.outputs.job != 'skip'
+        run: pip install -r requirements.txt
+
+      - name: Check keys are set
+        if: steps.which.outputs.job != 'skip'
+        run: |
+          if [ -z "$ALPACA_API_KEY" ] || [ -z "$ALPACA_SECRET_KEY" ]; then
+            echo "::error::Add ALPACA_API_KEY and ALPACA_SECRET_KEY under Settings > Secrets and variables > Actions"
+            exit 1
+          fi
+
+      - name: Morning run (entries until 11:35 ET)
+        if: steps.which.outputs.job == 'morning'
+        run: |
+          echo "===== $(date '+%a %m/%d/%Y %H:%M:%S') morning (GitHub) =====" >> data/live_log.txt
+          set -o pipefail
+          python -m orb live --until 11:35 2>&1 | tee -a data/live_log.txt
+
+      - name: Close-out run (15:55 ET)
+        if: steps.which.outputs.job == 'close'
+        run: |
+          echo "===== $(date '+%a %m/%d/%Y %H:%M:%S') close-out (GitHub) =====" >> data/live_log.txt
+          set -o pipefail
+          python -m orb close 2>&1 | tee -a data/live_log.txt
+
+      - name: Save journal + dashboard to the repo
+        if: always() && steps.which.outputs.job != 'skip'
+        run: |
+          git config user.name "orb-bot"
+          git config user.email "orb-bot@users.noreply.github.com"
+          git add data/journal.db data/live_log.txt reports/dashboard.html || true
+          if git diff --cached --quiet; then echo "nothing to save"; exit 0; fi
+          git commit -m "Bot ${{ steps.which.outputs.job }} run $(date '+%Y-%m-%d %H:%M ET')"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 5; done
+          exit 1
