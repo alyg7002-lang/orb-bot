@@ -1,13 +1,13 @@
 # ORB Retest Bot
 
 > **Runs in the cloud on GitHub Actions** (free, public repo). Every weekday:
-> - **~9:20 ET morning run:** waits for the open, takes entries until 11:35 ET, then exits. Alpaca keeps each trade's stop and target working on its own servers.
-> - **~15:35 ET close-out run:** records stop/target fills and closes anything still open at 15:55 ET.
+> - **~8:50 ET morning run:** waits for the open, takes entries until 11:35 ET, then exits. Alpaca keeps each trade's stop and target working on its own servers.
+> - **~14:50 ET close-out run:** waits until 15:55 ET, records stop/target fills and closes anything still open at 15:55 ET.
 > - After each run the trade journal (`data/journal.db`), log (`data/live_log.txt`) and dashboard (`reports/dashboard.html`) are committed back to the repo.
 >
 > Your laptop doesn't need to be on. Alpaca keys live in **Settings → Secrets and variables → Actions** as `ALPACA_API_KEY` and `ALPACA_SECRET_KEY` (never in the code).
 > To run a job by hand: **Actions → ORB paper bot → Run workflow**. To pause the bot: **Actions → ORB paper bot → ⋯ → Disable workflow**.
-> GitHub's scheduler can start runs 5–15 minutes late; the bot only needs to be running before ~9:45 ET, so a short delay is fine.
+> GitHub's scheduler often starts runs 15–30 minutes late (the 10/21 close-out started 25 min late), so both runs are scheduled early and wait.
 
 Paper-trades your opening range breakout + retest strategy on SPY, QQQ, NVDA, TSLA and AAPL
 (the five tickers with the most options volume). It backtests on real history, paper trades
