@@ -45,3 +45,8 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [11:35:03] AAPL: traded
 [11:35:03] Done for today.
 Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Thu 10/22/2026 15:21:56 close-out (GitHub) =====
+[15:21:58] NVDA: EXIT target @ 212.02  P&L $+158.36
+[15:21:58] AAPL: EXIT stop @ 347.27  P&L $-97.65
+[15:21:58] Close-out: every trade already hit its stop or target.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
