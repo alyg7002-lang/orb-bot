@@ -21,3 +21,27 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 ===== Wed 10/21/2026 16:00:33 close-out (GitHub) =====
 [16:00:34] Close-out: no open trades.
 Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Thu 10/22/2026 09:29:22 morning (GitHub) =====
+[09:29:23] Risk per trade today: $101.61 (compound sizing, factor 1.02)
+[09:29:23] ORB bot (orb_fvg, 1-min) | paper | broker orders: ON
+[09:29:23] Waiting 1 min for the open...
+[09:30:05] Morning run: taking entries until 11:35 ET; Alpaca holds stops/targets after that
+[09:30:06] SPY: levels {'prior day high': 774.44, 'prior day low': 768.4, 'premarket high': 766.37, 'premarket low': 765.86}
+[09:30:06] QQQ: levels {'prior day high': 727.95, 'prior day low': 719.71, 'premarket high': 713.83, 'premarket low': 712.42}
+[09:30:06] NVDA: levels {'prior day high': 222.19, 'prior day low': 217.66, 'premarket high': 217.37, 'premarket low': 216.89}
+[09:30:06] TSLA: NOT trading today - Tesla earnings reaction (Oct 21 after close; date per company
+[09:30:06] TSLA: levels {'prior day high': 388.843, 'prior day low': 380.51, 'premarket high': 373.91, 'premarket low': 370.18}
+[09:30:06] AAPL: levels {'prior day high': 345.25, 'prior day low': 338.83, 'premarket high': 345.26, 'premarket low': 343.36}
+[10:08:18] NVDA: ENTERED short 37 sh @ ~216.13 stop 218.86 target 212.03 (1.5R fixed)
+[10:21:14] SPY: ENTERED short 33 sh @ ~765.38 stop 767.39 target 762.37 (1.5R fixed)
+[10:23:15] AAPL: ENTERED short 31 sh @ ~344.06 stop 347.27 target 339.26 (1.5R fixed)
+[10:32:39] SPY: EXIT target @ 762.36  P&L $+96.36
+[11:35:03] SPY: traded
+[11:35:03] QQQ: no_retest
+[11:35:03] NVDA: still open, Alpaca's stop/target protect it; close-out run handles 15:55
+[11:35:03] NVDA: traded
+[11:35:03] TSLA: news_day
+[11:35:03] AAPL: still open, Alpaca's stop/target protect it; close-out run handles 15:55
+[11:35:03] AAPL: traded
+[11:35:03] Done for today.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
