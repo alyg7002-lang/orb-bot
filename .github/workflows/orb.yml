@@ -1,14 +1,14 @@
 name: ORB paper bot
 
 # Two short runs each weekday (times are UTC; each job is listed twice to cover daylight saving):
-#   morning: ~8:50 ET (early on purpose: GitHub schedules often start 15-30 min late)  -> waits for the open, takes entries until 11:35 ET, then exits.
+#   morning: ~8:20 ET (early on purpose: GitHub schedules often start 15-30 min late)  -> waits for the open, takes entries until 11:35 ET, then exits.
 #            Alpaca keeps every stop and target working on its own servers after that.
 #   close:   ~14:50 ET (waits until 15:55) -> records stop/target fills, closes anything still open at 15:55 ET.
 # After each run the trade journal + dashboard are committed back to this repo.
 on:
   schedule:
-    - cron: "50 12 * * 1-5"   # 8:50 ET in summer time (EDT)
-    - cron: "50 13 * * 1-5"   # 8:50 ET in winter time (EST)
+    - cron: "20 12 * * 1-5"   # 8:20 ET in summer time (EDT)
+    - cron: "20 13 * * 1-5"   # 8:20 ET in winter time (EST)
     - cron: "50 18 * * 1-5"   # 14:50 ET (EDT)
     - cron: "50 19 * * 1-5"   # 14:50 ET (EST)
   push:
@@ -48,7 +48,7 @@ jobs:
             echo "job=${{ inputs.job }}" >> "$GITHUB_OUTPUT"
           elif [ "${{ github.event_name }}" = "push" ]; then
             echo "job=$(tr -d '[:space:]' < .github/run-now)" >> "$GITHUB_OUTPUT"
-          elif python3 scripts/in_window.py 08:30 10:30; then
+          elif python3 scripts/in_window.py 08:00 10:30; then
             echo "job=morning" >> "$GITHUB_OUTPUT"
           elif python3 scripts/in_window.py 14:30 16:30; then
             echo "job=close" >> "$GITHUB_OUTPUT"

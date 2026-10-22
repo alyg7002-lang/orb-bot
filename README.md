@@ -1,7 +1,7 @@
 # ORB Retest Bot
 
 > **Runs in the cloud on GitHub Actions** (free, public repo). Every weekday:
-> - **~8:50 ET morning run:** waits for the open, takes entries until 11:35 ET, then exits. Alpaca keeps each trade's stop and target working on its own servers.
+> - **~8:20 ET morning run:** waits for the open, takes entries until 11:35 ET, then exits. Alpaca keeps each trade's stop and target working on its own servers.
 > - **~14:50 ET close-out run:** waits until 15:55 ET, records stop/target fills and closes anything still open at 15:55 ET.
 > - After each run the trade journal (`data/journal.db`), log (`data/live_log.txt`) and dashboard (`reports/dashboard.html`) are committed back to the repo.
 >
