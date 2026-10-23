@@ -109,3 +109,6 @@ Traceback (most recent call last):
   File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/alpaca/common/rest.py", line 207, in _one_request
     raise APIError(error, http_error)
 alpaca.common.exceptions.APIError: {"code":42210000,"message":"order pending cancel"}
+===== Fri 10/23/2026 16:08:34 close-out (GitHub) =====
+[16:08:36] Close-out: market is closed; open trades will be closed at the next morning run.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
