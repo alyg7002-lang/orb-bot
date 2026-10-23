@@ -53,3 +53,26 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 ===== Thu 10/22/2026 16:13:43 close-out (GitHub) =====
 [16:13:46] Close-out: no open trades.
 Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Fri 10/23/2026 09:05:15 morning (GitHub) =====
+[09:05:16] Risk per trade today: $103.18 (compound sizing, factor 1.03)
+[09:05:16] ORB bot (orb_fvg, 1-min) | paper | broker orders: ON
+[09:05:16] Waiting 25 min for the open...
+[09:30:05] Morning run: taking entries until 11:35 ET; Alpaca holds stops/targets after that
+[09:30:07] SPY: levels {'prior day high': 767.71, 'prior day low': 761.165, 'premarket high': 761.99, 'premarket low': 760.13}
+[09:30:07] QQQ: levels {'prior day high': 715.43, 'prior day low': 701.9, 'premarket high': 704.06, 'premarket low': 702.05}
+[09:30:07] NVDA: levels {'prior day high': 218.88, 'prior day low': 211.26, 'premarket high': 212.51, 'premarket low': 210.82}
+[09:30:07] TSLA: levels {'prior day high': 388.8595, 'prior day low': 373.71}
+[09:30:07] AAPL: levels {'prior day high': 348.36, 'prior day low': 342.28, 'premarket high': 349.08, 'premarket low': 347.51}
+[10:04:20] QQQ: ENTERED long 21 sh @ ~706.08 stop 701.18 target 713.42 (1.5R fixed)
+[10:30:07] NVDA: ENTERED long 38 sh @ ~212.90 stop 210.22 target 216.92 (1.5R fixed)
+[11:17:19] TSLA: ENTERED long 11 sh @ ~376.46 stop 367.79 target 389.46 (1.5R fixed)
+[11:35:11] SPY: no_retest
+[11:35:11] QQQ: still open, Alpaca's stop/target protect it; close-out run handles 15:55
+[11:35:11] QQQ: traded
+[11:35:11] NVDA: still open, Alpaca's stop/target protect it; close-out run handles 15:55
+[11:35:11] NVDA: traded
+[11:35:11] TSLA: still open, Alpaca's stop/target protect it; close-out run handles 15:55
+[11:35:11] TSLA: traded
+[11:35:11] AAPL: no_retest
+[11:35:11] Done for today.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
