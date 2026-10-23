@@ -183,6 +183,33 @@ class TestLive(unittest.TestCase):
         self.assertEqual(t.tc.closed, ["SPY"])
         self.assertEqual(t.j.trades("paper")[0]["exit_reason"], "stale_close")
 
+    def test_flatten_survives_pending_cancel(self):
+        """10/23 bug: cancelling one bracket leg auto-cancels the other, and Alpaca rejects the
+        second cancel with 'order pending cancel'. The close must still go through."""
+        t = make_trader()
+        t._handle(Signal("entry", trade()), datetime.now(ET), 500)
+        def cancel(oid):
+            t.tc.cancelled.append(oid)
+            if oid == "tp":                                  # Alpaca: sibling goes pending_cancel itself
+                t.tc.legs[0].status.value = "canceled"
+                return
+            t.tc.legs[1].status.value = "canceled"
+            raise Exception('{"code":42210000,"message":"order pending cancel"}')
+        t.tc.cancel_order_by_id = cancel
+        t._flatten("SPY", 501.0)
+        self.assertEqual(t.tc.cancelled, ["tp", "sl"])     # second cancel raised, was tolerated
+        self.assertEqual(t.tc.closed, ["SPY"])
+        self.assertEqual(t.j.trades("paper")[0]["exit_reason"], "time")
+
+    def test_closeout_one_error_does_not_strand_others(self):
+        t = self._with_open_trade(make_trader())
+        t.tc.get_clock = lambda: NS(is_open=True, next_close=datetime.now(ET) + timedelta(minutes=2))
+        def boom(sym):
+            raise Exception("insufficient qty")
+        t.tc.close_position = boom
+        t.closeout()                                      # must not raise
+        self.assertEqual(len(t.j.open_trades("paper")), 1)
+
     def test_refuses_real_money(self):
         cfg = config.load()
         cfg.paper, cfg.api_key, cfg.secret_key = False, "k", "s"

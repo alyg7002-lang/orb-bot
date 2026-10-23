@@ -205,11 +205,34 @@ class LiveTrader:
         from alpaca.trading.requests import GetOrderByIdRequest
         row = self.open[sym]
         o = self.tc.get_order_by_id(row["broker_order_id"], GetOrderByIdRequest(nested=True))
+        live_states = ("new", "accepted", "held", "partially_filled", "pending_cancel", "pending_replace")
         for leg in o.legs or []:
-            if str(leg.status.value) in ("new", "accepted", "held", "partially_filled"):
-                self.tc.cancel_order_by_id(leg.id)
-        _time.sleep(2)
-        close_order = self.tc.close_position(sym)
+            if str(leg.status.value) in live_states[:4]:
+                try:
+                    self.tc.cancel_order_by_id(leg.id)
+                except Exception as e:                  # cancelling one bracket leg auto-cancels the other
+                    say(f"{sym}: cancel of {leg.type.value} leg skipped ({e})")
+        for _ in range(15):                             # wait until no leg still holds the shares
+            _time.sleep(1)
+            o = self.tc.get_order_by_id(row["broker_order_id"], GetOrderByIdRequest(nested=True))
+            legs = o.legs or []
+            if any(str(l.status.value) == "filled" for l in legs):
+                self._check_broker(sym)                 # a stop/target filled while cancelling
+                if sym not in self.open:
+                    return
+            if not any(str(l.status.value) in live_states for l in legs):
+                break
+        close_order = None
+        for attempt in range(3):
+            try:
+                close_order = self.tc.close_position(sym)
+                break
+            except Exception as e:
+                say(f"{sym}: close attempt {attempt + 1} failed ({e})")
+                _time.sleep(3)
+        if close_order is None:
+            say(f"{sym}: COULD NOT CLOSE - check Alpaca; left open in the journal so the next run retries")
+            return
         price = last_close
         for _ in range(10):
             _time.sleep(1)
@@ -266,7 +289,10 @@ class LiveTrader:
             if self.use_broker:
                 self._check_broker(sym)
             if sym in self.open:
-                self._flatten(sym, row["entry"], "stale_close")
+                try:
+                    self._flatten(sym, row["entry"], "stale_close")
+                except Exception as e:
+                    say(f"{sym}: stale close error ({e}); will retry")
             self.engines.pop(sym, None)
 
     def closeout(self) -> None:
@@ -300,7 +326,10 @@ class LiveTrader:
                     return
                 _time.sleep(min(30, max((flat_at - datetime.now(ET)).total_seconds(), 1)))
         for sym in list(self.open):
-            self._flatten(sym, self.open[sym]["entry"], "time")
+            try:
+                self._flatten(sym, self.open[sym]["entry"], "time")
+            except Exception as e:                      # one ticker's error must not strand the others
+                say(f"{sym}: close-out error ({e}); next run retries")
         say("Close-out done.")
 
     def run(self, until=None) -> None:
