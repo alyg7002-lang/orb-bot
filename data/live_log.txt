@@ -76,3 +76,36 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [11:35:11] AAPL: no_retest
 [11:35:11] Done for today.
 Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Fri 10/23/2026 15:21:34 close-out (GitHub) =====
+[15:21:36] Close-out: waiting 33 min until 15:55 ET
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/alpaca/common/rest.py", line 198, in _one_request
+    response.raise_for_status()
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 422 Client Error: Unprocessable Entity for url: https://paper-api.alpaca.markets/v2/orders/cc1959de-635d-4a0a-8d28-7e02f3b21b14
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/runner/work/orb-bot/orb-bot/orb/__main__.py", line 207, in <module>
+    main()
+  File "/home/runner/work/orb-bot/orb-bot/orb/__main__.py", line 185, in main
+    LiveTrader(cfg, j).closeout()
+  File "/home/runner/work/orb-bot/orb-bot/orb/live.py", line 303, in closeout
+    self._flatten(sym, self.open[sym]["entry"], "time")
+  File "/home/runner/work/orb-bot/orb-bot/orb/live.py", line 210, in _flatten
+    self.tc.cancel_order_by_id(leg.id)
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/alpaca/trading/client.py", line 231, in cancel_order_by_id
+    self.delete(f"/orders/{order_id}")
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/alpaca/common/rest.py", line 278, in delete
+    return self._request("DELETE", path, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/alpaca/common/rest.py", line 131, in _request
+    return self._one_request(method, url, opts, retry)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/alpaca/common/rest.py", line 207, in _one_request
+    raise APIError(error, http_error)
+alpaca.common.exceptions.APIError: {"code":42210000,"message":"order pending cancel"}
