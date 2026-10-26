@@ -112,3 +112,10 @@ alpaca.common.exceptions.APIError: {"code":42210000,"message":"order pending can
 ===== Fri 10/23/2026 16:08:34 close-out (GitHub) =====
 [16:08:36] Close-out: market is closed; open trades will be closed at the next morning run.
 Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Mon 10/26/2026 15:28:19 close-out (GitHub) =====
+[15:28:20] Close-out: waiting 27 min until 15:55 ET
+[15:55:06] QQQ: EXIT time @ 712.33  P&L $+137.85
+[15:55:18] NVDA: EXIT time @ 212.81  P&L $+0.00
+[15:55:29] TSLA: EXIT time @ 391.33  P&L $+162.47
+[15:55:29] Close-out done.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
