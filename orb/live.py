@@ -222,6 +222,11 @@ class LiveTrader:
                     return
             if not any(str(l.status.value) in live_states for l in legs):
                 break
+        mark = last_close                               # fallback exit price = Alpaca's current quote
+        try:
+            mark = float(self.tc.get_open_position(sym).current_price)
+        except Exception:
+            pass
         close_order = None
         for attempt in range(3):
             try:
@@ -233,13 +238,16 @@ class LiveTrader:
         if close_order is None:
             say(f"{sym}: COULD NOT CLOSE - check Alpaca; left open in the journal so the next run retries")
             return
-        price = last_close
-        for _ in range(10):
+        price = None
+        for _ in range(60):                             # 10/26: NVDA fill took >10 s and P&L was logged as $0
             _time.sleep(1)
             c = self.tc.get_order_by_id(close_order.id)
             if c.filled_avg_price:
                 price = float(c.filled_avg_price)
                 break
+        if price is None:
+            price = mark
+            say(f"{sym}: close fill not reported after 60 s, using last quote {price:.2f}")
         self._record_exit(sym, datetime.now(ET), price, reason)
 
     # ---- signals -------------------------------------------------------
@@ -327,7 +335,8 @@ class LiveTrader:
                 _time.sleep(min(30, max((flat_at - datetime.now(ET)).total_seconds(), 1)))
         for sym in list(self.open):
             try:
-                self._flatten(sym, self.open[sym]["entry"], "time")
+                old = self.open[sym].get("session_date", self.today.isoformat()) < self.today.isoformat()
+                self._flatten(sym, self.open[sym]["entry"], "stale_close" if old else "time")
             except Exception as e:                      # one ticker's error must not strand the others
                 say(f"{sym}: close-out error ({e}); next run retries")
         say("Close-out done.")

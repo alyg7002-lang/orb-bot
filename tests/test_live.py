@@ -210,6 +210,23 @@ class TestLive(unittest.TestCase):
         t.closeout()                                      # must not raise
         self.assertEqual(len(t.j.open_trades("paper")), 1)
 
+    def test_closeout_marks_previous_day_trade_stale(self):
+        t = self._with_open_trade(make_trader())
+        t.today = date(2026, 10, 16)
+        t.tc.get_clock = lambda: NS(is_open=True, next_close=datetime.now(ET) + timedelta(minutes=2))
+        t.closeout()
+        self.assertEqual(t.j.trades("paper")[0]["exit_reason"], "stale_close")
+
+    def test_unreported_close_fill_uses_quote_not_entry(self):
+        """10/26 bug: NVDA's close fill came back after 10 s and P&L was logged as $0 (entry price)."""
+        t = make_trader()
+        t._handle(Signal("entry", trade()), datetime.now(ET), 500)
+        orig = t.tc.get_order_by_id
+        t.tc.get_order_by_id = lambda oid, filt=None: NS(filled_avg_price=None) if oid == "close-1" else orig(oid, filt)
+        t.tc.get_open_position = lambda sym: NS(current_price="502.50")
+        t._flatten("SPY", 500.0)
+        self.assertEqual(t.j.trades("paper")[0]["exit"], 502.50)
+
     def test_refuses_real_money(self):
         cfg = config.load()
         cfg.paper, cfg.api_key, cfg.secret_key = False, "k", "s"
