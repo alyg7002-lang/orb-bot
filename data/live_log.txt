@@ -143,3 +143,9 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [11:35:04] AAPL: traded
 [11:35:04] Done for today.
 Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Tue 10/27/2026 15:26:43 close-out (GitHub) =====
+[15:26:43] Close-out: waiting 28 min until 15:55 ET
+[15:55:00] AAPL: cancel of stop leg skipped ({"code":42210000,"message":"order pending cancel"})
+[15:55:05] AAPL: EXIT time @ 347.04  P&L $+45.22
+[15:55:05] Close-out done.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
