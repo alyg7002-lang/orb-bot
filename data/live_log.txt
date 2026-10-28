@@ -149,3 +149,25 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [15:55:05] AAPL: EXIT time @ 347.04  P&L $+45.22
 [15:55:05] Close-out done.
 Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Wed 10/28/2026 08:53:12 morning (GitHub) =====
+[08:53:13] Risk per trade today: $105.82 (compound sizing, factor 1.06)
+[08:53:13] ORB bot (orb_fvg, 1-min) | paper | broker orders: ON
+[08:53:13] Waiting 37 min for the open...
+[09:30:05] Morning run: taking entries until 11:35 ET; Alpaca holds stops/targets after that
+[09:30:08] SPY: NOT trading today - FOMC decision
+[09:30:08] SPY: levels {'prior day high': 771.14, 'prior day low': 765.21, 'premarket high': 771.65, 'premarket low': 770.69}
+[09:30:08] QQQ: NOT trading today - FOMC decision
+[09:30:08] QQQ: levels {'prior day high': 722.87, 'prior day low': 713.59, 'premarket high': 724.35, 'premarket low': 723.42}
+[09:30:08] NVDA: NOT trading today - FOMC decision
+[09:30:08] NVDA: levels {'prior day high': 219.19, 'prior day low': 215.53, 'premarket high': 220.02, 'premarket low': 219.41}
+[09:30:08] TSLA: NOT trading today - FOMC decision
+[09:30:08] TSLA: levels {'prior day high': 408.45, 'prior day low': 395.25, 'premarket high': 411.15, 'premarket low': 409.63}
+[09:30:08] AAPL: NOT trading today - FOMC decision
+[09:30:08] AAPL: levels {'prior day high': 347.78, 'prior day low': 342.39, 'premarket high': 346.53, 'premarket low': 345.7}
+[11:35:06] SPY: news_day
+[11:35:06] QQQ: news_day
+[11:35:06] NVDA: news_day
+[11:35:06] TSLA: news_day
+[11:35:06] AAPL: news_day
+[11:35:06] Done for today.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
