@@ -109,6 +109,9 @@ def main() -> None:
     lv = sub.add_parser("live"); lv.add_argument("--no-broker", action="store_true")
     lv.add_argument("--until", help="stop taking entries and exit at this ET time, e.g. 11:35 (cloud morning run)")
     sub.add_parser("close", help="cloud afternoon run: record fills, close anything open at 15:55")
+    r2 = sub.add_parser("rsi2", help="RSI(2) pullback bot: decide entries/exits at 15:50 ET (journal-only paper)")
+    r2.add_argument("--now", action="store_true", help="don't wait for 15:50 (testing)")
+    r2.add_argument("--dry-run", action="store_true", help="use a throwaway journal (testing)")
     sub.add_parser("report")
     e = sub.add_parser("export"); e.add_argument("--mode", default="paper", choices=["paper", "backtest", "demo"])
     for p in (d, b, sub.choices["report"]):
@@ -184,6 +187,14 @@ def main() -> None:
         from .live import LiveTrader
         LiveTrader(cfg, j).closeout()
         _open_report(j, False)
+
+    elif args.cmd == "rsi2":
+        from . import rsi2
+        from .live import say
+        cfg.require_keys()
+        if args.dry_run:
+            say("RSI(2) DRY RUN: nothing is saved")
+        rsi2.run(cfg, Journal(":memory:") if args.dry_run else j, say=say, wait=not args.now)
 
     elif args.cmd == "report":
         _open_report(j, not args.no_open)

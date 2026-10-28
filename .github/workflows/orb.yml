@@ -3,7 +3,7 @@ name: ORB paper bot
 # Two short runs each weekday (times are UTC; each job is listed twice to cover daylight saving):
 #   morning: from ~8:07 ET (several backup triggers; GitHub schedules can start hours late)  -> waits for the open, takes entries until 11:35 ET, then exits.
 #            Alpaca keeps every stop and target working on its own servers after that.
-#   close:   from ~14:47 ET (backups until 15:50; waits until 15:55) -> records stop/target fills, closes anything still open at 15:55 ET.
+#   close:   from ~14:47 ET (backups until 15:50; waits until 15:55), then the RSI(2) bot decides at 15:50 -> records stop/target fills, closes anything still open at 15:55 ET.
 # After each run the trade journal + dashboard are committed back to this repo.
 on:
   schedule:
@@ -29,7 +29,7 @@ on:
         required: true
         default: "morning"
         type: choice
-        options: [morning, close]
+        options: [morning, close, rsi2]
 
 permissions:
   contents: write
@@ -96,6 +96,14 @@ jobs:
           echo "===== $(date '+%a %m/%d/%Y %H:%M:%S') close-out (GitHub) =====" >> data/live_log.txt
           set -o pipefail
           python -m orb close 2>&1 | tee -a data/live_log.txt
+
+      - name: RSI(2) bot (decides at 15:50 ET)
+        if: always() && (steps.which.outputs.job == 'close' || steps.which.outputs.job == 'rsi2' || steps.which.outputs.job == 'rsi2-test')
+        run: |
+          echo "===== $(date '+%a %m/%d/%Y %H:%M:%S') RSI(2) bot (GitHub) =====" >> data/live_log.txt
+          set -o pipefail
+          if [ "${{ steps.which.outputs.job }}" = "rsi2-test" ]; then ARGS="--now --dry-run"; else ARGS=""; fi
+          python -m orb rsi2 $ARGS 2>&1 | tee -a data/live_log.txt
 
       - name: Save journal + dashboard to the repo
         if: always() && steps.which.outputs.job != 'skip'
