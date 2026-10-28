@@ -47,6 +47,9 @@ class ORBFVG(ORBRetest):
         self.or_volume = 0.0                              # volume traded in the opening range
         self.history: deque[Bar] = deque(maxlen=11)        # recent candles, for the challenger
         self.vetoes = 0
+        self.trades: list[Trade] = []                     # every trade today (more than one with reverse_after_stop)
+        self.entry_fvg: tuple[float, float] | None = None
+        self.reversed = False
         self.last_review = None
 
     # ---- helpers -------------------------------------------------------
@@ -218,6 +221,27 @@ class ORBFVG(ORBRetest):
             self._note(bar, f"FVG {self.direction} {gap[0]:.2f}-{gap[1]:.2f}")
         return []
 
+    def _manage_trade(self, bar: Bar) -> list[Signal]:
+        sigs = super()._manage_trade(bar)
+        tr = self.trade
+        if not sigs and self.p.exit_on_fvg_fail and self.entry_fvg:
+            bottom, top = self.entry_fvg
+            failed = bar.close < bottom if tr.direction == "long" else bar.close > top
+            if failed:
+                sigs = [self._close(bar, bar.close, "fvg_fail", bar.ts + timedelta(minutes=self.p.bar_minutes))]
+        if sigs and self.p.reverse_after_stop and not self.reversed and tr.exit_reason in ("stop", "fvg_fail") \
+                and self._bar_end(bar) < self.p.entry_cutoff:
+            self.reversed = True                          # one more setup allowed, in the other direction
+            self._note(bar, "Stopped out: watching for a setup the other way")
+            self.phase = self.WAIT_BREAKOUT
+            self.direction = "short" if tr.direction == "long" else "long"
+            self.breakout_time = bar.ts
+            self.fvg, self.touched, self.retest_low, self.pending = None, False, None, None
+            self.recent.clear()
+            self.recent.append(bar)
+            self.outcome = "traded"
+        return sigs
+
     def gap_pct(self) -> float | None:
         pc = self.levels.prior_close
         if not pc or self.day_open is None:
@@ -257,6 +281,8 @@ class ORBFVG(ORBRetest):
             or_high=self.or_high, or_low=self.or_low, breakout_time=self.breakout_time,
             entry_time=bar.ts + timedelta(minutes=self.p.bar_minutes),
             entry=entry, stop=stop, target=target, target_label=label)
+        self.trades.append(self.trade)
+        self.entry_fvg = self.fvg
         self.phase, self.outcome = self.IN_TRADE, "traded"
         self._note(bar, f"ENTRY {self.direction} @ {entry:.2f}, stop {stop:.2f}, "
                         f"target {target:.2f} ({label}), FVG {self.fvg[0]:.2f}-{self.fvg[1]:.2f}")

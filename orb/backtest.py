@@ -77,8 +77,9 @@ def run_backtest(bars_by_symbol: dict[str, list[Bar]], cfg: Config, journal: Jou
         trades = []
         for symbol, info in by_day[day].items():
             e = info["engine"]
-            if e is not None and e.trade is not None and e.trade.exit is not None:
-                tr = e.trade
+            for tr in (getattr(e, "trades", None) or ([e.trade] if e is not None and e.trade else [])):
+                if tr.exit is None:
+                    continue
                 qty = position_size(tr.entry, tr.initial_stop, cfg.risk.risk_per_trade * f,
                                     cfg.risk.max_position_value * f)
                 if qty > 0:

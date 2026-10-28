@@ -101,6 +101,8 @@ class StrategyParams:
     fallback_rr: float = 2.0         # target used when no key level qualifies
     entry_cutoff: time = time(11, 30)
     flat_time: time = time(15, 55)
+    exit_on_fvg_fail: bool = False   # FVG version: exit early when a candle closes back through the far side of the FVG
+    reverse_after_stop: bool = False # FVG version: after a stop-out, allow ONE new setup in the other direction
     # challenger bot (orb/challenger.py): argues against every FVG entry; 0 turns a check off
     challenger: str = "off"          # "off", "shadow" (argues + logs, never blocks) or "veto" (must approve)
     ch_min_depth: float = 0.25       # retest must trade this far into the FVG (fraction of its height)
