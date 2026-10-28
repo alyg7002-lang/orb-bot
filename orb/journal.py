@@ -33,6 +33,9 @@ CREATE TABLE IF NOT EXISTS sessions (
     run_id TEXT, mode TEXT, symbol TEXT, session_date TEXT, outcome TEXT,
     or_high REAL, or_low REAL, log TEXT,
     PRIMARY KEY (run_id, symbol, session_date));
+CREATE TABLE IF NOT EXISTS votes (
+    trade_id INTEGER, voter TEXT, vote INTEGER, why TEXT,
+    PRIMARY KEY (trade_id, voter));
 """
 
 
@@ -62,6 +65,16 @@ class Journal:
              datetime.now().isoformat(timespec="seconds")))
         self.db.commit()
         return cur.lastrowid
+
+    def save_votes(self, trade_id: int, votes) -> None:
+        """The voting panel's opinion of a trade (orb/panel.py)."""
+        self.db.executemany("INSERT OR REPLACE INTO votes VALUES (?,?,?,?)",
+                            [(trade_id, v.voter, v.vote, v.why) for v in votes])
+        self.db.commit()
+
+    def votes(self, trade_id: int) -> list[dict]:
+        return [dict(r) for r in self.db.execute(
+            "SELECT voter, vote, why FROM votes WHERE trade_id=? ORDER BY rowid", (trade_id,))]
 
     def update_entry(self, trade_id: int, entry: float) -> None:
         """Live mode: replace the planned entry with the broker's actual fill."""

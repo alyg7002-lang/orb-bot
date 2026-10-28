@@ -227,6 +227,23 @@ class TestLive(unittest.TestCase):
         t._flatten("SPY", 500.0)
         self.assertEqual(t.j.trades("paper")[0]["exit"], 502.50)
 
+    def test_panel_votes_saved_and_loss_reviewed(self):
+        t = make_trader()
+        out = []
+        live.say = out.append
+        now = datetime.now(ET).replace(hour=10, minute=0, second=0, microsecond=0)
+        from orb.strategy import Bar
+        t.today_bars = {"SPY": [Bar(now.replace(minute=0) - timedelta(minutes=30 - i), 500, 500.5, 499.5, 500 + i * 0.01, 1000)
+                                for i in range(30)]}
+        tr = trade()
+        tr.entry_time = now
+        t._handle(Signal("entry", tr), datetime.now(ET), 500)
+        votes = t.j.votes(t.open["SPY"]["id"])
+        self.assertTrue(any(v["voter"] == "vwap" for v in votes))
+        self.assertTrue(any(l.startswith("SPY: Panel vote on SPY") for l in out))
+        t._record_exit("SPY", datetime.now(ET), 498.0, "stop")
+        self.assertTrue(any("LOSS review" in l for l in out))
+
     def test_refuses_real_money(self):
         cfg = config.load()
         cfg.paper, cfg.api_key, cfg.secret_key = False, "k", "s"

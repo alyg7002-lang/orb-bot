@@ -24,7 +24,7 @@ from .data import fetch_bars
 from .journal import Journal
 from .risk import pnl, position_size, size_factor
 from .sessions import levels_for, split_days
-from . import news
+from . import news, panel
 from .daily import DailyGuard
 from .strategy import Levels, ORBRetest, Signal, Trade
 from .strategy_fvg import make_engine
@@ -50,6 +50,8 @@ class LiveTrader:
         self.tc = TradingClient(cfg.api_key, cfg.secret_key, paper=True)
         self.engines: dict[str, ORBRetest] = {}
         self.fed_until: dict[str, datetime] = {}
+        self.daily: dict = {}                 # prior days per symbol, for the voting panel
+        self.today_bars: dict = {}
         self.open: dict[str, dict] = {}       # symbol -> journal row of today's open trade
         self.today = datetime.now(ET).date()
         closed = sum(t["pnl"] for t in journal.trades(MODE, closed_only=True)
@@ -75,12 +77,13 @@ class LiveTrader:
 
     def _prior_day_levels(self) -> dict[str, list]:
         now = datetime.now(timezone.utc)
-        hist = fetch_bars(self.cfg, self.cfg.symbols, now - timedelta(days=7),
+        hist = fetch_bars(self.cfg, self.cfg.symbols, now - timedelta(days=45),
                           now - timedelta(minutes=20), self.cfg.backtest_feed, 5)
         prev = {}
         for sym, bars in hist.items():
             days = [(d, p["rth"]) for d, p in split_days(bars).items() if d < self.today and p["rth"]]
             prev[sym] = days[-1][1] if days else None
+            self.daily[sym] = panel.daily_bars(dict(days))      # for the voting panel
         return prev
 
     def _build_engines(self, today_bars: dict, prev_rth: dict, flat_time) -> None:
@@ -135,6 +138,21 @@ class LiveTrader:
                                 "stop_sent": round(tr.stop, 2)}
         say(f"{tr.symbol}: ENTERED {tr.direction} {qty} sh @ ~{tr.entry:.2f} "
             f"stop {tr.stop:.2f} target {tr.target:.2f} ({tr.target_label})")
+        self._panel_vote(tr, tid)
+
+    def _panel_vote(self, tr: Trade, tid: int) -> None:
+        """The voting panel (orb/panel.py) gives its opinion. A vote, never a veto."""
+        try:
+            eng = self.engines.get(tr.symbol)
+            today = {s: [b for b in split_days(bars).get(self.today, {"rth": []})["rth"] if b.ts < tr.entry_time]
+                     for s, bars in getattr(self, "today_bars", {}).items()}
+            votes = panel.vote(tr.symbol, tr.direction, tr.entry, tr.target, tr.entry_time, tr.or_high, tr.or_low,
+                               today, getattr(self, "daily", {}), review=getattr(eng, "last_review", None))
+            self.j.save_votes(tid, votes)
+            for line in panel.describe(tr.symbol, votes):
+                say(f"{tr.symbol}: {line}")
+        except Exception as e:                       # the panel must never break trading
+            say(f"{tr.symbol}: panel vote skipped ({e})")
 
     def _record_exit(self, sym: str, when: datetime, price: float, reason: str) -> None:
         row = self.open.pop(sym)
@@ -144,6 +162,15 @@ class LiveTrader:
         self.guard.add(p)
         self.engines[sym].phase = ORBRetest.DONE
         say(f"{sym}: EXIT {reason} @ {price:.2f}  P&L ${p:+.2f}")
+        try:                                         # post-trade review: who called it?
+            votes = self.j.votes(row["id"])
+            if votes:
+                side = -1 if p < 0 else 1
+                right = [v["voter"] for v in votes if v["vote"] == side]
+                say(f"{sym}: {'LOSS' if p < 0 else 'WIN'} review - voters who called it "
+                    f"{'(argued against)' if p < 0 else '(voted for)'}: {', '.join(right) or 'none'}")
+        except Exception:
+            pass
 
     def _check_broker(self, sym: str) -> None:
         """Alpaca owns the stop/target. Ask it what happened."""
@@ -373,6 +400,7 @@ class LiveTrader:
             now = datetime.now(ET)
             try:
                 today_bars = fetch_bars(self.cfg, self.cfg.symbols, start, now, self.cfg.live_feed, mins)
+                self.today_bars = today_bars
                 for sym in self.cfg.symbols:
                     eng = self.engines[sym]
                     done = [b for b in today_bars.get(sym, [])
