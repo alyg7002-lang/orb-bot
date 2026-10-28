@@ -69,10 +69,11 @@ def by_key(trades: list[dict], key: str) -> dict[str, dict]:
 
 
 OUTCOMES = ["traded", "no_retest", "no_fvg", "fvg_failed", "invalidated", "no_breakout",
-            "filtered", "low_volume", "news_day", "daily_limit", "one_at_a_time", "missed", "no_data"]
+            "vetoed", "filtered", "low_volume", "news_day", "daily_limit", "one_at_a_time", "missed", "no_data"]
 OUTCOME_LABELS = {
     "traded": "Traded", "no_retest": "No retest", "no_fvg": "No FVG", "fvg_failed": "FVG failed",
     "invalidated": "Failed breakout", "no_breakout": "No breakout", "news_day": "News day (skipped)",
+    "vetoed": "Vetoed by challenger",
     "filtered": "Skipped (gap / time filter)",
     "low_volume": "Not in play (low volume)",
     "daily_limit": "Skipped (daily limit)",

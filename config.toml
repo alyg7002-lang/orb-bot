@@ -24,6 +24,19 @@ gap_filter       = false      # OFF: looked great on Oct 2025-Oct 2026 (+0.14R w
 gap_min_pct      = 0.1        # gaps under 0.1% count as "no gap" (either direction allowed)
 # skip_entries_from  = "10:00"  # optional no-entry window (tested: small extra edge, weakest evidence)
 # skip_entries_until = "10:15"
+# Challenger bot (orb/challenger.py): argues against every entry. It vetoes when the retest only
+# tags the FVG (<25% into it), or the rejection candle is weak (body <50%, close not near the
+# extreme, smaller than the recent average candle).
+#   "shadow" = argues and logs its verdict on every trade, never blocks (current setting)
+#   "veto"   = a trade only goes in when BOTH bots accept it
+#   "off"
+# Backtest 10/28 (Oct 2023-Oct 2026): veto mode cut trades 60% and avg R from +0.08R to about 0R in
+# both periods. The trades it would veto averaged +0.10R vs +0.02R for the ones it accepted.
+challenger                = "shadow"
+challenger_min_depth      = 0.25
+challenger_min_body       = 0.5
+challenger_close_zone     = 0.33
+challenger_min_range_mult = 1.0
 breakeven_r      = 0          # move stop to entry once the trade is up this many R (0 = off)
 min_rr           = 1.0      # a key level must be at least 1R away to be the target
 fallback_rr      = 2.0      # target when no key level qualifies

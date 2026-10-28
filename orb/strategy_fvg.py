@@ -29,6 +29,7 @@ from __future__ import annotations
 from collections import deque
 from datetime import timedelta
 
+from . import challenger
 from .strategy import MARKET_OPEN, Bar, ORBRetest, Signal, Trade
 
 TICK = 0.01
@@ -44,6 +45,9 @@ class ORBFVG(ORBRetest):
         self.pending: dict | None = None                  # rejection seen, waiting for follow-through
         self.day_open: float | None = None                # 9:30 open, for the gap filter
         self.or_volume = 0.0                              # volume traded in the opening range
+        self.history: deque[Bar] = deque(maxlen=11)        # recent candles, for the challenger
+        self.vetoes = 0
+        self.last_review = None
 
     # ---- helpers -------------------------------------------------------
     def _set_direction(self, d: str, bar: Bar) -> None:
@@ -135,6 +139,8 @@ class ORBFVG(ORBRetest):
             return []
 
         self.recent.append(bar)
+        prior = list(self.history)
+        self.history.append(bar)
 
         # 2. Direction from closes outside the range (can flip)
         if bar.close > self.or_high:
@@ -183,6 +189,18 @@ class ORBFVG(ORBRetest):
                 else:
                     confirmed = (self.touched and bar.close < bottom and bar.close < self.or_low
                                  and bar.close < bar.open)
+                if confirmed and self.p.challenger in ("shadow", "veto"):
+                    rv = challenger.review(self.direction, self.fvg, self.retest_low, bar, prior, self.p)
+                    self.last_review = rv
+                    for line in rv.debate(self.symbol):
+                        self._note(bar, line)
+                    if not rv.approved and self.p.challenger == "shadow":
+                        self._note(bar, "(shadow mode: challenger's veto recorded, trade still allowed)")
+                    if not rv.approved and self.p.challenger == "veto":
+                        self.vetoes += 1
+                        self.outcome = "vetoed"
+                        self.touched, self.retest_low = False, None   # needs a fresh retest of the gap
+                        return []
                 if confirmed:
                     if self.p.confirm_bars > 0:
                         self.pending = {"seen": 0, "level": bar.high if long else bar.low}

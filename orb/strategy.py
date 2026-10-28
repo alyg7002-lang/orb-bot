@@ -101,6 +101,12 @@ class StrategyParams:
     fallback_rr: float = 2.0         # target used when no key level qualifies
     entry_cutoff: time = time(11, 30)
     flat_time: time = time(15, 55)
+    # challenger bot (orb/challenger.py): argues against every FVG entry; 0 turns a check off
+    challenger: str = "off"          # "off", "shadow" (argues + logs, never blocks) or "veto" (must approve)
+    ch_min_depth: float = 0.25       # retest must trade this far into the FVG (fraction of its height)
+    ch_min_body: float = 0.5         # rejection candle body >= this fraction of its high-low range
+    ch_close_zone: float = 0.33      # ...and closes within this fraction of its high (long) / low (short)
+    ch_min_range_mult: float = 1.0   # ...and is at least this many times the average candle of the last 10 min
 
 
 @dataclass

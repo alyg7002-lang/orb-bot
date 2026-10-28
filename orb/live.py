@@ -341,6 +341,16 @@ class LiveTrader:
                 say(f"{sym}: close-out error ({e}); next run retries")
         say("Close-out done.")
 
+    def _print_debate(self, sym: str, eng) -> None:
+        """Echo the ORB bot vs challenger argument (engine notes) into the live log."""
+        seen = getattr(self, "_debate_seen", {})
+        self._debate_seen = seen
+        start = seen.get(sym, 0)
+        for line in eng.log[start:]:
+            if "ORB bot:" in line or "Challenger:" in line or "shadow mode" in line:
+                say(f"{sym}: {line}")
+        seen[sym] = len(eng.log)
+
     def run(self, until=None) -> None:
         say(f"Risk per trade today: ${self.cfg.risk.risk_per_trade * self.factor:,.2f}"
             + (f" (compound sizing, factor {self.factor:.2f})" if self.cfg.risk.sizing == "compound" else ""))
@@ -371,6 +381,7 @@ class LiveTrader:
                         self.fed_until[sym] = b.ts
                         for sig in eng.on_bar(b):
                             self._handle(sig, b.ts + bar_len, b.close)
+                    self._print_debate(sym, eng)
                     if self.use_broker and sym in self.open:
                         self._check_broker(sym)
                     if self.use_broker and sym in self.open and eng.trade:

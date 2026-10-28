@@ -63,6 +63,8 @@ def validate_risk(r: "RiskConfig") -> None:
 def validate(p: StrategyParams) -> None:
     if p.name not in ("orb_retest", "orb_fvg"):
         raise SystemExit('[strategy] name must be "orb_fvg" or "orb_retest"')
+    if p.challenger not in ("off", "shadow", "veto"):
+        raise SystemExit('challenger must be "off", "shadow" or "veto"')
     if p.stop_mode not in ("mid", "opposite", "fvg"):
         raise SystemExit('stop_mode must be "fvg", "mid" or "opposite"')
     if p.stop_mode == "fvg" and p.name != "orb_fvg":
@@ -110,6 +112,11 @@ def load(path: str | Path | None = None) -> Config:
         fallback_rr=s.get("fallback_rr", 2.0),
         entry_cutoff=_t(s.get("entry_cutoff", "11:30")),
         flat_time=_t(s.get("flat_time", "15:55")),
+        challenger=str(s.get("challenger", "off")).lower(),
+        ch_min_depth=s.get("challenger_min_depth", 0.25),
+        ch_min_body=s.get("challenger_min_body", 0.5),
+        ch_close_zone=s.get("challenger_close_zone", 0.33),
+        ch_min_range_mult=s.get("challenger_min_range_mult", 1.0),
     )
     validate(params)
     risk = RiskConfig(**r)
