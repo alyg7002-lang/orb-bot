@@ -179,3 +179,14 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [14:06:36] RSI(2) NVDA: no setup (price 216.73, 200-day avg 204.14, RSI(2) 54.6)
 [14:06:36] RSI(2) TSLA: no setup (price 402.29, 200-day avg 385.71, RSI(2) 68.1)
 [14:06:36] RSI(2) AAPL: no setup (price 345.29, 200-day avg 295.70, RSI(2) 41.0)
+===== Wed 10/28/2026 15:29:23 close-out (GitHub) =====
+[15:29:24] Close-out: no open trades.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Wed 10/28/2026 15:29:24 RSI(2) bot (GitHub) =====
+[15:29:25] RSI(2): waiting 21 min until 15:50 ET to decide
+[15:50:00] RSI(2) bot | account $10,000.00 | risk 1% per trade (2 x ATR risk unit) | journal-only paper
+[15:50:00] RSI(2) SPY: no setup (price 771.69, 200-day avg 728.15, RSI(2) 83.7)
+[15:50:00] RSI(2) QQQ: no setup (price 724.47, 200-day avg 678.71, RSI(2) 87.7)
+[15:50:00] RSI(2) NVDA: no setup (price 215.15, 200-day avg 204.14, RSI(2) 40.3)
+[15:50:00] RSI(2) TSLA: no setup (price 403.45, 200-day avg 385.71, RSI(2) 72.4)
+[15:50:00] RSI(2) AAPL: no setup (price 344.32, 200-day avg 295.70, RSI(2) 34.3)
