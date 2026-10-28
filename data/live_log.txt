@@ -171,3 +171,11 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [11:35:06] AAPL: news_day
 [11:35:06] Done for today.
 Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Wed 10/28/2026 14:06:34 RSI(2) bot (GitHub) =====
+[14:06:34] RSI(2) DRY RUN: nothing is saved
+[14:06:36] RSI(2) bot | account $10,000.00 | risk 1% per trade (2 x ATR risk unit) | journal-only paper
+[14:06:36] RSI(2) SPY: no setup (price 770.65, 200-day avg 728.14, RSI(2) 80.8)
+[14:06:36] RSI(2) QQQ: no setup (price 722.00, 200-day avg 678.70, RSI(2) 84.3)
+[14:06:36] RSI(2) NVDA: no setup (price 216.73, 200-day avg 204.14, RSI(2) 54.6)
+[14:06:36] RSI(2) TSLA: no setup (price 402.29, 200-day avg 385.71, RSI(2) 68.1)
+[14:06:36] RSI(2) AAPL: no setup (price 345.29, 200-day avg 295.70, RSI(2) 41.0)
