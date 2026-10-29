@@ -46,6 +46,8 @@ class ORBFVG(ORBRetest):
         self.day_open: float | None = None                # 9:30 open, for the gap filter
         self.or_volume = 0.0                              # volume traded in the opening range
         self.history: deque[Bar] = deque(maxlen=11)        # recent candles, for the challenger
+        self.ema9 = self.ema20 = None
+        self.n_closes = 0
         self.vetoes = 0
         self.trades: list[Trade] = []                     # every trade today (more than one with reverse_after_stop)
         self.entry_fvg: tuple[float, float] | None = None
@@ -118,6 +120,7 @@ class ORBFVG(ORBRetest):
             self.recent.append(bar)                      # a range candle can be candle 1 of an FVG
             return []
         if self.phase == self.IN_TRADE:
+            self._update_ema(bar.close)
             return self._manage_trade(bar)
 
         if self.phase == self.RANGE:                     # first bar after 9:45
@@ -127,6 +130,12 @@ class ORBFVG(ORBRetest):
             self.phase = self.WAIT_BREAKOUT
             self.outcome = "no_breakout"
             self.log.append(f"Range set: {self.or_low:.2f} - {self.or_high:.2f}")
+            if self.p.max_or_atr and self.levels.atr:
+                f = (self.or_high - self.or_low) / self.levels.atr
+                if f > self.p.max_or_atr:
+                    self.log.append(f"Opening range is {f:.0%} of the 14-day ATR (max {self.p.max_or_atr:.0%}): too wide, no trades today")
+                    self.phase, self.outcome = self.DONE, "filtered"
+                    return []
             avg = self.levels.or_volume_avg
             if self.p.min_rvol > 0 and avg:
                 rvol = self.or_volume / avg
@@ -142,6 +151,7 @@ class ORBFVG(ORBRetest):
             return []
 
         self.recent.append(bar)
+        self._update_ema(bar.close)
         prior = list(self.history)
         self.history.append(bar)
 
@@ -242,6 +252,12 @@ class ORBFVG(ORBRetest):
             self.outcome = "traded"
         return sigs
 
+    def _update_ema(self, c: float) -> None:
+        self.n_closes += 1
+        k9, k20 = 2 / 10, 2 / 21
+        self.ema9 = c if self.ema9 is None else c * k9 + self.ema9 * (1 - k9)
+        self.ema20 = c if self.ema20 is None else c * k20 + self.ema20 * (1 - k20)
+
     def gap_pct(self) -> float | None:
         pc = self.levels.prior_close
         if not pc or self.day_open is None:
@@ -257,6 +273,9 @@ class ORBFVG(ORBRetest):
                 against = -g if self.direction == "long" else g
                 if against > p.gap_min_pct:
                     return f"against the opening gap ({g:+.2f}%)"
+        if p.ema_filter and self.ema9 is not None and self.n_closes >= 20:
+            if (self.direction == "long") != (self.ema9 > self.ema20):
+                return "against the 1-min 9/20 EMA trend"
         if p.skip_start and p.skip_end:
             t = (bar.ts + timedelta(minutes=p.bar_minutes)).time()
             if p.skip_start <= t < p.skip_end:

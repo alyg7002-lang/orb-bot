@@ -37,6 +37,14 @@ challenger_min_depth      = 0.25
 challenger_min_body       = 0.5
 challenger_close_zone     = 0.33
 challenger_min_range_mult = 1.0
+# Edge filters (tested 10/29 on Oct 2023-Oct 2025 and Oct 2025-Oct 2026, $100 risk per trade):
+#                         avg R/trade      max drawdown       trades
+#   no filters            +0.085 / +0.079  $1,645 / $838      900 / 399
+#   EMA + range filter    +0.097 / +0.111  $1,396 / $715      709 / 302
+# Tried and rejected (worse in both periods): time exits after 60/90/120 min, flat at 12:00 or
+# 13:30, ATR-based targets, 2R/3R/no target. Most of the profit comes from holding into the afternoon.
+ema_filter       = true       # only enter in the direction of the 1-min 9/20 EMA trend
+max_range_atr    = 0.5        # skip the day when the opening range is wider than 50% of the 14-day ATR
 breakeven_r      = 0          # move stop to entry once the trade is up this many R (0 = off)
 min_rr           = 1.0      # a key level must be at least 1R away to be the target
 fallback_rr      = 2.0      # target when no key level qualifies

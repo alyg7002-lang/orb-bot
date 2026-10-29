@@ -40,11 +40,14 @@ def run_backtest(bars_by_symbol: dict[str, list[Bar]], cfg: Config, journal: Jou
     for symbol, bars in bars_by_symbol.items():
         prev_rth = None
         recent_or_vol: deque = deque(maxlen=p.rvol_days)
+        recent_days: deque = deque(maxlen=15)                # (high, low, close) of prior days, for ATR
         for day, parts in split_days(bars).items():
             rth = parts["rth"]
             avg_vol = (sum(recent_or_vol) / len(recent_or_vol)) if len(recent_or_vol) >= 5 else None
+            atr_now = _atr(recent_days)                  # prior days only
             if rth and rth[-1].ts.time() >= FULL_DAY_LAST_BAR:
                 recent_or_vol.append(opening_volume(rth, p.range_minutes))
+                recent_days.append((max(b.high for b in rth), min(b.low for b in rth), rth[-1].close))
             if first_day and day < first_day:            # warm-up days: only used for prior-day levels
                 prev_rth = rth or prev_rth
                 continue
@@ -58,6 +61,7 @@ def run_backtest(bars_by_symbol: dict[str, list[Bar]], cfg: Config, journal: Jou
                 continue
             lv = levels_for(prev_rth, parts["pre"])
             lv.or_volume_avg = avg_vol
+            lv.atr = atr_now
             engine = make_engine(symbol, day, lv, p)
             for b in rth:
                 engine.on_bar(b)
@@ -140,6 +144,15 @@ def run_backtest(bars_by_symbol: dict[str, list[Bar]], cfg: Config, journal: Jou
             journal.close_trade(tid, t["exit_time"], t["exit"], t["reason"], t["pnl"])
         _save_sessions(journal, run_id, mode, day, by_day[day])
     return run_id
+
+
+def _atr(days) -> float | None:
+    """14-day average true range from (high, low, close) tuples, oldest first."""
+    d = list(days)
+    if len(d) < 15:
+        return None
+    trs = [max(h - l, abs(h - pc), abs(l - pc)) for (_, _, pc), (h, l, _) in zip(d[:-1], d[1:])]
+    return sum(trs[-14:]) / 14
 
 
 def _close(t: dict, price: float, reason: str, when, cfg: Config, guard: DailyGuard,

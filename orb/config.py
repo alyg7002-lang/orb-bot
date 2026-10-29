@@ -65,6 +65,8 @@ def validate(p: StrategyParams) -> None:
         raise SystemExit('[strategy] name must be "orb_fvg" or "orb_retest"')
     if p.challenger not in ("off", "shadow", "veto"):
         raise SystemExit('challenger must be "off", "shadow" or "veto"')
+    if p.target_mode not in ("fixed", "levels", "atr"):
+        raise SystemExit('target_mode must be "fixed", "levels" or "atr"')
     if p.stop_mode not in ("mid", "opposite", "fvg"):
         raise SystemExit('stop_mode must be "fvg", "mid" or "opposite"')
     if p.stop_mode == "fvg" and p.name != "orb_fvg":
@@ -114,6 +116,10 @@ def load(path: str | Path | None = None) -> Config:
         flat_time=_t(s.get("flat_time", "15:55")),
         challenger=str(s.get("challenger", "off")).lower(),
         exit_on_fvg_fail=s.get("exit_on_fvg_fail", False),
+        max_hold_min=s.get("max_hold_minutes", 0),
+        max_or_atr=s.get("max_range_atr", 0.0),
+        target_atr=s.get("target_atr", 0.0),
+        ema_filter=s.get("ema_filter", False),
         reverse_after_stop=s.get("reverse_after_stop", False),
         ch_min_depth=s.get("challenger_min_depth", 0.25),
         ch_min_body=s.get("challenger_min_body", 0.5),

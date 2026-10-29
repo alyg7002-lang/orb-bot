@@ -64,6 +64,7 @@ class Levels:
     premarket_low: Optional[float] = None
     prior_close: Optional[float] = None      # for the gap filter (not a target level)
     or_volume_avg: Optional[float] = None    # avg volume of the first 15 min over recent days (relative volume)
+    atr: Optional[float] = None              # 14-day average true range (daily), for ATR-based rules
 
     def named(self) -> dict[str, float]:
         raw = {
@@ -101,6 +102,10 @@ class StrategyParams:
     fallback_rr: float = 2.0         # target used when no key level qualifies
     entry_cutoff: time = time(11, 30)
     flat_time: time = time(15, 55)
+    max_hold_min: int = 0            # close a trade that hasn't hit stop/target after this many minutes (0 = off)
+    max_or_atr: float = 0.0          # skip the day if the opening range is wider than this x 14-day ATR (0 = off)
+    target_atr: float = 0.0          # target_mode "atr": target = entry +/- this x 14-day ATR
+    ema_filter: bool = False         # FVG version: only enter with the 1-min 9/20 EMA trend
     exit_on_fvg_fail: bool = False   # FVG version: exit early when a candle closes back through the far side of the FVG
     reverse_after_stop: bool = False # FVG version: after a stop-out, allow ONE new setup in the other direction
     # challenger bot (orb/challenger.py): argues against every FVG entry; 0 turns a check off
@@ -208,7 +213,10 @@ class ORBRetest:
         return (bar.ts + timedelta(minutes=self.p.bar_minutes)).time()
 
     def _pick_target(self, entry: float, risk: float) -> tuple[float, str]:
-        if self.p.target_mode == "fixed":
+        if self.p.target_mode == "atr" and self.levels.atr:
+            dist = max(self.p.target_atr * self.levels.atr, 0.5 * risk)
+            return (entry + dist if self.direction == "long" else entry - dist), f"{self.p.target_atr:g}x ATR"
+        if self.p.target_mode in ("fixed", "atr"):
             dist = self.p.target_r * risk
             return (entry + dist if self.direction == "long" else entry - dist), f"{self.p.target_r:g}R fixed"
         need = self.p.min_rr * risk
@@ -325,6 +333,9 @@ class ORBRetest:
                 exit_px, reason = min(bar.open, tr.target), "target"
         if exit_px is None and self._bar_end(bar) >= self.p.flat_time:
             exit_px, reason = bar.close, "time"
+        if exit_px is None and self.p.max_hold_min and \
+                (bar.ts + timedelta(minutes=self.p.bar_minutes) - tr.entry_time).total_seconds() >= self.p.max_hold_min * 60:
+            exit_px, reason = bar.close, "max_hold"
         if exit_px is None:
             # Breakeven: checked AFTER the stop, so the stop can only move on the next candle
             if self.p.breakeven_r > 0 and tr.stop != tr.entry:

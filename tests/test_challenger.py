@@ -23,9 +23,9 @@ T0 = datetime(2026, 10, 27, 9, 30, tzinfo=ET)
 BARS = [Bar(T0 + timedelta(minutes=i), O[i], H[i], L[i], C[i], 1000.0) for i in range(len(C))]
 
 
-def replay(mode):
-    p = replace(config.load().strategy, challenger=mode, skip_news=False)
-    eng = ORBFVG("SPY", date(2026, 10, 27), Levels(), p)
+def replay(mode, levels=None, **kw):
+    p = replace(config.load().strategy, challenger=mode, skip_news=False, **kw)
+    eng = ORBFVG("SPY", date(2026, 10, 27), levels or Levels(), p)
     entries = []
     for b in BARS:
         for sig in eng.on_bar(b):
@@ -70,6 +70,28 @@ class TestChallenger(unittest.TestCase):
         for k in ("shallow retest", "weak body", "close not at the high", "no force"):
             self.assertIn(k, text)
         self.assertFalse(rv.approved)
+
+
+class TestEdgeFilters(unittest.TestCase):
+    def test_wide_opening_range_day_is_skipped(self):
+        eng, entries = replay("off", Levels(atr=2.0), max_or_atr=0.5)    # range 1.27 = 64% of ATR
+        self.assertEqual(entries, [])
+        self.assertEqual(eng.outcome, "filtered")
+
+    def test_normal_range_day_still_trades(self):
+        eng, entries = replay("off", Levels(atr=5.0), max_or_atr=0.5)    # 25% of ATR
+        self.assertEqual(len(entries), 1)
+
+    def test_ema_filter_allows_trend_trade(self):
+        eng, entries = replay("off", ema_filter=True)                    # short, EMA9 < EMA20 at 9:54
+        self.assertEqual(len(entries), 1)
+
+    def test_ema_filter_blocks_counter_trend(self):
+        eng = ORBFVG("SPY", date(2026, 10, 27), Levels(), replace(config.load().strategy, ema_filter=True))
+        for b in BARS:
+            eng.on_bar(b)
+        eng.ema9, eng.ema20, eng.n_closes, eng.direction = 1.0, 2.0, 30, "long"
+        self.assertIn("EMA", eng._blocked(BARS[-1]))
 
 
 if __name__ == "__main__":

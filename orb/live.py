@@ -92,6 +92,11 @@ class LiveTrader:
         for sym in self.cfg.symbols:
             parts = split_days(today_bars.get(sym, [])).get(self.today, {"pre": [], "rth": []})
             lv = levels_for(prev_rth.get(sym), parts["pre"])
+            try:
+                from .panel import _atr as _patr
+                lv.atr = _patr(self.daily.get(sym) or [])
+            except Exception:
+                lv.atr = None
             self.engines[sym] = make_engine(sym, self.today, lv, params)
             event = news.event_for(sym, self.today, table)
             if event:
