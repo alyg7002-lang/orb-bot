@@ -272,3 +272,16 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [11:35:15] AAPL: filtered
 [11:35:15] Done for today.
 Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Fri 10/30/2026 15:28:01 close-out (GitHub) =====
+[15:28:02] Close-out: waiting 27 min until 15:55 ET
+[15:55:09] TSLA: EXIT time @ 399.48  P&L $+61.29
+[15:55:09] TSLA: WIN review - voters who called it (voted for): vwap, ema_trend, daily_trend, rel_strength, time_of_day, extension, fvg_depth, candle_body, close_location, candle_force
+[15:55:09] Close-out done.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Fri 10/30/2026 15:55:09 RSI(2) bot (GitHub) =====
+[15:55:10] RSI(2) bot | account $10,000.00 | risk 1% per trade (2 x ATR risk unit) | journal-only paper
+[15:55:10] RSI(2) SPY: no setup (price 755.80, 200-day avg 728.85, RSI(2) 9.4)
+[15:55:10] RSI(2) QQQ: no setup (price 690.87, 200-day avg 679.52, RSI(2) 8.5)
+[15:55:10] RSI(2) NVDA: no setup (price 204.94, 200-day avg 204.39, RSI(2) 5.5)
+[15:55:10] RSI(2) TSLA: no setup (price 399.65, 200-day avg 385.30, RSI(2) 39.2)
+[15:55:10] RSI(2) AAPL: no setup (price 344.91, 200-day avg 296.56, RSI(2) 37.4)
