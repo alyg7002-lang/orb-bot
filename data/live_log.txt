@@ -446,3 +446,21 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [11:35:01] AAPL: filtered
 [11:35:01] Done for today.
 Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Tue 11/03/2026 14:33:41 close-out (GitHub) =====
+[14:33:42] Close-out: waiting 81 min until 15:55 ET
+[15:55:00] SPY: cancel of stop leg skipped ({"code":42210000,"message":"order pending cancel"})
+[15:55:09] SPY: EXIT time @ 754.32  P&L $-29.92
+[15:55:09] SPY: LOSS review - voters who called it (argued against): daily_trend, candle_force
+[15:55:09] QQQ: cancel of stop leg skipped ({"code":42210000,"message":"order pending cancel"})
+[15:55:36] QQQ: EXIT time @ 685.61  P&L $-44.01
+[15:55:36] QQQ: LOSS review - voters who called it (argued against): daily_trend
+[15:55:36] Close-out done.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Tue 11/03/2026 15:55:36 RSI(2) bot (GitHub) =====
+[15:55:38] RSI(2) bot | account $10,000.00 | risk 1% per trade (2 x ATR risk unit) | journal-only paper
+[15:55:38] RSI(2) SPY: no setup (price 754.22, 200-day avg 729.47, RSI(2) 30.8)
+[15:55:38] RSI(2) QQQ: no setup (price 685.64, 200-day avg 680.14, RSI(2) 29.9)
+[15:55:38] RSI(2) NVDA: no setup (price 206.93, 200-day avg 204.56, RSI(2) 55.8)
+[15:55:38] RSI(2) TSLA: no setup (price 399.75, 200-day avg 384.94, RSI(2) 34.8)
+[15:55:38] RSI(2) AAPL: no setup (price 331.65, 200-day avg 297.34, RSI(2) 6.4)
+[15:55:38] Prior-day bots: first session to trade is 2026-11-03; nothing finished yet
