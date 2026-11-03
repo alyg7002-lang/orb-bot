@@ -1,4 +1,4 @@
-"""Export every paper trade (ORB bot + RSI(2) bot) to JSON for the 'ORB Bot Trades' page in Claude."""
+"""Export every paper trade (ORB, RSI(2), NR7 and Volatility Breakout bots) to JSON for the trades page in Claude."""
 import json, sqlite3, sys
 from pathlib import Path
 
@@ -6,7 +6,8 @@ root = Path(__file__).resolve().parents[1]
 out = Path(sys.argv[1]) if len(sys.argv) > 1 else root / "reports" / "paper_trades.json"
 c = sqlite3.connect(root / "data" / "journal.db")
 c.row_factory = sqlite3.Row
-BOTS = [("paper", "orb", "ORB"), ("paper_rsi2", "rsi2", "RSI(2)")]
+BOTS = [("paper", "orb", "ORB"), ("paper_rsi2", "rsi2", "RSI(2)"),
+        ("paper_nr7", "nr7", "NR7"), ("paper_vol_breakout", "vol_breakout", "Vol Breakout")]
 
 
 def stamp(s):

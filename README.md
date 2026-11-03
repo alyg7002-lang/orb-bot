@@ -116,6 +116,20 @@ python -m orb export                # reports/trade_log_paper.csv, your written 
 - **Don't curve-fit.** If you tweak settings until the backtest looks amazing, you've fit the past,
   not found an edge. Change one thing at a time, then confirm it on paper going forward.
 
+## The other paper bots (journal-only, no Alpaca orders)
+
+| Bot | Rules | Runs | Since |
+|---|---|---|---|
+| RSI(2) pullback (`orb/rsi2.py`) | Connors & Alvarez: above 200-day avg + RSI(2) < 5, buy near close, out on a close above the 5-day avg | close-out run | 10/28/2026 |
+| NR7 breakout (`orb/pdhl.py`) | Crabel: yesterday = narrowest range of 7 days, trade the break of yesterday's high/low, stop mid of yesterday, flat 15:55 | morning run journals the previous session | 11/03/2026 |
+| Volatility breakout (`orb/pdhl.py`) | Larry Williams: break of today's open +/- 50% of yesterday's range, stop at the open, flat 15:55 | morning run journals the previous session | 11/03/2026 |
+
+The two prior-day bots were picked on 11/03/2026 from 6 published prior-day high/low setups by a rule
+written before the test (`python scripts/pdhl_lab.py`, results in `data/pdhl_lab.txt`). They replay
+each finished session on full SIP 1-min bars with the exact backtest code, so a trade shows up the
+morning after it happens. Both were roughly break-even in the latest year of the backtest: they are
+on paper to find out, not because they're proven.
+
 ## Files
 
 | File | What it does |

@@ -4,6 +4,8 @@ name: ORB paper bot
 #   morning: from ~8:07 ET (several backup triggers; GitHub schedules can start hours late)  -> waits for the open, takes entries until 11:35 ET, then exits.
 #            Alpaca keeps every stop and target working on its own servers after that.
 #   close:   from ~14:47 ET (backups until 15:50; waits until 15:55), then the RSI(2) bot decides at 15:50 -> records stop/target fills, closes anything still open at 15:55 ET.
+#   The two prior-day high/low bots (orb/pdhl_bot.py) journal each finished session at the start of the
+#   morning run, with a catch-up at the close-out in case a morning run was missed.
 # After each run the trade journal + dashboard are committed back to this repo.
 on:
   schedule:
@@ -29,7 +31,7 @@ on:
         required: true
         default: "morning"
         type: choice
-        options: [morning, close, rsi2]
+        options: [morning, close, rsi2, pdhl, pdhl-test]
 
 permissions:
   contents: write
@@ -84,6 +86,15 @@ jobs:
             exit 1
           fi
 
+      - name: Prior-day high/low bots (journal finished sessions)
+        if: steps.which.outputs.job == 'morning' || steps.which.outputs.job == 'pdhl' || steps.which.outputs.job == 'pdhl-test'
+        continue-on-error: true
+        run: |
+          echo "===== $(date '+%a %m/%d/%Y %H:%M:%S') prior-day bots (GitHub) =====" >> data/live_log.txt
+          set -o pipefail
+          if [ "${{ steps.which.outputs.job }}" = "pdhl-test" ]; then ARGS="--dry-run --from 2026-10-26"; else ARGS=""; fi
+          python -m orb pdhl $ARGS 2>&1 | tee -a data/live_log.txt
+
       - name: Morning run (entries until 11:35 ET)
         if: steps.which.outputs.job == 'morning'
         run: |
@@ -105,6 +116,13 @@ jobs:
           set -o pipefail
           if [ "${{ steps.which.outputs.job }}" = "rsi2-test" ]; then ARGS="--now --dry-run"; else ARGS=""; fi
           python -m orb rsi2 $ARGS 2>&1 | tee -a data/live_log.txt
+
+      - name: Prior-day bots catch-up (in case a morning run was missed)
+        if: always() && steps.which.outputs.job == 'close'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          python -m orb pdhl 2>&1 | tee -a data/live_log.txt
 
       - name: Save 1-min bars for a trade chart
         if: steps.which.outputs.job == 'bars'

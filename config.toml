@@ -51,6 +51,15 @@ fallback_rr      = 2.0      # target when no key level qualifies
 entry_cutoff     = "11:30"  # no new entries after this (ET)
 flat_time        = "15:55"  # close anything still open (ET)
 
+[pdhl]
+# Prior-day high/low paper bots (orb/pdhl_bot.py, journal-only, start 11/03/2026). Picked 11/03 by the
+# pre-registered rule in orb/pdhl.py from 6 published setups (results: data/pdhl_lab.txt):
+#                                  Oct 23-Oct 25          Oct 25-Nov 26
+#   nr7          (Crabel)          343 trades +0.178R     165 trades +0.009R
+#   vol_breakout (Larry Williams)  1597 trades +0.088R    844 trades +0.006R
+# Both were roughly break-even in the latest year. The paper test decides; judge after 30+ trades each.
+bots = ["nr7", "vol_breakout"]
+
 [risk]
 risk_per_trade     = 100.0    # $ you lose if the stop hits (Alpaca paper starts at $100k)
 max_position_value = 25000.0  # cap on shares x price for any one trade

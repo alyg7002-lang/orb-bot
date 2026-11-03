@@ -112,6 +112,10 @@ def main() -> None:
     r2 = sub.add_parser("rsi2", help="RSI(2) pullback bot: decide entries/exits at 15:50 ET (journal-only paper)")
     r2.add_argument("--now", action="store_true", help="don't wait for 15:50 (testing)")
     r2.add_argument("--dry-run", action="store_true", help="use a throwaway journal (testing)")
+    pd_ = sub.add_parser("pdhl", help="prior-day high/low bots: journal every finished session since 11/03/2026 (journal-only paper)")
+    pd_.add_argument("--dry-run", action="store_true", help="use a throwaway journal (testing)")
+    pd_.add_argument("--bots", nargs="*", help="override config.toml [pdhl] bots")
+    pd_.add_argument("--from", dest="from_day", help="with --dry-run: replay from this day YYYY-MM-DD (testing)")
     sub.add_parser("report")
     e = sub.add_parser("export"); e.add_argument("--mode", default="paper", choices=["paper", "backtest", "demo"])
     for p in (d, b, sub.choices["report"]):
@@ -195,6 +199,18 @@ def main() -> None:
         if args.dry_run:
             say("RSI(2) DRY RUN: nothing is saved")
         rsi2.run(cfg, Journal(":memory:") if args.dry_run else j, say=say, wait=not args.now)
+
+    elif args.cmd == "pdhl":
+        from . import pdhl_bot
+        from .live import say
+        cfg.require_keys()
+        if args.dry_run:
+            say("Prior-day bots DRY RUN: nothing is saved")
+        if args.from_day and not args.dry_run:
+            raise SystemExit("--from is for --dry-run only (real runs start at 11/03/2026)")
+        from datetime import date as _d
+        pdhl_bot.run(cfg, Journal(":memory:") if args.dry_run else j, keys=args.bots, say=say,
+                     start=_d.fromisoformat(args.from_day) if args.from_day else pdhl_bot.START)
 
     elif args.cmd == "report":
         _open_report(j, not args.no_open)
