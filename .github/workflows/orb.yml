@@ -128,12 +128,17 @@ jobs:
         if: steps.which.outputs.job == 'bars'
         run: python scripts/fetch_bars.py ${{ steps.which.outputs.args }}
 
+      - name: Trade review data for Jarvis (trade list + candles of each trade's days)
+        if: always() && steps.which.outputs.job != 'skip'
+        continue-on-error: true
+        run: python scripts/trade_review.py --fetch
+
       - name: Save journal + dashboard to the repo
         if: always() && steps.which.outputs.job != 'skip'
         run: |
           git config user.name "orb-bot"
           git config user.email "orb-bot@users.noreply.github.com"
-          git add data/journal.db data/live_log.txt reports/dashboard.html data/charts || true
+          git add data/journal.db data/live_log.txt reports/dashboard.html data/charts data/paper_trades.json || true
           if git diff --cached --quiet; then echo "nothing to save"; exit 0; fi
           git commit -m "Bot ${{ steps.which.outputs.job }} run $(date '+%Y-%m-%d %H:%M ET')"
           for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 5; done
