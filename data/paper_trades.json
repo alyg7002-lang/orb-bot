@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-03T16:03:43-05:00",
+ "generated": "2026-11-03T16:07:04-05:00",
  "trades": [
   {
    "id": 12827,
@@ -451,6 +451,62 @@
    "status": "closed",
    "days": [
     "2026-11-02"
+   ],
+   "charts": []
+  },
+  {
+   "id": 12843,
+   "bot": "ORB",
+   "mode": "paper",
+   "n": 17,
+   "symbol": "SPY",
+   "session_date": "2026-11-03",
+   "direction": "long",
+   "or_high": 754.39,
+   "or_low": 752.44,
+   "breakout_time": "2026-11-03T10:16:00-05:00",
+   "entry_time": "2026-11-03T10:47:00-05:00",
+   "entry": 755.2,
+   "stop": 752.44,
+   "target": 758.865,
+   "target_label": "1.5R fixed",
+   "qty": 34,
+   "exit_time": "2026-11-03T15:55:09.267026-05:00",
+   "exit": 754.32,
+   "exit_reason": "time",
+   "pnl": -29.92,
+   "r_multiple": -0.319,
+   "status": "closed",
+   "days": [
+    "2026-11-03"
+   ],
+   "charts": []
+  },
+  {
+   "id": 12844,
+   "bot": "ORB",
+   "mode": "paper",
+   "n": 18,
+   "symbol": "QQQ",
+   "session_date": "2026-11-03",
+   "direction": "long",
+   "or_high": 686.77,
+   "or_low": 683.2,
+   "breakout_time": "2026-11-03T09:45:00-05:00",
+   "entry_time": "2026-11-03T10:57:00-05:00",
+   "entry": 687.4438,
+   "stop": 683.2,
+   "target": 693.9,
+   "target_label": "1.5R fixed",
+   "qty": 24,
+   "exit_time": "2026-11-03T15:55:36.387855-05:00",
+   "exit": 685.61,
+   "exit_reason": "time",
+   "pnl": -44.01,
+   "r_multiple": -0.432,
+   "status": "closed",
+   "days": [
+    "2026-11-03"
    ],
    "charts": []
   }
