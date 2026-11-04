@@ -24,7 +24,7 @@ class FakeTC:
 
     def get_order_by_id(self, oid, filt=None):
         if oid == "close-1":
-            return NS(filled_avg_price="501.10")
+            return NS(filled_avg_price="501.10", status=NS(value="filled"))
         return NS(filled_avg_price="500.05", legs=self.legs)
 
     def cancel_order_by_id(self, oid):
@@ -222,10 +222,21 @@ class TestLive(unittest.TestCase):
         t = make_trader()
         t._handle(Signal("entry", trade()), datetime.now(ET), 500)
         orig = t.tc.get_order_by_id
-        t.tc.get_order_by_id = lambda oid, filt=None: NS(filled_avg_price=None) if oid == "close-1" else orig(oid, filt)
+        t.tc.get_order_by_id = lambda oid, filt=None: NS(filled_avg_price=None, status=NS(value="new")) if oid == "close-1" else orig(oid, filt)
         t.tc.get_open_position = lambda sym: NS(current_price="502.50")
         t._flatten("SPY", 500.0)
         self.assertEqual(t.j.trades("paper")[0]["exit"], 502.50)
+
+    def test_partial_close_fill_waits_for_the_final_average(self):
+        """Found by the Alpaca record check: exits were logged at the first partial fill's price."""
+        t = make_trader()
+        t._handle(Signal("entry", trade()), datetime.now(ET), 500)
+        orig = t.tc.get_order_by_id
+        fills = iter([NS(filled_avg_price="501.00", status=NS(value="partially_filled")),
+                      NS(filled_avg_price="501.40", status=NS(value="filled"))])
+        t.tc.get_order_by_id = lambda oid, filt=None: next(fills) if oid == "close-1" else orig(oid, filt)
+        t._flatten("SPY", 500.0)
+        self.assertEqual(t.j.trades("paper")[0]["exit"], 501.40)
 
     def test_panel_votes_saved_and_loss_reviewed(self):
         t = make_trader()

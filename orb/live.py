@@ -275,7 +275,8 @@ class LiveTrader:
             _time.sleep(1)
             c = self.tc.get_order_by_id(close_order.id)
             if c.filled_avg_price:
-                price = float(c.filled_avg_price)
+                price = float(c.filled_avg_price)     # keeps updating while the order fills in parts
+            if str(c.status.value) == "filled":       # 11/04: stopping at a partial fill logged exits cents off
                 break
         if price is None:
             price = mark
