@@ -29,6 +29,12 @@ ABOUT = {
     "paper_vol_breakout": {"where": "Journal only (no orders, replayed the next morning)",
                            "rules": "Stops at today's open plus or minus 50% of yesterday's range. Stop at today's open, flat at 15:55."},
 }
+# Shadow test of a 30-minute exit rule on ORB trades: no orders change, the page just shows what it would
+# have done. Only trades from SHADOW_START on count toward a verdict. The rule was suggested after seeing
+# the earlier trades, so those can't confirm it. Backtest Oct 2023-Oct 2026: profit fell 69%, see the page.
+SHADOW_START = "2026-11-04"
+SHADOW_MARK = 30         # minutes
+SHADOW_SLIP = 0.01       # $/share each way, same as the backtests
 FVG = re.compile(r"^(\d\d:\d\d) FVG (?:long|short) ([\d.]+)-([\d.]+)")
 
 
@@ -70,6 +76,61 @@ def by_the_rules(t: dict) -> dict | None:
     px, s = float(bar["open"]), 1 if t["direction"] == "long" else -1
     risk = abs(t["entry"] - t["stop"])
     return {"exit": px, "pnl": round((px - t["entry"]) * s * t["qty"], 2), "r": round((px - t["entry"]) * s / risk, 3) if risk else 0}
+
+
+def replay(t: dict, bars: list[tuple], mark: int | None = None, green: bool = True) -> dict:
+    """One trade on its entry day: same stop, target and flat as orb/strategy.py, stop checked first.
+    bars: (time, open, high, low, close) from the entry minute on. With mark, the 30-minute rule applies:
+    at the mark a trade at or above entry closes (if green=True), one below closes when it gets back to entry."""
+    s = 1 if t["direction"] == "long" else -1
+    e, stop, tgt = t["entry"], t["stop"], t["target"]
+    start = datetime.fromisoformat(t["entry_time"])
+    armed = False
+
+    def done(px, why, when):
+        risk = abs(e - stop)
+        pnl = (px - e) * s * t["qty"] - 2 * SHADOW_SLIP * t["qty"]
+        return {"exit": round(px, 4), "why": why, "at": when.isoformat(), "pnl": round(pnl, 2),
+                "r": round(pnl / (risk * t["qty"]), 3) if risk else 0}
+
+    for ts, o, hi, lo, c in bars:
+        if (s > 0 and lo <= stop) or (s < 0 and hi >= stop):
+            return done(min(o, stop) if s > 0 else max(o, stop), "stop", ts)
+        if armed and ((s > 0 and hi >= e) or (s < 0 and lo <= e)):
+            return done(max(o, e) if s > 0 else min(o, e), "even", ts)
+        if tgt is not None and ((s > 0 and hi >= tgt) or (s < 0 and lo <= tgt)):
+            return done(max(o, tgt) if s > 0 else min(o, tgt), "target", ts)
+        end = ts + timedelta(minutes=1)
+        if end.time() >= time(15, 55):
+            return done(c, "time", end)
+        if mark is not None and not armed and (end - start).total_seconds() >= mark * 60:
+            if s * (c - e) >= 0:
+                if green:
+                    return done(c, "green", end)
+                mark = None
+            else:
+                armed = True
+    return done(bars[-1][4], "time", bars[-1][0])
+
+
+def shadow(t: dict, today: date) -> dict | None:
+    """What the current rules and the two 30-minute versions do with this trade, or None if we can't say yet."""
+    if t["mode"] != "paper" or t["status"] != "closed" or t["stop"] is None:
+        return None
+    path = CHARTS / f"{t['symbol']}_{t['session_date']}.csv"
+    if not path.exists():
+        return None
+    with open(path) as f:
+        rows = list(csv.DictReader(f))
+    start = datetime.fromisoformat(t["entry_time"])
+    bars = [(datetime.fromisoformat(r["ts"]), float(r["open"]), float(r["high"]), float(r["low"]), float(r["close"]))
+            for r in rows if "09:30" <= r["ts"][11:16] < "16:00"]
+    if not bars or (bars[-1][0].time() < time(15, 54) and t["session_date"] >= str(today)):
+        return None                # today's candles aren't all in yet
+    after = [b for b in bars if b[0] >= start]
+    if not after:
+        return None
+    return {"current": replay(t, after), "full": replay(t, after, SHADOW_MARK), "reds": replay(t, after, SHADOW_MARK, green=False)}
 
 
 def trades(db: Path) -> list[dict]:
@@ -166,9 +227,11 @@ def main() -> None:
     for t in rows:
         t["charts"] = [d for d in t["days"] if (CHARTS / f"{t['symbol']}_{d}.csv").exists()]
         t["rules"] = by_the_rules(t)
+        t["shadow"] = shadow(t, datetime.now(ET).date())
     db = ROOT / "data" / "journal.db"
     OUT.write_text(json.dumps({"generated": datetime.now(ET).isoformat(timespec="seconds"), "trades": rows,
-                               "bots": {BOTS[m]: ABOUT[m] for m in BOTS}, "outcomes": outcomes(db)}, indent=1))
+                               "bots": {BOTS[m]: ABOUT[m] for m in BOTS}, "outcomes": outcomes(db),
+                               "shadow_start": SHADOW_START}, indent=1))
     print(f"{len(rows)} paper trades -> {OUT.relative_to(ROOT)}")
 
 

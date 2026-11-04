@@ -2,7 +2,7 @@
 import importlib.util
 import tempfile
 import unittest
-from datetime import date
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 from orb.journal import Journal
@@ -41,6 +41,41 @@ class TestTradeReview(unittest.TestCase):
         self.assertEqual(rows[1]["status"], "open")
         self.assertIsNone(rows[1]["stop"])
         self.assertEqual(rows[1]["days"][0], "2026-10-28")    # open trade runs through today
+
+
+class TestShadowRule(unittest.TestCase):
+    T = dict(direction="long", entry=100.0, stop=98.0, target=103.0, qty=10, entry_time="2026-11-04T10:00:00-05:00")
+
+    def bars(self, *rows):
+        """rows: (minutes after 10:00, open, high, low, close)"""
+        base = datetime.fromisoformat(self.T["entry_time"])
+        return [(base + timedelta(minutes=m), o, h, l, c) for m, o, h, l, c in rows]
+
+    def test_green_at_the_mark_closes_at_that_candles_close(self):
+        out = tr.replay(self.T, self.bars((0, 100, 100.5, 99.5, 100), (29, 100, 101, 100, 101), (40, 101, 103.5, 101, 103)), 30)
+        self.assertEqual((out["why"], out["exit"]), ("green", 101))
+        self.assertAlmostEqual(out["pnl"], 9.8)         # $1 x 10 shares less 2 cents a share
+
+    def test_even_at_the_mark_counts_as_green(self):
+        self.assertEqual(tr.replay(self.T, self.bars((29, 100, 101, 99, 100)), 30)["why"], "green")
+
+    def test_red_at_the_mark_closes_when_back_at_entry(self):
+        out = tr.replay(self.T, self.bars((29, 100, 100, 99, 99), (35, 99, 100.2, 99, 100), (40, 100, 103.5, 100, 103)), 30)
+        self.assertEqual((out["why"], out["exit"]), ("even", 100))
+
+    def test_red_that_never_recovers_still_hits_the_stop(self):
+        self.assertEqual(tr.replay(self.T, self.bars((29, 100, 100, 99, 99), (35, 99, 99.5, 97.9, 98)), 30)["why"], "stop")
+
+    def test_target_before_the_mark_is_untouched(self):
+        self.assertEqual(tr.replay(self.T, self.bars((5, 100, 103.5, 100, 103)), 30)["why"], "target")
+
+    def test_reds_only_version_lets_green_trades_run(self):
+        out = tr.replay(self.T, self.bars((29, 100, 101, 100, 101), (40, 101, 103.5, 101, 103)), 30, green=False)
+        self.assertEqual(out["why"], "target")
+
+    def test_no_rule_runs_to_the_flat(self):
+        base = datetime.fromisoformat("2026-11-04T15:54:00-05:00")
+        self.assertEqual(tr.replay(self.T, [(base, 100, 101, 99, 100.5)])["why"], "time")
 
 
 class TestReconcile(unittest.TestCase):
