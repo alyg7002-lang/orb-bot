@@ -127,10 +127,12 @@ class LiveTrader:
             from alpaca.trading.enums import OrderClass, OrderSide, TimeInForce
             from alpaca.trading.requests import MarketOrderRequest, StopLossRequest, TakeProfitRequest
             try:
+                # GTC: on 10/23 a failed close-out left trades open over a weekend and DAY legs had
+                # expired, so no stop or target was working. Normal days still flatten at 15:55.
                 order = self.tc.submit_order(MarketOrderRequest(
                     symbol=tr.symbol, qty=qty,
                     side=OrderSide.BUY if tr.direction == "long" else OrderSide.SELL,
-                    time_in_force=TimeInForce.DAY, order_class=OrderClass.BRACKET,
+                    time_in_force=TimeInForce.GTC, order_class=OrderClass.BRACKET,
                     take_profit=TakeProfitRequest(limit_price=round(tr.target, 2)),
                     stop_loss=StopLossRequest(stop_price=round(tr.stop, 2))))
                 order_id = str(order.id)

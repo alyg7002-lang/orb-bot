@@ -19,6 +19,7 @@ ET = ZoneInfo("America/New_York")
 OUT = ROOT / "data" / "health.json"
 CHARTS = ROOT / "data" / "charts"
 PRICE_TOL = 0.005       # half a cent
+LIVE_ORDER = ("new", "accepted", "held", "partially_filled", "pending_new", "pending_replace")    # legs are GTC
 CANDLE_TOL = 0.001      # 0.1%: paper fills and SIP candles can differ a little, not by dollars
 BOTS = {"paper": ("ORB", date(2026, 10, 21)), "paper_rsi2": ("RSI(2)", None),     # ORB moved to GitHub on 10/21
         "paper_nr7": ("NR7", date(2026, 11, 3)), "paper_vol_breakout": ("Vol Breakout", date(2026, 11, 3))}
@@ -55,6 +56,8 @@ def compare_orders(trades: list[dict], orders: list[dict], positions: list[str])
                                "text": f"{label}: entry {t['entry']:.2f} in the journal, {f['entry_fill']:.2f} on Alpaca"})
         else:
             issues.append({"kind": "entry_not_filled", "id": t["id"], "text": f"{label}: journal has a trade but Alpaca never filled the order ({p.get('status')})"})
+        if t.get("exit") is not None and any(l.get("status") in LIVE_ORDER for l in p.get("legs") or []):
+            issues.append({"kind": "leftover_order", "id": t["id"], "text": f"{label}: the trade is closed but its stop or target is still live on Alpaca. Cancel it."})
         leg = next((l for l in p.get("legs") or [] if l.get("status") == "filled"), None)
         if leg:
             f["exit_fill"], f["exit_at"] = float(leg["filled_avg_price"]), str(leg.get("filled_at"))

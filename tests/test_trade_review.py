@@ -60,6 +60,11 @@ class TestReconcile(unittest.TestCase):
         out = rc.compare_orders([{**self.TRADE, "exit": 216.2}], [self.PARENT, self.CLOSE], [])
         self.assertEqual(out["issues"], [])
 
+    def test_live_leg_on_a_closed_trade_is_caught(self):
+        parent = {**self.PARENT, "legs": [dict(type="stop", status="new", filled_avg_price=None, filled_at=None)]}
+        out = rc.compare_orders([{**self.TRADE, "exit": 216.2}], [parent, self.CLOSE], [])
+        self.assertEqual([i["kind"] for i in out["issues"]], ["leftover_order"])
+
     def test_order_or_position_missing_from_journal_is_caught(self):
         kinds = [i["kind"] for i in rc.compare_orders([], [self.PARENT], ["SPY"])["issues"]]
         self.assertEqual(kinds, ["not_in_journal", "position_not_in_journal"])

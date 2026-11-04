@@ -227,6 +227,13 @@ class TestLive(unittest.TestCase):
         t._flatten("SPY", 500.0)
         self.assertEqual(t.j.trades("paper")[0]["exit"], 502.50)
 
+    def test_bracket_is_good_till_canceled(self):
+        """The stop and target must survive the close in case a close-out run fails."""
+        from alpaca.trading.enums import TimeInForce
+        t = make_trader()
+        t._handle(Signal("entry", trade()), datetime.now(ET), 500)
+        self.assertEqual(t.tc.submitted[0].time_in_force, TimeInForce.GTC)
+
     def test_partial_close_fill_waits_for_the_final_average(self):
         """Found by the Alpaca record check: exits were logged at the first partial fill's price."""
         t = make_trader()
