@@ -69,7 +69,8 @@ def by_key(trades: list[dict], key: str) -> dict[str, dict]:
 
 
 OUTCOMES = ["traded", "no_retest", "no_fvg", "fvg_failed", "invalidated", "no_breakout",
-            "vetoed", "filtered", "low_volume", "news_day", "daily_limit", "one_at_a_time", "missed", "no_data"]
+            "vetoed", "filtered", "low_volume", "news_day", "daily_limit", "one_at_a_time", "missed", "no_data",
+            "no_setup", "holding", "exited", "news", "half_day", "size_zero"]
 OUTCOME_LABELS = {
     "traded": "Traded", "no_retest": "No retest", "no_fvg": "No FVG", "fvg_failed": "FVG failed",
     "invalidated": "Failed breakout", "no_breakout": "No breakout", "news_day": "News day (skipped)",
@@ -78,7 +79,9 @@ OUTCOME_LABELS = {
     "low_volume": "Not in play (low volume)",
     "daily_limit": "Skipped (daily limit)",
     "one_at_a_time": "Skipped (trade already open)",
-    "missed": "Missed (bot offline)", "no_data": "No data"}
+    "missed": "Missed (bot offline)", "no_data": "No data",
+    "no_setup": "No setup", "holding": "Holding", "exited": "Exited", "news": "News day (skipped)",
+    "half_day": "Short session (skipped)", "size_zero": "Setup, size 0"}
 
 
 def compliance(sessions: list[dict]) -> dict[str, dict]:
@@ -90,7 +93,7 @@ def compliance(sessions: list[dict]) -> dict[str, dict]:
     result = {}
     for sym, c in sorted(out.items()):
         days = sum(c.values())
-        tradable = days - c["news_day"] - c["no_data"]
+        tradable = days - c["news_day"] - c["news"] - c["half_day"] - c["no_data"]
         breakouts = tradable - c["no_breakout"]
         result[sym] = {
             "days": days,

@@ -22,6 +22,7 @@ on:
     - cron: "17 19 * * 1-5"
     - cron: "47 19 * * 1-5"
     - cron: "17 20 * * 1-5"
+    - cron: "47 20 * * 1-5"   # winter (EST 15:47): standard time leaves only two other close-out triggers in the window
   push:
     paths: [".github/run-now"]   # Claude can start a run by pushing this file ("morning" or "close" inside)
   workflow_dispatch:
@@ -31,7 +32,7 @@ on:
         required: true
         default: "morning"
         type: choice
-        options: [morning, close, rsi2, pdhl, pdhl-test]
+        options: [morning, close, rsi2, pdhl, pdhl-test, review]
 
 permissions:
   contents: write
@@ -133,12 +134,17 @@ jobs:
         continue-on-error: true
         run: python scripts/trade_review.py --fetch
 
+      - name: Health check (journal vs Alpaca, days each bot ran)
+        if: always() && steps.which.outputs.job != 'skip'
+        continue-on-error: true
+        run: python scripts/reconcile.py
+
       - name: Save journal + dashboard to the repo
         if: always() && steps.which.outputs.job != 'skip'
         run: |
           git config user.name "orb-bot"
           git config user.email "orb-bot@users.noreply.github.com"
-          git add data/journal.db data/live_log.txt reports/dashboard.html data/charts data/paper_trades.json || true
+          git add data/journal.db data/live_log.txt reports/dashboard.html data/charts data/paper_trades.json data/health.json || true
           if git diff --cached --quiet; then echo "nothing to save"; exit 0; fi
           git commit -m "Bot ${{ steps.which.outputs.job }} run $(date '+%Y-%m-%d %H:%M ET')"
           for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 5; done

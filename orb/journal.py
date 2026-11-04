@@ -82,12 +82,13 @@ class Journal:
         self.db.commit()
 
     def close_trade(self, trade_id: int, exit_time: datetime, exit_px: float, reason: str,
-                    pnl: float) -> None:
+                    pnl: float, r: float | None = None) -> None:
         row = self.db.execute("SELECT direction, entry, stop FROM trades WHERE id=?",
                               (trade_id,)).fetchone()
         risk = abs(row["entry"] - row["stop"])
         sign = 1 if row["direction"] == "long" else -1
-        r = (exit_px - row["entry"]) * sign / risk if risk else 0.0
+        if r is None:      # callers whose R already includes slippage pass it in
+            r = (exit_px - row["entry"]) * sign / risk if risk else 0.0
         self.db.execute("UPDATE trades SET exit_time=?, exit=?, exit_reason=?, pnl=?, r_multiple=? "
                         "WHERE id=?", (exit_time.isoformat(), exit_px, reason, round(pnl, 2),
                                        round(r, 3), trade_id))

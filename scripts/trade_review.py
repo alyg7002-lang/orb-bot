@@ -7,7 +7,7 @@ Runs at the end of every bot run on GitHub, so the page fills itself in. Candles
 only (9:30-16:00 ET), SIP feed, so they match the backtest data. Jarvis reads both files straight
 from raw.githubusercontent.com: data/paper_trades.json and data/charts/<SYM>_<YYYY-MM-DD>.csv.
 """
-import csv, json, sqlite3, sys
+import csv, json, re, sqlite3, sys
 from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -18,6 +18,18 @@ ET = ZoneInfo("America/New_York")
 CHARTS = ROOT / "data" / "charts"
 OUT = ROOT / "data" / "paper_trades.json"
 BOTS = {"paper": "ORB", "paper_rsi2": "RSI(2)", "paper_nr7": "NR7", "paper_vol_breakout": "Vol Breakout"}
+# Rules in plain words, shown next to each trade. Alpaca = real paper orders; journal = no orders sent.
+ABOUT = {
+    "paper": {"where": "Alpaca paper orders + journal",
+              "rules": "Opening range 9:30-9:45, 1-min breakout, FVG retest, stop at the far side of the range, target 1.5R, flat at 15:55."},
+    "paper_rsi2": {"where": "Journal only (no orders)",
+                   "rules": "Above the 200-day average with RSI(2) under 5: buy near the close. Exit on a close above the 5-day average or after 10 days. The stop is a 2xATR sizing unit, not an order."},
+    "paper_nr7": {"where": "Journal only (no orders, replayed the next morning)",
+                  "rules": "Yesterday was the narrowest range of 7 days: stops 1 cent past yesterday's high and low. Stop at the middle of yesterday's range, flat at 15:55."},
+    "paper_vol_breakout": {"where": "Journal only (no orders, replayed the next morning)",
+                           "rules": "Stops at today's open plus or minus 50% of yesterday's range. Stop at today's open, flat at 15:55."},
+}
+FVG = re.compile(r"^(\d\d:\d\d) FVG (?:long|short) ([\d.]+)-([\d.]+)")
 
 
 def chart_days(start: date, end: date) -> list[date]:
@@ -34,11 +46,42 @@ def _r(v, n=4):
     return None if v is None else round(v, n)
 
 
+def fvg_zone(log: list[str], entry_time: str) -> list[float] | None:
+    """The last fair value gap the engine marked before this entry."""
+    zone = None
+    for line in log:
+        m = FVG.match(line)
+        if m and m.group(1) <= entry_time[11:16]:
+            zone = [float(m.group(2)), float(m.group(3))]
+    return zone
+
+
+def by_the_rules(t: dict) -> dict | None:
+    """A trade the bot failed to close on time: what the rule (flat at 15:55 that day) would have paid."""
+    if t["exit_reason"] != "stale_close":
+        return None
+    path = CHARTS / f"{t['symbol']}_{t['session_date']}.csv"
+    if not path.exists():
+        return None
+    with open(path) as f:
+        bar = next((r for r in csv.DictReader(f) if r["ts"][11:16] == "15:55"), None)
+    if not bar:
+        return None
+    px, s = float(bar["open"]), 1 if t["direction"] == "long" else -1
+    risk = abs(t["entry"] - t["stop"])
+    return {"exit": px, "pnl": round((px - t["entry"]) * s * t["qty"], 2), "r": round((px - t["entry"]) * s / risk, 3) if risk else 0}
+
+
 def trades(db: Path) -> list[dict]:
     c = sqlite3.connect(db)
     c.row_factory = sqlite3.Row
     today = datetime.now(ET).date()
     rows, count = [], {}
+    votes: dict[int, list] = {}
+    for v in c.execute("SELECT * FROM votes ORDER BY vote DESC, voter"):
+        votes.setdefault(v["trade_id"], []).append({"voter": v["voter"], "vote": v["vote"], "why": v["why"]})
+    logs = {(s["mode"], s["symbol"], s["session_date"]): (s["log"] or "").split("\n")
+            for s in c.execute("SELECT mode, symbol, session_date, log FROM sessions WHERE mode LIKE 'paper%'")}
     for r in c.execute("SELECT * FROM trades WHERE mode LIKE 'paper%' ORDER BY entry_time"):
         mode = r["mode"]
         count[mode] = count.get(mode, 0) + 1
@@ -54,9 +97,22 @@ def trades(db: Path) -> list[dict]:
             "pnl": r["pnl"], "r_multiple": r["r_multiple"],
             "status": "closed" if r["exit"] is not None else "open",
             "days": [str(d) for d in chart_days(start, end)],
+            "votes": votes.get(r["id"], []),
+            "log": logs.get((mode, r["symbol"], r["session_date"]), []),
+            "fvg": fvg_zone(logs.get((mode, r["symbol"], r["session_date"]), []), r["entry_time"]),
         })
     c.close()
     return rows
+
+
+def outcomes(db: Path) -> dict:
+    """How each bot's days ended, trades or not, for the 'days it passed on' counts."""
+    c = sqlite3.connect(db)
+    out: dict = {}
+    for mode, oc, n in c.execute("SELECT mode, outcome, COUNT(*) FROM sessions WHERE mode LIKE 'paper%' GROUP BY 1, 2"):
+        out.setdefault(BOTS.get(mode, mode), {})[oc] = n
+    c.close()
+    return out
 
 
 def _complete(path: Path, day: date, today: date) -> bool:
@@ -109,8 +165,10 @@ def main() -> None:
         fetch_missing(rows)
     for t in rows:
         t["charts"] = [d for d in t["days"] if (CHARTS / f"{t['symbol']}_{d}.csv").exists()]
-    OUT.write_text(json.dumps({"generated": datetime.now(ET).isoformat(timespec="seconds"), "trades": rows},
-                              indent=1))
+        t["rules"] = by_the_rules(t)
+    db = ROOT / "data" / "journal.db"
+    OUT.write_text(json.dumps({"generated": datetime.now(ET).isoformat(timespec="seconds"), "trades": rows,
+                               "bots": {BOTS[m]: ABOUT[m] for m in BOTS}, "outcomes": outcomes(db)}, indent=1))
     print(f"{len(rows)} paper trades -> {OUT.relative_to(ROOT)}")
 
 

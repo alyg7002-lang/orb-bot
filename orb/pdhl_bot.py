@@ -108,7 +108,7 @@ def run(cfg, journal, keys: list[str] | None = None, data=None, today: date | No
                                        stop=t.stop, target=t.target, target_label=f"{name} (journal-only paper)")
                             tid = journal.open_trade(key, mode, tr, qty)
                             p = pnl(t.side, t.entry, t.exit, qty, pdhl.SLIP)
-                            journal.close_trade(tid, t.exit_time, t.exit, t.exit_reason, p)
+                            journal.close_trade(tid, t.exit_time, t.exit, t.exit_reason, p, r=t.r)
                             equity += p
                             added += 1
                             outcome = "traded"

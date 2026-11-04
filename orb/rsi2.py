@@ -173,18 +173,22 @@ def run(cfg, journal, data=None, s: Settings | None = None, say=print, wait: boo
                 p = pnl(row["direction"], row["entry"], fill, row["qty"], 0)
                 journal.close_trade(row["id"], datetime.now(ET), fill, why, p)
                 say(f"RSI(2) {sym}: EXIT {row['direction']} @ {fill:.2f} ({why}: {info})  P&L ${p:+.2f}")
+                journal.save_session(RUN_ID, MODE, sym, today, "exited", None, None, [f"exit {why}: {info}"])
             else:
                 say(f"RSI(2) {sym}: holding {row['direction']} from {row['entry']:.2f} ({info})")
+                journal.save_session(RUN_ID, MODE, sym, today, "holding", None, None, [info])
             continue
         side, info = entry_signal(days, px, s)
         if not side:
             say(f"RSI(2) {sym}: no setup ({info})")
+            journal.save_session(RUN_ID, MODE, sym, today, "no_setup", None, None, [info])
             continue
         unit = 2 * atr(days)
         risk = equity * s.risk_pct / 100
         qty = int(min(risk / unit, s.max_position_value / px)) if unit > 0 else 0
         if qty <= 0:
             say(f"RSI(2) {sym}: setup but size = 0, skipped")
+            journal.save_session(RUN_ID, MODE, sym, today, "size_zero", None, None, [info])
             continue
         fill = px + SLIP if side == "long" else px - SLIP
         sma5 = (sum(d.close for d in days[-4:]) + px) / 5
@@ -194,3 +198,5 @@ def run(cfg, journal, data=None, s: Settings | None = None, say=print, wait: boo
                    target_label="exit: close above 5-day avg (stop = 2xATR risk unit, not an order)")
         journal.open_trade(RUN_ID, MODE, tr, qty)
         say(f"RSI(2) {sym}: ENTERED {side} {qty} sh @ {fill:.2f} ({info}); risk unit ${unit:.2f}/sh")
+        journal.save_session(RUN_ID, MODE, sym, today, "traded", None, None,
+                             [f"entered {side}: {info}; risk unit ${unit:.2f}/sh"])

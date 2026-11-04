@@ -10,17 +10,19 @@ from .journal import Journal
 from .stats import OUTCOME_LABELS, OUTCOMES, by_key, compliance, summarize, win_loss_profile
 
 OUT = ROOT / "reports" / "dashboard.html"
+PAPER_BOTS = ("paper", "paper_rsi2", "paper_nr7", "paper_vol_breakout")     # one dashboard tab each
 
 
 def _section(j: Journal, mode: str, run_id: str | None) -> dict | None:
-    if mode != "paper" and not run_id:
+    if not mode.startswith("paper") and not run_id:
         return None
     trades = j.trades(mode, run_id)
     sessions = j.sessions(mode, run_id)
-    if not trades and not sessions:
+    if not trades and not sessions and mode not in PAPER_BOTS:
         return None
     info = j.run_info(run_id) if run_id else None
     s = summarize(trades)
+    with_levels = [t for t in trades if t["or_high"] is not None and t["target"] is not None]   # ORB only
     return {
         "mode": mode, "run_id": run_id,
         "settings": json.loads(info["settings"]) if info else None,
@@ -30,7 +32,7 @@ def _section(j: Journal, mode: str, run_id: str | None) -> dict | None:
         "by_exit": by_key(trades, "exit_reason") if trades else {},
         "by_target": by_key(trades, "target_label") if trades else {},
         "compliance": compliance(sessions),
-        "profile": win_loss_profile(trades) if trades else [],
+        "profile": win_loss_profile(with_levels) if with_levels else [],
         "trades": [{k: t[k] for k in ("symbol", "session_date", "direction", "entry_time", "entry",
                                       "stop", "target", "target_label", "exit", "exit_reason",
                                       "qty", "pnl", "r_multiple")} for t in trades],
@@ -38,11 +40,11 @@ def _section(j: Journal, mode: str, run_id: str | None) -> dict | None:
     }
 
 
-def build(j: Journal, out: Path = OUT, modes=("paper", "backtest", "demo"),
+def build(j: Journal, out: Path = OUT, modes=(*PAPER_BOTS, "backtest", "demo"),
           title: str = "ORB Retest Journal", note: str = "") -> Path:
     sections = []
     for mode in modes:
-        sec = _section(j, mode, None if mode == "paper" else j.latest_run(mode))
+        sec = _section(j, mode, None if mode.startswith("paper") else j.latest_run(mode))
         if sec:
             sections.append(sec)
     payload = json.dumps({"generated": datetime.now().strftime("%a %b %d, %Y %I:%M %p"),
@@ -103,7 +105,7 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--ink2)}pre{white-space:
 </main>
 <script>
 const DATA = /*__DATA__*/null;
-const LABEL = {paper:"Paper (live)", backtest:"Backtest", demo:"Demo (fake data)", oos:"Out-of-sample"};
+const LABEL = {paper:"ORB (live on Alpaca)", paper_rsi2:"RSI(2) (journal only)", paper_nr7:"NR7 (journal only)", paper_vol_breakout:"Vol Breakout (journal only)", backtest:"Backtest", demo:"Demo (fake data)", oos:"Out-of-sample"};
 const $ = (h) => { const d = document.createElement("div"); d.innerHTML = h; return d.firstElementChild; };
 const money = (v) => (v < 0 ? "-$" : "$") + Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
 const pct = (v) => (v*100).toFixed(1) + "%";
@@ -167,7 +169,7 @@ function render(s) {
 
   view.appendChild($('<h2>Trade log</h2>'));
   const rows = s.trades.slice().reverse().map(t => `<tr><td>${t.symbol}</td><td>${t.session_date}</td><td>${t.direction}</td>
-    <td>${t.entry_time.slice(11,16)}</td><td>${t.entry.toFixed(2)}</td><td>${t.stop.toFixed(2)}</td><td>${t.target.toFixed(2)}</td>
+    <td>${t.entry_time.slice(11,16)}</td><td>${t.entry.toFixed(2)}</td><td>${t.stop == null ? "—" : t.stop.toFixed(2)}</td><td>${t.target == null ? "—" : t.target.toFixed(2)}</td>
     <td>${t.exit.toFixed(2)}</td><td><span class="chip">${t.exit_reason}</span></td><td>${t.qty}</td>
     <td class="${cls(t.pnl)}">${money(t.pnl)}</td><td class="${cls(t.r_multiple)}">${r(t.r_multiple)}</td></tr>`).join("");
   view.appendChild($(`<div class="card tw"><table><thead><tr><th>Ticker</th><th>Date</th><th>Side</th><th>Entry time</th><th>Entry</th><th>Stop</th>
@@ -187,9 +189,10 @@ function compliance(s) {
   view.appendChild($('<h2>Setup compliance: how often each ticker follows the pattern</h2>'));
   const used = DATA.outcomes.filter(o => Object.values(c).some(v => v[o] > 0));
   const head = used.map(o => `<th>${DATA.outcome_labels[o]}</th>`).join("");
-  const rows = Object.entries(c).map(([k, v]) => `<tr><td>${k}</td><td>${v.tradable_days}</td><td>${pct(v.breakout_rate)}</td>
-    <td>${pct(v.retest_rate)}</td>${used.map(o => `<td>${v[o]}</td>`).join("")}</tr>`).join("");
-  view.appendChild($(`<div class="card tw"><table><thead><tr><th>Ticker</th><th>Tradable days</th><th>Broke out</th><th>Breakouts → trade</th>
+  const orb = !s.mode.startsWith("paper_");     // breakout columns mean nothing for the other bots
+  const rows = Object.entries(c).map(([k, v]) => `<tr><td>${k}</td><td>${v.tradable_days}</td>${orb ? `<td>${pct(v.breakout_rate)}</td>
+    <td>${pct(v.retest_rate)}</td>` : ""}${used.map(o => `<td>${v[o]}</td>`).join("")}</tr>`).join("");
+  view.appendChild($(`<div class="card tw"><table><thead><tr><th>Ticker</th><th>Tradable days</th>${orb ? "<th>Broke out</th><th>Breakouts → trade</th>" : ""}
     ${head}</tr></thead><tbody>${rows}</tbody></table>
     <div class="cs" style="margin-top:8px">Each day ends in exactly one column. News days are skipped and left out of the rates.</div></div>`));
 }
