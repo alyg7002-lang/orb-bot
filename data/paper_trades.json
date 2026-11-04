@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T00:34:41-05:00",
+ "generated": "2026-11-04T00:36:37-05:00",
  "trades": [
   {
    "id": 12827,
@@ -222,10 +222,10 @@
    "target_label": "1.5R fixed",
    "qty": 21,
    "exit_time": "2026-10-26T15:55:06.765338-04:00",
-   "exit": 712.33,
+   "exit": 712.3443,
    "exit_reason": "stale_close",
-   "pnl": 137.85,
-   "r_multiple": 1.431,
+   "pnl": 138.15,
+   "r_multiple": 1.435,
    "status": "closed",
    "days": [
     "2026-10-23",
@@ -271,10 +271,10 @@
    "target_label": "1.5R fixed",
    "qty": 38,
    "exit_time": "2026-10-26T15:55:18.626976-04:00",
-   "exit": 212.8132,
+   "exit": 216.17,
    "exit_reason": "stale_close",
-   "pnl": 0.0,
-   "r_multiple": 0.0,
+   "pnl": 127.56,
+   "r_multiple": 1.294,
    "status": "closed",
    "days": [
     "2026-10-23",
@@ -322,10 +322,10 @@
    "target_label": "1.5R fixed",
    "qty": 11,
    "exit_time": "2026-10-26T15:55:29.383405-04:00",
-   "exit": 391.33,
+   "exit": 391.3536,
    "exit_reason": "stale_close",
-   "pnl": 162.47,
-   "r_multiple": 1.684,
+   "pnl": 162.73,
+   "r_multiple": 1.687,
    "status": "closed",
    "days": [
     "2026-10-23",
@@ -416,10 +416,10 @@
    "target_label": "1.5R fixed",
    "qty": 34,
    "exit_time": "2026-10-27T15:55:05.827670-04:00",
-   "exit": 347.04,
+   "exit": 347.0347,
    "exit_reason": "time",
-   "pnl": 45.22,
-   "r_multiple": 0.461,
+   "pnl": 45.04,
+   "r_multiple": 0.459,
    "status": "closed",
    "days": [
     "2026-10-27"
@@ -594,10 +594,10 @@
    "target_label": "1.5R fixed",
    "qty": 17,
    "exit_time": "2026-10-29T15:55:06.390766-04:00",
-   "exit": 403.19,
+   "exit": 403.1429,
    "exit_reason": "time",
-   "pnl": -55.84,
-   "r_multiple": -0.56,
+   "pnl": -56.64,
+   "r_multiple": -0.568,
    "status": "closed",
    "days": [
     "2026-10-29"
@@ -721,10 +721,10 @@
    "target_label": "1.5R fixed",
    "qty": 14,
    "exit_time": "2026-10-30T15:55:09.412659-04:00",
-   "exit": 399.48,
+   "exit": 399.4943,
    "exit_reason": "time",
-   "pnl": 61.29,
-   "r_multiple": 0.584,
+   "pnl": 61.49,
+   "r_multiple": 0.585,
    "status": "closed",
    "days": [
     "2026-10-30"
@@ -852,10 +852,10 @@
    "target_label": "1.5R fixed",
    "qty": 26,
    "exit_time": "2026-11-02T15:55:08.401704-05:00",
-   "exit": 338.77,
+   "exit": 338.7242,
    "exit_reason": "time",
-   "pnl": 26.78,
-   "r_multiple": 0.262,
+   "pnl": 27.97,
+   "r_multiple": 0.274,
    "status": "closed",
    "days": [
     "2026-11-02"
@@ -1236,10 +1236,10 @@
    "target_label": "1.5R fixed",
    "qty": 34,
    "exit_time": "2026-11-03T15:55:09.267026-05:00",
-   "exit": 754.32,
+   "exit": 754.3053,
    "exit_reason": "time",
-   "pnl": -29.92,
-   "r_multiple": -0.319,
+   "pnl": -30.42,
+   "r_multiple": -0.324,
    "status": "closed",
    "days": [
     "2026-11-03"
@@ -1372,10 +1372,10 @@
    "target_label": "1.5R fixed",
    "qty": 24,
    "exit_time": "2026-11-03T15:55:36.387855-05:00",
-   "exit": 685.61,
+   "exit": 685.6317,
    "exit_reason": "time",
-   "pnl": -44.01,
-   "r_multiple": -0.432,
+   "pnl": -43.49,
+   "r_multiple": -0.427,
    "status": "closed",
    "days": [
     "2026-11-03"

@@ -1,73 +1,9 @@
 {
- "generated": "2026-11-04T00:34:41-05:00",
+ "generated": "2026-11-04T00:36:37-05:00",
  "alpaca": {
   "orders_checked": 27,
   "trades_checked": 18,
-  "issues": [
-   {
-    "kind": "exit_mismatch",
-    "id": 12832,
-    "journal": 712.33,
-    "alpaca": 712.344286,
-    "text": "QQQ 2026-10-23: exit 712.33 in the journal, 712.34 on Alpaca"
-   },
-   {
-    "kind": "exit_mismatch",
-    "id": 12833,
-    "journal": 212.813158,
-    "alpaca": 216.17,
-    "text": "NVDA 2026-10-23: exit 212.81 in the journal, 216.17 on Alpaca"
-   },
-   {
-    "kind": "exit_mismatch",
-    "id": 12834,
-    "journal": 391.33,
-    "alpaca": 391.353636,
-    "text": "TSLA 2026-10-23: exit 391.33 in the journal, 391.35 on Alpaca"
-   },
-   {
-    "kind": "exit_mismatch",
-    "id": 12836,
-    "journal": 347.04,
-    "alpaca": 347.034706,
-    "text": "AAPL 2026-10-27: exit 347.04 in the journal, 347.03 on Alpaca"
-   },
-   {
-    "kind": "exit_mismatch",
-    "id": 12838,
-    "journal": 403.19,
-    "alpaca": 403.142941,
-    "text": "TSLA 2026-10-29: exit 403.19 in the journal, 403.14 on Alpaca"
-   },
-   {
-    "kind": "exit_mismatch",
-    "id": 12839,
-    "journal": 399.48,
-    "alpaca": 399.494286,
-    "text": "TSLA 2026-10-30: exit 399.48 in the journal, 399.49 on Alpaca"
-   },
-   {
-    "kind": "exit_mismatch",
-    "id": 12840,
-    "journal": 338.77,
-    "alpaca": 338.724231,
-    "text": "AAPL 2026-11-02: exit 338.77 in the journal, 338.72 on Alpaca"
-   },
-   {
-    "kind": "exit_mismatch",
-    "id": 12843,
-    "journal": 754.32,
-    "alpaca": 754.305294,
-    "text": "SPY 2026-11-03: exit 754.32 in the journal, 754.31 on Alpaca"
-   },
-   {
-    "kind": "exit_mismatch",
-    "id": 12844,
-    "journal": 685.61,
-    "alpaca": 685.631667,
-    "text": "QQQ 2026-11-03: exit 685.61 in the journal, 685.63 on Alpaca"
-   }
-  ],
+  "issues": [],
   "fills": {
    "12827": {
     "entry_fill": 766.26,
@@ -211,13 +147,6 @@
    "missing": []
   }
  },
- "candles": [
-  {
-   "kind": "exit_outside_candle",
-   "id": 12833,
-   "bot": "paper",
-   "text": "NVDA 2026-10-23: exit 212.81 but price traded 215.82-216.33 at 10/26 15:55"
-  }
- ],
+ "candles": [],
  "journal_only_with_orders": []
 }
