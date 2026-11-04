@@ -13,7 +13,7 @@ OUT = ROOT / "reports" / "dashboard.html"
 
 
 def _section(j: Journal, mode: str, run_id: str | None) -> dict | None:
-    if mode != "paper" and not run_id:
+    if not mode.startswith("paper") and not run_id:
         return None
     trades = j.trades(mode, run_id)
     sessions = j.sessions(mode, run_id)
@@ -30,7 +30,7 @@ def _section(j: Journal, mode: str, run_id: str | None) -> dict | None:
         "by_exit": by_key(trades, "exit_reason") if trades else {},
         "by_target": by_key(trades, "target_label") if trades else {},
         "compliance": compliance(sessions),
-        "profile": win_loss_profile(trades) if trades else [],
+        "profile": win_loss_profile([t for t in trades if t["or_high"] is not None]) if trades else [],
         "trades": [{k: t[k] for k in ("symbol", "session_date", "direction", "entry_time", "entry",
                                       "stop", "target", "target_label", "exit", "exit_reason",
                                       "qty", "pnl", "r_multiple")} for t in trades],
@@ -38,11 +38,11 @@ def _section(j: Journal, mode: str, run_id: str | None) -> dict | None:
     }
 
 
-def build(j: Journal, out: Path = OUT, modes=("paper", "backtest", "demo"),
+def build(j: Journal, out: Path = OUT, modes=("paper", "paper_rsi2", "paper_nr7", "paper_vol_breakout", "backtest", "demo"),
           title: str = "ORB Retest Journal", note: str = "") -> Path:
     sections = []
     for mode in modes:
-        sec = _section(j, mode, None if mode == "paper" else j.latest_run(mode))
+        sec = _section(j, mode, None if mode.startswith("paper") else j.latest_run(mode))
         if sec:
             sections.append(sec)
     payload = json.dumps({"generated": datetime.now().strftime("%a %b %d, %Y %I:%M %p"),
@@ -103,7 +103,8 @@ details{margin-top:8px}summary{cursor:pointer;color:var(--ink2)}pre{white-space:
 </main>
 <script>
 const DATA = /*__DATA__*/null;
-const LABEL = {paper:"Paper (live)", backtest:"Backtest", demo:"Demo (fake data)", oos:"Out-of-sample"};
+const LABEL = {paper:"Paper (live)", paper_rsi2:"RSI(2) paper", paper_nr7:"NR7 paper", paper_vol_breakout:"Vol Breakout paper", backtest:"Backtest", demo:"Demo (fake data)", oos:"Out-of-sample"};
+const px = (v) => v == null ? "—" : v.toFixed(2);
 const $ = (h) => { const d = document.createElement("div"); d.innerHTML = h; return d.firstElementChild; };
 const money = (v) => (v < 0 ? "-$" : "$") + Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
 const pct = (v) => (v*100).toFixed(1) + "%";
@@ -118,7 +119,7 @@ document.querySelector("h1").textContent = DATA.title;
 const tabs = document.getElementById("tabs"), view = document.getElementById("view");
 if (!DATA.sections.length) view.innerHTML = '<div class="card empty">No trades yet. Run a backtest or the demo first.</div>';
 DATA.sections.forEach((s, i) => {
-  const b = $(`<button role="tab">${LABEL[s.mode]}</button>`);
+  const b = $(`<button role="tab">${LABEL[s.mode] || s.mode}</button>`);
   b.onclick = () => { [...tabs.children].forEach(x => x.setAttribute("aria-selected", x === b)); render(s); };
   tabs.appendChild(b); if (i === 0) b.click();
 });
@@ -167,8 +168,8 @@ function render(s) {
 
   view.appendChild($('<h2>Trade log</h2>'));
   const rows = s.trades.slice().reverse().map(t => `<tr><td>${t.symbol}</td><td>${t.session_date}</td><td>${t.direction}</td>
-    <td>${t.entry_time.slice(11,16)}</td><td>${t.entry.toFixed(2)}</td><td>${t.stop.toFixed(2)}</td><td>${t.target.toFixed(2)}</td>
-    <td>${t.exit.toFixed(2)}</td><td><span class="chip">${t.exit_reason}</span></td><td>${t.qty}</td>
+    <td>${t.entry_time.slice(11,16)}</td><td>${px(t.entry)}</td><td>${px(t.stop)}</td><td>${px(t.target)}</td>
+    <td>${px(t.exit)}</td><td><span class="chip">${t.exit_reason}</span></td><td>${t.qty}</td>
     <td class="${cls(t.pnl)}">${money(t.pnl)}</td><td class="${cls(t.r_multiple)}">${r(t.r_multiple)}</td></tr>`).join("");
   view.appendChild($(`<div class="card tw"><table><thead><tr><th>Ticker</th><th>Date</th><th>Side</th><th>Entry time</th><th>Entry</th><th>Stop</th>
     <th>Target</th><th>Exit</th><th>Why</th><th>Shares</th><th>P&L</th><th>R</th></tr></thead><tbody>${rows}</tbody></table></div>`));

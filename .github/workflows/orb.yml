@@ -22,6 +22,7 @@ on:
     - cron: "17 19 * * 1-5"
     - cron: "47 19 * * 1-5"
     - cron: "17 20 * * 1-5"
+    - cron: "47 20 * * 1-5"   # EST 15:47: winter needs a 3rd close-out trigger inside 14:30-15:50
   push:
     paths: [".github/run-now"]   # Claude can start a run by pushing this file ("morning" or "close" inside)
   workflow_dispatch:
@@ -31,7 +32,7 @@ on:
         required: true
         default: "morning"
         type: choice
-        options: [morning, close, rsi2, pdhl, pdhl-test]
+        options: [morning, close, rsi2, rsi2-test, pdhl, pdhl-test]
 
 permissions:
   contents: write
@@ -43,7 +44,7 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 300
+    timeout-minutes: 355   # half days: the morning run stays on until 13:00 (8:07 -> ~13:01)
     env:
       ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
       ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}

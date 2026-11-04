@@ -15,8 +15,9 @@ This bot refuses to run against a real-money account. On purpose.
 from __future__ import annotations
 
 import time as _time
+import uuid
 from dataclasses import replace
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, time, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 from .config import Config
@@ -33,6 +34,7 @@ ET = ZoneInfo("America/New_York")
 MODE = "paper"
 RUN_ID = "paper"          # all paper trades live under one run, split by date
 POLL_SECONDS = 15
+EARLY_CLOSE_BEFORE = time(15, 0)  # a close before this = half day (13:00)
 STALE_SECONDS = 120       # don't take an entry signal that's older than this (e.g. after a restart)
 
 
@@ -126,17 +128,29 @@ class LiveTrader:
         if self.use_broker:
             from alpaca.trading.enums import OrderClass, OrderSide, TimeInForce
             from alpaca.trading.requests import MarketOrderRequest, StopLossRequest, TakeProfitRequest
+            client_id = f"orb-{tr.symbol}-{self.today:%Y%m%d}-{uuid.uuid4().hex[:8]}"
             try:
                 order = self.tc.submit_order(MarketOrderRequest(
                     symbol=tr.symbol, qty=qty,
                     side=OrderSide.BUY if tr.direction == "long" else OrderSide.SELL,
                     time_in_force=TimeInForce.DAY, order_class=OrderClass.BRACKET,
+                    client_order_id=client_id,
                     take_profit=TakeProfitRequest(limit_price=round(tr.target, 2)),
                     stop_loss=StopLossRequest(stop_price=round(tr.stop, 2))))
                 order_id = str(order.id)
             except Exception as e:     # e.g. price already moved past the stop
-                say(f"{tr.symbol}: Alpaca rejected the order: {e}")
-                return
+                # A timeout can hide an order Alpaca DID accept: look it up before giving up,
+                # otherwise that position would never be journaled or flattened.
+                try:
+                    o = self.tc.get_order_by_client_id(client_id)
+                    if str(o.status.value) not in ("rejected", "canceled", "expired"):
+                        order_id = str(o.id)
+                        say(f"{tr.symbol}: order call errored ({e}) but Alpaca has it, tracking it")
+                except Exception:
+                    pass
+                if order_id is None:
+                    say(f"{tr.symbol}: Alpaca rejected the order: {e}")
+                    return
         tid = self.j.open_trade(RUN_ID, MODE, tr, qty, order_id)
         self.open[tr.symbol] = {"id": tid, "qty": qty, "direction": tr.direction,
                                 "entry": tr.entry, "stop": tr.initial_stop, "broker_order_id": order_id,
@@ -182,6 +196,14 @@ class LiveTrader:
         from alpaca.trading.requests import GetOrderByIdRequest
         row = self.open[sym]
         o = self.tc.get_order_by_id(row["broker_order_id"], GetOrderByIdRequest(nested=True))
+        status = getattr(getattr(o, "status", None), "value", None)
+        if status in ("rejected", "canceled", "expired") and not float(getattr(o, "filled_qty", 0) or 0):
+            self.open.pop(sym)                                # entry never filled: there is no trade
+            self.j.delete_trade(row["id"])
+            if sym in self.engines:
+                self.engines[sym].phase = ORBRetest.DONE
+            say(f"{sym}: entry order {status} with no fill, removed from the journal")
+            return
         if o.filled_avg_price and float(o.filled_avg_price) != row["entry"]:
             row["entry"] = float(o.filled_avg_price)          # use the real fill price
             self.j.update_entry(row["id"], row["entry"])
@@ -190,6 +212,14 @@ class LiveTrader:
                 reason = "target" if "limit" in str(leg.type.value) else "stop"
                 self._record_exit(sym, leg.filled_at.astimezone(ET), float(leg.filled_avg_price), reason)
                 return
+
+    def _safe_check(self, sym: str) -> None:
+        """_check_broker that can't kill a run: one network blip used to end the close-out
+        wait and leave positions open overnight."""
+        try:
+            self._check_broker(sym)
+        except Exception as e:
+            say(f"{sym}: couldn't check Alpaca ({e}); will try again")
 
     def _unrealized(self) -> float:
         if not self.open or not self.use_broker:
@@ -238,12 +268,20 @@ class LiveTrader:
         row = self.open[sym]
         o = self.tc.get_order_by_id(row["broker_order_id"], GetOrderByIdRequest(nested=True))
         live_states = ("new", "accepted", "held", "partially_filled", "pending_cancel", "pending_replace")
-        for leg in o.legs or []:
-            if str(leg.status.value) in live_states[:4]:
-                try:
-                    self.tc.cancel_order_by_id(leg.id)
-                except Exception as e:                  # cancelling one bracket leg auto-cancels the other
-                    say(f"{sym}: cancel of {leg.type.value} leg skipped ({e})")
+        tried = set()
+        for _ in range(len(o.legs or [])):
+            # Cancelling one bracket leg makes Alpaca cancel its sibling, so re-read the legs
+            # after each cancel instead of cancelling a leg that is already pending_cancel.
+            leg = next((l for l in o.legs or [] if str(l.status.value) in live_states[:4]
+                        and l.id not in tried), None)
+            if leg is None:
+                break
+            tried.add(leg.id)
+            try:
+                self.tc.cancel_order_by_id(leg.id)
+            except Exception as e:
+                say(f"{sym}: cancel of {leg.type.value} leg skipped ({e})")
+            o = self.tc.get_order_by_id(row["broker_order_id"], GetOrderByIdRequest(nested=True))
         for _ in range(15):                             # wait until no leg still holds the shares
             _time.sleep(1)
             o = self.tc.get_order_by_id(row["broker_order_id"], GetOrderByIdRequest(nested=True))
@@ -280,6 +318,14 @@ class LiveTrader:
         if price is None:
             price = mark
             say(f"{sym}: close fill not reported after 60 s, using last quote {price:.2f}")
+        # A stop/target leg may have partly filled before it was cancelled: blend those shares
+        # in, or their P&L is booked at the close price.
+        part = [(float(l.filled_qty), float(l.filled_avg_price)) for l in legs
+                if float(getattr(l, "filled_qty", 0) or 0) > 0 and getattr(l, "filled_avg_price", None)]
+        done = sum(q for q, _ in part)
+        if part and 0 < done < row["qty"]:
+            price = (sum(q * p for q, p in part) + (row["qty"] - done) * price) / row["qty"]
+            say(f"{sym}: {done:g} sh already filled on a bracket leg, blended exit {price:.2f}")
         self._record_exit(sym, datetime.now(ET), price, reason)
 
     # ---- signals -------------------------------------------------------
@@ -327,7 +373,7 @@ class LiveTrader:
             self.open[sym] = row
             self.engines.setdefault(sym, ORBRetest(sym, self.today, Levels()))
             if self.use_broker:
-                self._check_broker(sym)
+                self._safe_check(sym)
             if sym in self.open:
                 try:
                     self._flatten(sym, row["entry"], "stale_close")
@@ -347,7 +393,7 @@ class LiveTrader:
             self.open[row["symbol"]] = row
             self.engines[row["symbol"]] = ORBRetest(row["symbol"], self.today, Levels())
         for sym in list(self.open):
-            self._check_broker(sym)                 # stop or target already hit?
+            self._safe_check(sym)                   # stop or target already hit?
         if not self.open:
             say("Close-out: every trade already hit its stop or target.")
             return
@@ -360,7 +406,7 @@ class LiveTrader:
             say(f"Close-out: waiting {wait/60:.0f} min until {flat_at:%H:%M} ET")
             while datetime.now(ET) < flat_at:      # keep recording fills while we wait
                 for sym in list(self.open):
-                    self._check_broker(sym)
+                    self._safe_check(sym)
                 if not self.open:
                     say("Close-out: all trades finished before the flat time.")
                     return
@@ -383,6 +429,24 @@ class LiveTrader:
                 say(f"{sym}: {line}")
         seen[sym] = len(eng.log)
 
+    def _run_end(self, close: datetime, until, now: datetime):
+        """When this run stops taking entries. None = started too late, do nothing."""
+        end = close + timedelta(minutes=1)
+        if until is None:
+            return end
+        if close.time() < EARLY_CLOSE_BEFORE:
+            # Half day (e.g. day after Thanksgiving, 13:00 close): the close-out crons all land
+            # after the bell and the DAY bracket legs expire at 13:00, so open trades would sit
+            # unprotected until the next session. Stay on and flatten at close - 5 min instead.
+            say(f"Early close today ({close:%H:%M} ET): staying on to flatten at {close - timedelta(minutes=5):%H:%M} ET")
+            return end
+        end = min(end, datetime.combine(self.today, until, ET))
+        if now >= end:          # a late manual run would otherwise overwrite today's outcomes
+            say(f"Morning run started after {end:%H:%M} ET: too late for entries, nothing to do.")
+            return None
+        say(f"Morning run: taking entries until {end:%H:%M} ET; Alpaca holds stops/targets after that")
+        return end
+
     def run(self, until=None) -> None:
         say(f"Risk per trade today: ${self.cfg.risk.risk_per_trade * self.factor:,.2f}"
             + (f" (compound sizing, factor {self.factor:.2f})" if self.cfg.risk.sizing == "compound" else ""))
@@ -390,10 +454,9 @@ class LiveTrader:
         close = self._wait_for_market()
         flat = (close - timedelta(minutes=5)).time()
         self._reconcile_old()
-        end = close + timedelta(minutes=1)
-        if until is not None:
-            end = min(end, datetime.combine(self.today, until, ET))
-            say(f"Morning run: taking entries until {end:%H:%M} ET; Alpaca holds stops/targets after that")
+        end = self._run_end(close, until, datetime.now(ET))
+        if end is None:
+            return
         prev_rth = self._prior_day_levels()
         start = datetime.combine(self.today, datetime.min.time(), ET).replace(hour=4)
         mins = self.cfg.strategy.bar_minutes
@@ -431,7 +494,7 @@ class LiveTrader:
         for sym, eng in self.engines.items():          # safety net, then save the day
             if sym in self.open and early_stop:
                 if self.use_broker:
-                    self._check_broker(sym)
+                    self._safe_check(sym)
                 if sym in self.open:
                     say(f"{sym}: still open, Alpaca's stop/target protect it; close-out run handles 15:55")
             elif sym in self.open:

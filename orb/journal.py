@@ -83,14 +83,20 @@ class Journal:
 
     def close_trade(self, trade_id: int, exit_time: datetime, exit_px: float, reason: str,
                     pnl: float) -> None:
-        row = self.db.execute("SELECT direction, entry, stop FROM trades WHERE id=?",
+        row = self.db.execute("SELECT direction, entry, stop, qty FROM trades WHERE id=?",
                               (trade_id,)).fetchone()
-        risk = abs(row["entry"] - row["stop"])
-        sign = 1 if row["direction"] == "long" else -1
-        r = (exit_px - row["entry"]) * sign / risk if risk else 0.0
+        risk = abs(row["entry"] - row["stop"]) if row["stop"] is not None else 0.0
+        # R from the booked P&L, so slippage counts against R the same way the labs count it
+        r = pnl / (risk * row["qty"]) if risk and row["qty"] else 0.0
         self.db.execute("UPDATE trades SET exit_time=?, exit=?, exit_reason=?, pnl=?, r_multiple=? "
                         "WHERE id=?", (exit_time.isoformat(), exit_px, reason, round(pnl, 2),
                                        round(r, 3), trade_id))
+        self.db.commit()
+
+    def delete_trade(self, trade_id: int) -> None:
+        """An entry order that never filled: there was no trade, so no row."""
+        self.db.execute("DELETE FROM votes WHERE trade_id=?", (trade_id,))
+        self.db.execute("DELETE FROM trades WHERE id=?", (trade_id,))
         self.db.commit()
 
     def save_session(self, run_id: str, mode: str, symbol: str, session_date, outcome: str,
