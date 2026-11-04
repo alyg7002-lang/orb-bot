@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T01:01:28-05:00",
+ "generated": "2026-11-04T11:35:04-05:00",
  "trades": [
   {
    "id": 12827,
@@ -1587,6 +1587,43 @@
    }
   },
   {
+   "id": 12846,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 1,
+   "symbol": "AAPL",
+   "session_date": "2026-11-03",
+   "direction": "long",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-03T09:30:00-05:00",
+   "entry_time": "2026-11-03T09:30:00-05:00",
+   "entry": 329.57,
+   "stop": 325.58,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 25,
+   "exit_time": "2026-11-03T09:30:00-05:00",
+   "exit": 325.58,
+   "exit_reason": "stop",
+   "pnl": -100.25,
+   "r_multiple": -1.005,
+   "status": "closed",
+   "days": [
+    "2026-11-03"
+   ],
+   "votes": [],
+   "log": [
+    "long 25 sh @ 329.57 09:30, stop 325.58, exit 325.58 09:30 (stop) P&L $-100.25"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-03"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
    "id": 12843,
    "bot": "ORB",
    "mode": "paper",
@@ -1900,6 +1937,43 @@
      "r": -0.005
     }
    }
+  },
+  {
+   "id": 12845,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 2,
+   "symbol": "TSLA",
+   "session_date": "2026-11-03",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-03T11:33:00-05:00",
+   "entry_time": "2026-11-03T11:33:00-05:00",
+   "entry": 398.18,
+   "stop": 406.49,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 12,
+   "exit_time": "2026-11-03T15:55:00-05:00",
+   "exit": 398.49,
+   "exit_reason": "time",
+   "pnl": -3.96,
+   "r_multiple": -0.04,
+   "status": "closed",
+   "days": [
+    "2026-11-03"
+   ],
+   "votes": [],
+   "log": [
+    "short 12 sh @ 398.18 11:33, stop 406.49, exit 398.49 15:55 (time) P&L $-3.96"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-03"
+   ],
+   "rules": null,
+   "shadow": null
   }
  ],
  "bots": {
@@ -1922,14 +1996,21 @@
  },
  "outcomes": {
   "ORB": {
-   "filtered": 3,
-   "fvg_failed": 5,
+   "filtered": 7,
+   "fvg_failed": 6,
    "news_day": 6,
    "no_breakout": 2,
    "no_data": 5,
    "no_fvg": 1,
    "no_retest": 7,
    "traded": 16
+  },
+  "NR7": {
+   "no_setup": 5
+  },
+  "Vol Breakout": {
+   "no_setup": 3,
+   "traded": 2
   }
  },
  "shadow_start": "2026-11-04"
