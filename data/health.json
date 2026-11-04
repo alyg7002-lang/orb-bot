@@ -1,0 +1,223 @@
+{
+ "generated": "2026-11-04T00:34:41-05:00",
+ "alpaca": {
+  "orders_checked": 27,
+  "trades_checked": 18,
+  "issues": [
+   {
+    "kind": "exit_mismatch",
+    "id": 12832,
+    "journal": 712.33,
+    "alpaca": 712.344286,
+    "text": "QQQ 2026-10-23: exit 712.33 in the journal, 712.34 on Alpaca"
+   },
+   {
+    "kind": "exit_mismatch",
+    "id": 12833,
+    "journal": 212.813158,
+    "alpaca": 216.17,
+    "text": "NVDA 2026-10-23: exit 212.81 in the journal, 216.17 on Alpaca"
+   },
+   {
+    "kind": "exit_mismatch",
+    "id": 12834,
+    "journal": 391.33,
+    "alpaca": 391.353636,
+    "text": "TSLA 2026-10-23: exit 391.33 in the journal, 391.35 on Alpaca"
+   },
+   {
+    "kind": "exit_mismatch",
+    "id": 12836,
+    "journal": 347.04,
+    "alpaca": 347.034706,
+    "text": "AAPL 2026-10-27: exit 347.04 in the journal, 347.03 on Alpaca"
+   },
+   {
+    "kind": "exit_mismatch",
+    "id": 12838,
+    "journal": 403.19,
+    "alpaca": 403.142941,
+    "text": "TSLA 2026-10-29: exit 403.19 in the journal, 403.14 on Alpaca"
+   },
+   {
+    "kind": "exit_mismatch",
+    "id": 12839,
+    "journal": 399.48,
+    "alpaca": 399.494286,
+    "text": "TSLA 2026-10-30: exit 399.48 in the journal, 399.49 on Alpaca"
+   },
+   {
+    "kind": "exit_mismatch",
+    "id": 12840,
+    "journal": 338.77,
+    "alpaca": 338.724231,
+    "text": "AAPL 2026-11-02: exit 338.77 in the journal, 338.72 on Alpaca"
+   },
+   {
+    "kind": "exit_mismatch",
+    "id": 12843,
+    "journal": 754.32,
+    "alpaca": 754.305294,
+    "text": "SPY 2026-11-03: exit 754.32 in the journal, 754.31 on Alpaca"
+   },
+   {
+    "kind": "exit_mismatch",
+    "id": 12844,
+    "journal": 685.61,
+    "alpaca": 685.631667,
+    "text": "QQQ 2026-11-03: exit 685.61 in the journal, 685.63 on Alpaca"
+   }
+  ],
+  "fills": {
+   "12827": {
+    "entry_fill": 766.26,
+    "entry_at": "2026-10-20T13:53:10.319617+00:00",
+    "exit_fill": 768.059688,
+    "exit_at": "2026-10-20T14:01:42.754612+00:00"
+   },
+   "12828": {
+    "entry_fill": 716.023333,
+    "entry_at": "2026-10-20T14:01:16.333364+00:00",
+    "exit_fill": 721.77,
+    "exit_at": "2026-10-20T14:28:05.034196+00:00"
+   },
+   "12829": {
+    "entry_fill": 216.3,
+    "entry_at": "2026-10-22T14:08:19.500696+00:00",
+    "exit_fill": 212.02,
+    "exit_at": "2026-10-22T18:05:17.997578+00:00"
+   },
+   "12830": {
+    "entry_fill": 765.28,
+    "entry_at": "2026-10-22T14:21:15.388415+00:00",
+    "exit_fill": 762.36,
+    "exit_at": "2026-10-22T14:32:35.041152+00:00"
+   },
+   "12831": {
+    "entry_fill": 344.12,
+    "entry_at": "2026-10-22T14:23:16.228899+00:00",
+    "exit_fill": 347.27,
+    "exit_at": "2026-10-22T19:04:55.260721+00:00"
+   },
+   "12832": {
+    "entry_fill": 705.765714,
+    "entry_at": "2026-10-23T14:04:22.156451+00:00",
+    "exit_fill": 712.344286,
+    "exit_at": "2026-10-26T19:55:08.452296+00:00"
+   },
+   "12833": {
+    "entry_fill": 212.813158,
+    "entry_at": "2026-10-23T14:30:12.802581+00:00",
+    "exit_fill": 216.17,
+    "exit_at": "2026-10-26T19:55:19.632659+00:00"
+   },
+   "12834": {
+    "entry_fill": 376.56,
+    "entry_at": "2026-10-23T15:17:20.198306+00:00",
+    "exit_fill": 391.353636,
+    "exit_at": "2026-10-26T19:55:36.657917+00:00"
+   },
+   "12835": {
+    "entry_fill": 765.86,
+    "entry_at": "2026-10-27T13:54:19.330576+00:00",
+    "exit_fill": 768.257059,
+    "exit_at": "2026-10-27T14:54:12.676053+00:00"
+   },
+   "12836": {
+    "entry_fill": 345.71,
+    "entry_at": "2026-10-27T14:34:11.137990+00:00",
+    "exit_fill": 347.034706,
+    "exit_at": "2026-10-27T19:55:06.876527+00:00"
+   },
+   "12837": {
+    "entry_fill": 769.916177,
+    "entry_at": "2026-10-29T14:33:20.252167+00:00",
+    "exit_fill": 767.236765,
+    "exit_at": "2026-10-29T17:47:34.050834+00:00"
+   },
+   "12838": {
+    "entry_fill": 406.474706,
+    "entry_at": "2026-10-29T14:41:23.608092+00:00",
+    "exit_fill": 403.142941,
+    "exit_at": "2026-10-29T19:55:09.330046+00:00"
+   },
+   "12839": {
+    "entry_fill": 395.102143,
+    "entry_at": "2026-10-30T13:58:12.659999+00:00",
+    "exit_fill": 399.494286,
+    "exit_at": "2026-10-30T19:55:10.562398+00:00"
+   },
+   "12840": {
+    "entry_fill": 339.8,
+    "entry_at": "2026-11-02T14:59:13.599670+00:00",
+    "exit_fill": 338.724231,
+    "exit_at": "2026-11-02T20:55:17.297465+00:00"
+   },
+   "12841": {
+    "entry_fill": 209.876061,
+    "entry_at": "2026-11-02T15:28:15.699490+00:00",
+    "exit_fill": 206.748182,
+    "exit_at": "2026-11-02T16:27:15.512940+00:00"
+   },
+   "12842": {
+    "entry_fill": 412.47,
+    "entry_at": "2026-11-02T15:42:16.105518+00:00",
+    "exit_fill": 403.53,
+    "exit_at": "2026-11-02T19:37:23.513861+00:00"
+   },
+   "12843": {
+    "entry_fill": 755.2,
+    "entry_at": "2026-11-03T15:47:10.865056+00:00",
+    "exit_fill": 754.305294,
+    "exit_at": "2026-11-03T20:55:13.207075+00:00"
+   },
+   "12844": {
+    "entry_fill": 687.44375,
+    "entry_at": "2026-11-03T15:57:25.155985+00:00",
+    "exit_fill": 685.631667,
+    "exit_at": "2026-11-03T20:55:49.438216+00:00"
+   }
+  }
+ },
+ "coverage": {
+  "paper": {
+   "bot": "ORB",
+   "first_day": "2026-10-21",
+   "days_logged": 9,
+   "last_day": "2026-11-03",
+   "missing": [
+    "2026-10-26"
+   ]
+  },
+  "paper_rsi2": {
+   "bot": "RSI(2)",
+   "first_day": null,
+   "days_logged": 0,
+   "last_day": null,
+   "missing": []
+  },
+  "paper_nr7": {
+   "bot": "NR7",
+   "first_day": "2026-11-03",
+   "days_logged": 0,
+   "last_day": null,
+   "missing": []
+  },
+  "paper_vol_breakout": {
+   "bot": "Vol Breakout",
+   "first_day": "2026-11-03",
+   "days_logged": 0,
+   "last_day": null,
+   "missing": []
+  }
+ },
+ "candles": [
+  {
+   "kind": "exit_outside_candle",
+   "id": 12833,
+   "bot": "paper",
+   "text": "NVDA 2026-10-23: exit 212.81 but price traded 215.82-216.33 at 10/26 15:55"
+  }
+ ],
+ "journal_only_with_orders": []
+}
