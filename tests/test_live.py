@@ -103,7 +103,7 @@ class TestLive(unittest.TestCase):
         t._handle(Signal("exit", tr), datetime.now(ET), 498)
         row = t.j.trades("paper")[0]
         self.assertEqual(t.tc.submitted, [])
-        self.assertAlmostEqual(row["r_multiple"], -1.0)
+        self.assertAlmostEqual(row["r_multiple"], -1.01)   # -1R plus $0.01/sh slippage each way
 
     def test_breakeven_moves_alpaca_stop_leg(self):
         t = make_trader()
@@ -253,3 +253,88 @@ class TestLive(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestBugSweep(unittest.TestCase):
+    """Bugs found in the 11/04 sweep."""
+    def setUp(self):
+        live.say = lambda m: None
+        live._time.sleep = lambda s: None
+
+    def test_half_day_morning_run_stays_on_to_flatten(self):
+        t = make_trader()
+        close = datetime(2026, 10, 15, 13, 0, tzinfo=ET)
+        end = t._run_end(close, live.time(11, 35), datetime(2026, 10, 15, 9, 0, tzinfo=ET))
+        self.assertEqual(end, close + timedelta(minutes=1))     # not 11:35: legs expire at 13:00
+
+    def test_normal_day_morning_run_stops_at_until(self):
+        t = make_trader()
+        close = datetime(2026, 10, 15, 16, 0, tzinfo=ET)
+        end = t._run_end(close, live.time(11, 35), datetime(2026, 10, 15, 9, 0, tzinfo=ET))
+        self.assertEqual(end, datetime(2026, 10, 15, 11, 35, tzinfo=ET))
+
+    def test_late_morning_run_does_nothing(self):
+        t = make_trader()
+        close = datetime(2026, 10, 15, 16, 0, tzinfo=ET)
+        self.assertIsNone(t._run_end(close, live.time(11, 35), datetime(2026, 10, 15, 12, 19, tzinfo=ET)))
+
+    def test_rejected_entry_is_removed_not_stranded(self):
+        t = make_trader()
+        t._handle(Signal("entry", trade()), datetime.now(ET), 500)
+        t.tc.get_order_by_id = lambda oid, filt=None: NS(status=NS(value="rejected"), filled_qty="0",
+                                                          filled_avg_price=None, legs=[])
+        t._check_broker("SPY")
+        self.assertNotIn("SPY", t.open)
+        self.assertEqual(t.j.trades("paper", closed_only=False), [])
+
+    def test_network_error_in_closeout_wait_does_not_kill_run(self):
+        t = make_trader()
+        t._handle(Signal("entry", trade()), datetime.now(ET), 500)
+        t.open.clear(); t.engines.clear()
+        t.tc.get_clock = lambda: NS(is_open=True, next_close=datetime.now(ET) + timedelta(minutes=2))
+        orig, calls = t.tc.get_order_by_id, []
+        def flaky(oid, filt=None):
+            calls.append(oid)
+            if len(calls) == 1:
+                raise ConnectionError("reset by peer")
+            return orig(oid, filt)
+        t.tc.get_order_by_id = flaky
+        t.closeout()                                       # must not raise
+        self.assertEqual(t.tc.closed, ["SPY"])
+        self.assertEqual(t.j.trades("paper")[0]["exit_reason"], "time")
+
+    def test_partial_leg_fill_blends_exit_price(self):
+        t = make_trader()
+        t._handle(Signal("entry", trade()), datetime.now(ET), 500)     # 50 sh
+        tp = t.tc.legs[0]
+        def cancel(oid):
+            t.tc.cancelled.append(oid)
+            if oid == "tp":                       # 20 of 50 filled at the target, rest cancelled
+                tp.status.value, tp.filled_qty, tp.filled_avg_price = "canceled", "20", "504.00"
+                t.tc.legs[1].status.value = "canceled"
+        t.tc.cancel_order_by_id = cancel
+        t._flatten("SPY", 501.0)
+        row = t.j.trades("paper")[0]
+        self.assertAlmostEqual(row["exit"], (20 * 504.00 + 30 * 501.10) / 50, places=4)
+
+    def test_sibling_leg_already_cancelling_is_not_cancelled_again(self):
+        t = make_trader()
+        t._handle(Signal("entry", trade()), datetime.now(ET), 500)
+        def cancel(oid):
+            t.tc.cancelled.append(oid)
+            t.tc.legs[1].status.value = "pending_cancel"     # Alpaca cancels the sibling itself
+            t.tc.legs[0].status.value = "canceled"
+        t.tc.cancel_order_by_id = cancel
+        t._flatten("SPY", 501.0)
+        self.assertEqual(t.tc.cancelled, ["tp"])
+
+    def test_timed_out_submit_that_alpaca_accepted_is_tracked(self):
+        t = make_trader()
+        def submit(req):
+            t.tc.submitted.append(req)
+            raise TimeoutError("read timed out")
+        t.tc.submit_order = submit
+        t.tc.get_order_by_client_id = lambda cid: NS(id="parent-1", status=NS(value="accepted"))
+        t._handle(Signal("entry", trade()), datetime.now(ET), 500)
+        self.assertIn("SPY", t.open)
+        self.assertEqual(t.open["SPY"]["broker_order_id"], "parent-1")

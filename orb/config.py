@@ -73,8 +73,6 @@ def validate(p: StrategyParams) -> None:
         raise SystemExit('stop_mode "fvg" only works with name = "orb_fvg"')
     if p.fvg_mode not in ("edge", "any"):
         raise SystemExit('fvg_mode must be "edge" or "any"')
-    if p.target_mode not in ("levels", "fixed"):
-        raise SystemExit('target_mode must be "levels" or "fixed"')
     if p.target_mode == "fixed" and p.target_r <= 0:
         raise SystemExit("target_r must be above 0")
     if p.confirm_bars < 0:
