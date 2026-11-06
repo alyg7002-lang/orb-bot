@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-06T11:35:16-05:00",
+ "generated": "2026-11-06T15:50:29-05:00",
  "trades": [
   {
    "id": 12827,
@@ -2454,7 +2454,7 @@
    "traded": 2
   },
   "RSI(2)": {
-   "no_setup": 10
+   "no_setup": 15
   },
   "Vol Breakout": {
    "no_setup": 3,
