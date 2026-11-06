@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-05T15:50:40-05:00",
+ "generated": "2026-11-06T11:35:16-05:00",
  "trades": [
   {
    "id": 12827,
@@ -2233,6 +2233,191 @@
    ],
    "rules": null,
    "shadow": null
+  },
+  {
+   "id": 12857,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 8,
+   "symbol": "TSLA",
+   "session_date": "2026-11-05",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-05T09:34:00-05:00",
+   "entry_time": "2026-11-05T09:34:00-05:00",
+   "entry": 365.81,
+   "stop": 374.08,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 13,
+   "exit_time": "2026-11-05T15:55:00-05:00",
+   "exit": 344.86,
+   "exit_reason": "time",
+   "pnl": 272.09,
+   "r_multiple": 2.531,
+   "status": "closed",
+   "days": [
+    "2026-11-05"
+   ],
+   "votes": [],
+   "log": [
+    "short 13 sh @ 365.81 09:34, stop 374.08, exit 344.86 15:55 (time) P&L $+272.09"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-05"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12855,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 9,
+   "symbol": "QQQ",
+   "session_date": "2026-11-05",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-05T09:36:00-05:00",
+   "entry_time": "2026-11-05T09:36:00-05:00",
+   "entry": 676.3,
+   "stop": 683.09,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 14,
+   "exit_time": "2026-11-05T15:55:00-05:00",
+   "exit": 651.54,
+   "exit_reason": "time",
+   "pnl": 346.36,
+   "r_multiple": 3.644,
+   "status": "closed",
+   "days": [
+    "2026-11-05"
+   ],
+   "votes": [],
+   "log": [
+    "short 14 sh @ 676.30 09:36, stop 683.09, exit 651.54 15:55 (time) P&L $+346.36"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-05"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12856,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 10,
+   "symbol": "NVDA",
+   "session_date": "2026-11-05",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-05T09:37:00-05:00",
+   "entry_time": "2026-11-05T09:37:00-05:00",
+   "entry": 192.515,
+   "stop": 196.07,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 29,
+   "exit_time": "2026-11-05T15:55:00-05:00",
+   "exit": 183.35,
+   "exit_reason": "time",
+   "pnl": 265.2,
+   "r_multiple": 2.572,
+   "status": "closed",
+   "days": [
+    "2026-11-05"
+   ],
+   "votes": [],
+   "log": [
+    "short 29 sh @ 192.51 09:37, stop 196.07, exit 183.35 15:55 (time) P&L $+265.20"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-05"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12854,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 11,
+   "symbol": "SPY",
+   "session_date": "2026-11-05",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-05T09:41:00-05:00",
+   "entry_time": "2026-11-05T09:41:00-05:00",
+   "entry": 758.97,
+   "stop": 765.47,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 15,
+   "exit_time": "2026-11-05T15:55:00-05:00",
+   "exit": 735.76,
+   "exit_reason": "time",
+   "pnl": 347.85,
+   "r_multiple": 3.568,
+   "status": "closed",
+   "days": [
+    "2026-11-05"
+   ],
+   "votes": [],
+   "log": [
+    "short 15 sh @ 758.97 09:41, stop 765.47, exit 735.76 15:55 (time) P&L $+347.85"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-05"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12858,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 12,
+   "symbol": "AAPL",
+   "session_date": "2026-11-05",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-05T10:49:00-05:00",
+   "entry_time": "2026-11-05T10:49:00-05:00",
+   "entry": 347.135,
+   "stop": 353.89,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 16,
+   "exit_time": "2026-11-05T15:55:00-05:00",
+   "exit": 346.02,
+   "exit_reason": "time",
+   "pnl": 17.52,
+   "r_multiple": 0.162,
+   "status": "closed",
+   "days": [
+    "2026-11-05"
+   ],
+   "votes": [],
+   "log": [
+    "short 16 sh @ 347.13 10:49, stop 353.89, exit 346.02 15:55 (time) P&L $+17.52"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-05"
+   ],
+   "rules": null,
+   "shadow": null
   }
  ],
  "bots": {
@@ -2257,7 +2442,7 @@
   "ORB": {
    "filtered": 12,
    "fvg_failed": 6,
-   "news_day": 6,
+   "news_day": 11,
    "no_breakout": 2,
    "no_data": 5,
    "no_fvg": 1,
@@ -2265,7 +2450,7 @@
    "traded": 16
   },
   "NR7": {
-   "no_setup": 8,
+   "no_setup": 13,
    "traded": 2
   },
   "RSI(2)": {
@@ -2273,7 +2458,7 @@
   },
   "Vol Breakout": {
    "no_setup": 3,
-   "traded": 7
+   "traded": 12
   }
  },
  "shadow_start": "2026-11-04"

@@ -558,3 +558,38 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [15:50:01] RSI(2) AAPL: no setup (price 346.09, 200-day avg 298.34, RSI(2) 59.4)
 [15:50:40] 5 NR7 Breakout (Crabel): account $10,160.37
 [15:50:40] 6 Volatility Breakout (Williams): account $9,809.38
+===== Fri 11/06/2026 08:46:38 prior-day bots (GitHub) =====
+[08:46:47] 5 NR7 Breakout (Crabel) SPY 2026-11-05: no setup
+[08:46:47] 5 NR7 Breakout (Crabel) QQQ 2026-11-05: no setup
+[08:46:47] 5 NR7 Breakout (Crabel) NVDA 2026-11-05: no setup
+[08:46:47] 5 NR7 Breakout (Crabel) TSLA 2026-11-05: no setup
+[08:46:47] 5 NR7 Breakout (Crabel) AAPL 2026-11-05: no setup
+[08:46:47] 5 NR7 Breakout (Crabel): account $10,160.37
+[08:46:47] 6 Volatility Breakout (Williams) SPY 2026-11-05: short 15 sh @ 758.97 09:41, stop 765.47, exit 735.76 15:55 (time) P&L $+347.85
+[08:46:47] 6 Volatility Breakout (Williams) QQQ 2026-11-05: short 14 sh @ 676.30 09:36, stop 683.09, exit 651.54 15:55 (time) P&L $+346.36
+[08:46:47] 6 Volatility Breakout (Williams) NVDA 2026-11-05: short 29 sh @ 192.51 09:37, stop 196.07, exit 183.35 15:55 (time) P&L $+265.20
+[08:46:47] 6 Volatility Breakout (Williams) TSLA 2026-11-05: short 13 sh @ 365.81 09:34, stop 374.08, exit 344.86 15:55 (time) P&L $+272.09
+[08:46:47] 6 Volatility Breakout (Williams) AAPL 2026-11-05: short 16 sh @ 347.13 10:49, stop 353.89, exit 346.02 15:55 (time) P&L $+17.52
+[08:46:47] 6 Volatility Breakout (Williams): account $11,058.41
+===== Fri 11/06/2026 08:46:47 morning (GitHub) =====
+[08:46:48] Risk per trade today: $103.67 (compound sizing, factor 1.04)
+[08:46:48] ORB bot (orb_fvg, 1-min) | paper | broker orders: ON
+[08:46:48] Waiting 43 min for the open...
+[09:30:05] Morning run: taking entries until 11:35 ET; Alpaca holds stops/targets after that
+[09:30:28] SPY: NOT trading today - Jobs report
+[09:30:28] SPY: levels {'prior day high': 765.97, 'prior day low': 732.71, 'premarket high': 735.81, 'premarket low': 733.76}
+[09:30:28] QQQ: NOT trading today - Jobs report
+[09:30:28] QQQ: levels {'prior day high': 683.65, 'prior day low': 647.12, 'premarket high': 658.15, 'premarket low': 656.47}
+[09:30:28] NVDA: NOT trading today - Jobs report
+[09:30:28] NVDA: levels {'prior day high': 196.25, 'prior day low': 181.462, 'premarket high': 189.89, 'premarket low': 188.74}
+[09:30:28] TSLA: NOT trading today - Jobs report
+[09:30:28] TSLA: levels {'prior day high': 374.3, 'prior day low': 338.15, 'premarket high': 352.81, 'premarket low': 348.87}
+[09:30:28] AAPL: NOT trading today - Jobs report
+[09:30:28] AAPL: levels {'prior day high': 355.38, 'prior day low': 342.06, 'premarket high': 341.18, 'premarket low': 338.08}
+[11:35:13] SPY: news_day
+[11:35:13] QQQ: news_day
+[11:35:13] NVDA: news_day
+[11:35:13] TSLA: news_day
+[11:35:13] AAPL: news_day
+[11:35:13] Done for today.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
