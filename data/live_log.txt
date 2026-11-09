@@ -606,3 +606,33 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [15:50:00] RSI(2) AAPL: no setup (price 343.45, 200-day avg 298.81, RSI(2) 48.6)
 [15:50:29] 5 NR7 Breakout (Crabel): account $10,160.37
 [15:50:29] 6 Volatility Breakout (Williams): account $11,058.40
+===== Mon 11/09/2026 08:10:40 prior-day bots (GitHub) =====
+[08:10:48] 5 NR7 Breakout (Crabel) SPY 2026-11-06: news day (Jobs report), skipped
+[08:10:48] 5 NR7 Breakout (Crabel) QQQ 2026-11-06: news day (Jobs report), skipped
+[08:10:48] 5 NR7 Breakout (Crabel) NVDA 2026-11-06: news day (Jobs report), skipped
+[08:10:48] 5 NR7 Breakout (Crabel) TSLA 2026-11-06: news day (Jobs report), skipped
+[08:10:48] 5 NR7 Breakout (Crabel) AAPL 2026-11-06: news day (Jobs report), skipped
+[08:10:48] 5 NR7 Breakout (Crabel): account $10,160.37
+[08:10:48] 6 Volatility Breakout (Williams) SPY 2026-11-06: news day (Jobs report), skipped
+[08:10:48] 6 Volatility Breakout (Williams) QQQ 2026-11-06: news day (Jobs report), skipped
+[08:10:48] 6 Volatility Breakout (Williams) NVDA 2026-11-06: news day (Jobs report), skipped
+[08:10:48] 6 Volatility Breakout (Williams) TSLA 2026-11-06: news day (Jobs report), skipped
+[08:10:48] 6 Volatility Breakout (Williams) AAPL 2026-11-06: news day (Jobs report), skipped
+[08:10:48] 6 Volatility Breakout (Williams): account $11,058.40
+===== Mon 11/09/2026 08:10:49 morning (GitHub) =====
+[08:10:49] Risk per trade today: $103.67 (compound sizing, factor 1.04)
+[08:10:49] ORB bot (orb_fvg, 1-min) | paper | broker orders: ON
+[08:10:49] Waiting 79 min for the open...
+[09:30:05] Morning run: taking entries until 11:35 ET; Alpaca holds stops/targets after that
+[09:30:13] SPY: levels {'prior day high': 742.2104, 'prior day low': 734.58, 'premarket high': 742.38, 'premarket low': 741.75}
+[09:30:13] QQQ: levels {'prior day high': 664.52, 'prior day low': 653.99, 'premarket high': 663.1, 'premarket low': 660.76}
+[09:30:13] NVDA: levels {'prior day high': 194.895, 'prior day low': 185.22, 'premarket high': 177.42, 'premarket low': 172.97}
+[09:30:13] TSLA: levels {'prior day high': 363.8398, 'prior day low': 347.6, 'premarket high': 361.64, 'premarket low': 361.64}
+[09:30:13] AAPL: levels {'prior day high': 345.79, 'prior day low': 338.3, 'premarket high': 343.99, 'premarket low': 343.14}
+[11:35:13] SPY: filtered
+[11:35:13] QQQ: filtered
+[11:35:13] NVDA: filtered
+[11:35:13] TSLA: filtered
+[11:35:13] AAPL: filtered
+[11:35:13] Done for today.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html

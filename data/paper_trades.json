@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-06T15:50:29-05:00",
+ "generated": "2026-11-09T11:35:13-05:00",
  "trades": [
   {
    "id": 12827,
@@ -2440,7 +2440,7 @@
  },
  "outcomes": {
   "ORB": {
-   "filtered": 12,
+   "filtered": 17,
    "fvg_failed": 6,
    "news_day": 11,
    "no_breakout": 2,
@@ -2450,6 +2450,7 @@
    "traded": 16
   },
   "NR7": {
+   "news": 5,
    "no_setup": 13,
    "traded": 2
   },
@@ -2457,6 +2458,7 @@
    "no_setup": 15
   },
   "Vol Breakout": {
+   "news": 5,
    "no_setup": 3,
    "traded": 12
   }
