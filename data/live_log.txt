@@ -684,3 +684,16 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [11:35:14] AAPL: news_day
 [11:35:14] Done for today.
 Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Tue 11/10/2026 14:34:21 close-out (GitHub) =====
+[14:34:22] Close-out: no open trades.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Tue 11/10/2026 14:34:22 RSI(2) bot (GitHub) =====
+[14:34:23] RSI(2): waiting 76 min until 15:50 ET to decide
+[15:50:00] RSI(2) bot | account $10,000.00 | risk 1% per trade (2 x ATR risk unit) | journal-only paper
+[15:50:00] RSI(2) SPY: no setup (price 750.29, 200-day avg 730.99, RSI(2) 59.8)
+[15:50:00] RSI(2) QQQ: no setup (price 674.43, 200-day avg 681.41, RSI(2) 57.0)
+[15:50:00] RSI(2) NVDA: no setup (price 168.43, 200-day avg 204.54, RSI(2) 7.6)
+[15:50:00] RSI(2) TSLA: no setup (price 378.68, 200-day avg 383.23, RSI(2) 69.6)
+[15:50:00] RSI(2) AAPL: no setup (price 349.75, 200-day avg 299.79, RSI(2) 68.8)
+[15:50:27] 5 NR7 Breakout (Crabel): account $10,160.37
+[15:50:27] 6 Volatility Breakout (Williams): account $11,725.25
