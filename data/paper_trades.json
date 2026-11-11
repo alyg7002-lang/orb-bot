@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10T15:50:27-05:00",
+ "generated": "2026-11-11T11:35:10-05:00",
  "trades": [
   {
    "id": 12827,
@@ -2603,6 +2603,393 @@
    ],
    "rules": null,
    "shadow": null
+  },
+  {
+   "id": 12864,
+   "bot": "ORB",
+   "mode": "paper",
+   "n": 19,
+   "symbol": "SPY",
+   "session_date": "2026-11-11",
+   "direction": "short",
+   "or_high": 757.9,
+   "or_low": 755.71,
+   "breakout_time": "2026-11-11T09:45:00-05:00",
+   "entry_time": "2026-11-11T10:15:00-05:00",
+   "entry": 755.54,
+   "stop": 757.9,
+   "target": 751.6375,
+   "target_label": "1.5R fixed",
+   "qty": 34,
+   "exit_time": "2026-11-11T10:51:27.924919-05:00",
+   "exit": 757.91,
+   "exit_reason": "stop",
+   "pnl": -80.58,
+   "r_multiple": -1.004,
+   "status": "closed",
+   "days": [
+    "2026-11-11"
+   ],
+   "votes": [
+    {
+     "voter": "candle_body",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "candle_force",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "close_location",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "daily_trend",
+     "vote": 1,
+     "why": "yesterday's close below the 20-day average"
+    },
+    {
+     "voter": "ema_trend",
+     "vote": 1,
+     "why": "EMA9 below EMA20"
+    },
+    {
+     "voter": "extension",
+     "vote": 1,
+     "why": "entry 0.1x range width past the edge"
+    },
+    {
+     "voter": "fvg_depth",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "market",
+     "vote": 1,
+     "why": "SPY -0.18% since the open"
+    },
+    {
+     "voter": "narrow_range",
+     "vote": 1,
+     "why": "opening range = 18% of the 14-day ATR"
+    },
+    {
+     "voter": "time_of_day",
+     "vote": 1,
+     "why": "entry 10:15"
+    },
+    {
+     "voter": "vwap",
+     "vote": 1,
+     "why": "entry below VWAP 756.34"
+    },
+    {
+     "voter": "rel_strength",
+     "vote": 0,
+     "why": "SPY itself"
+    },
+    {
+     "voter": "rsi",
+     "vote": 0,
+     "why": "RSI 40: neutral"
+    },
+    {
+     "voter": "gap",
+     "vote": -1,
+     "why": "gap +0.90% against the trade"
+    },
+    {
+     "voter": "room",
+     "vote": -1,
+     "why": "blocked by prior day high 752.14"
+    },
+    {
+     "voter": "volume",
+     "vote": -1,
+     "why": "trigger candle volume 0.8x average"
+    }
+   ],
+   "log": [
+    "Range set: 755.71 - 757.90",
+    "09:45 Breakout short, close 755.64",
+    "10:10 FVG short 755.91-756.29",
+    "10:13 ORB bot: SPY FVG 755.91-756.29 retested 50% deep; rejection candle body 100% of range, closed in the bottom 0%; candle 1.5x the average 1-min range",
+    "10:13 Challenger: no objections -> DOUBLE ACCEPTED",
+    "10:13 Rejection candle, waiting 1 candle(s) for follow-through",
+    "10:14 ENTRY short @ 755.39, stop 757.90, target 751.64 (1.5R fixed), FVG 755.91-756.29"
+   ],
+   "fvg": [
+    755.91,
+    756.29
+   ],
+   "charts": [
+    "2026-11-11"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12865,
+   "bot": "ORB",
+   "mode": "paper",
+   "n": 20,
+   "symbol": "TSLA",
+   "session_date": "2026-11-11",
+   "direction": "long",
+   "or_high": 392.56,
+   "or_low": 386.465,
+   "breakout_time": "2026-11-11T10:12:00-05:00",
+   "entry_time": "2026-11-11T10:20:00-05:00",
+   "entry": 393.66,
+   "stop": 386.465,
+   "target": 404.94,
+   "target_label": "1.5R fixed",
+   "qty": 14,
+   "exit_time": null,
+   "exit": null,
+   "exit_reason": null,
+   "pnl": null,
+   "r_multiple": null,
+   "status": "open",
+   "days": [
+    "2026-11-11"
+   ],
+   "votes": [
+    {
+     "voter": "candle_force",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "ema_trend",
+     "vote": 1,
+     "why": "EMA9 above EMA20"
+    },
+    {
+     "voter": "extension",
+     "vote": 1,
+     "why": "entry 0.2x range width past the edge"
+    },
+    {
+     "voter": "fvg_depth",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "gap",
+     "vote": 1,
+     "why": "gap +1.79% with the trade"
+    },
+    {
+     "voter": "rel_strength",
+     "vote": 1,
+     "why": "TSLA +1.95% vs SPY since the open"
+    },
+    {
+     "voter": "room",
+     "vote": 1,
+     "why": "clear path to target"
+    },
+    {
+     "voter": "time_of_day",
+     "vote": 1,
+     "why": "entry 10:20"
+    },
+    {
+     "voter": "vwap",
+     "vote": 1,
+     "why": "entry above VWAP 390.29"
+    },
+    {
+     "voter": "narrow_range",
+     "vote": 0,
+     "why": "opening range = 33% of the 14-day ATR"
+    },
+    {
+     "voter": "rsi",
+     "vote": 0,
+     "why": "RSI 67: neutral"
+    },
+    {
+     "voter": "candle_body",
+     "vote": -1,
+     "why": "challenger: objects"
+    },
+    {
+     "voter": "close_location",
+     "vote": -1,
+     "why": "challenger: objects"
+    },
+    {
+     "voter": "daily_trend",
+     "vote": -1,
+     "why": "yesterday's close below the 20-day average"
+    },
+    {
+     "voter": "market",
+     "vote": -1,
+     "why": "SPY -0.07% since the open"
+    },
+    {
+     "voter": "volume",
+     "vote": -1,
+     "why": "trigger candle volume 0.6x average"
+    }
+   ],
+   "log": [
+    "Range set: 386.46 - 392.56",
+    "10:12 Breakout long, close 393.10",
+    "10:13 FVG long 392.19-392.55",
+    "10:18 ORB bot: TSLA FVG 392.19-392.55 retested 82% deep; rejection candle body 33% of range, closed in the top 61%; candle 1.3x the average 1-min range",
+    "10:18 Challenger: VETO -> weak body: 33% of the candle (needs 50%); close not at the high: top 61% of the candle (needs 33%)",
+    "10:18 (shadow mode: challenger's veto recorded, trade still allowed)",
+    "10:18 Rejection candle, waiting 1 candle(s) for follow-through",
+    "10:19 ENTRY long @ 393.86, stop 386.46, target 404.94 (1.5R fixed), FVG 392.19-392.55"
+   ],
+   "fvg": [
+    392.19,
+    392.55
+   ],
+   "charts": [
+    "2026-11-11"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12866,
+   "bot": "ORB",
+   "mode": "paper",
+   "n": 21,
+   "symbol": "NVDA",
+   "session_date": "2026-11-11",
+   "direction": "long",
+   "or_high": 175.12,
+   "or_low": 171.83,
+   "breakout_time": "2026-11-11T10:51:00-05:00",
+   "entry_time": "2026-11-11T11:26:00-05:00",
+   "entry": 175.7204,
+   "stop": 171.83,
+   "target": 181.355,
+   "target_label": "1.5R fixed",
+   "qty": 27,
+   "exit_time": null,
+   "exit": null,
+   "exit_reason": null,
+   "pnl": null,
+   "r_multiple": null,
+   "status": "open",
+   "days": [
+    "2026-11-11"
+   ],
+   "votes": [
+    {
+     "voter": "candle_body",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "close_location",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "ema_trend",
+     "vote": 1,
+     "why": "EMA9 above EMA20"
+    },
+    {
+     "voter": "extension",
+     "vote": 1,
+     "why": "entry 0.2x range width past the edge"
+    },
+    {
+     "voter": "fvg_depth",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "gap",
+     "vote": 1,
+     "why": "gap +2.33% with the trade"
+    },
+    {
+     "voter": "market",
+     "vote": 1,
+     "why": "SPY +0.30% since the open"
+    },
+    {
+     "voter": "rel_strength",
+     "vote": 1,
+     "why": "NVDA +1.40% vs SPY since the open"
+    },
+    {
+     "voter": "room",
+     "vote": 1,
+     "why": "clear path to target"
+    },
+    {
+     "voter": "volume",
+     "vote": 1,
+     "why": "trigger candle volume 2.7x average"
+    },
+    {
+     "voter": "vwap",
+     "vote": 1,
+     "why": "entry above VWAP 174.13"
+    },
+    {
+     "voter": "narrow_range",
+     "vote": 0,
+     "why": "opening range = 35% of the 14-day ATR"
+    },
+    {
+     "voter": "rsi",
+     "vote": 0,
+     "why": "RSI 58: neutral"
+    },
+    {
+     "voter": "candle_force",
+     "vote": -1,
+     "why": "challenger: objects"
+    },
+    {
+     "voter": "daily_trend",
+     "vote": -1,
+     "why": "yesterday's close below the 20-day average"
+    },
+    {
+     "voter": "time_of_day",
+     "vote": -1,
+     "why": "entry 11:26"
+    }
+   ],
+   "log": [
+    "Range set: 171.83 - 175.12",
+    "09:45 Breakout short, close 171.63",
+    "09:45 FVG short 171.89-172.19",
+    "09:50 FVG 171.89-172.19 failed (closed through it)",
+    "10:51 Direction flipped to long",
+    "10:51 Breakout long, close 175.28",
+    "11:22 FVG long 175.17-175.44",
+    "11:24 ORB bot: NVDA FVG 175.17-175.44 retested 46% deep; rejection candle body 71% of range, closed in the top 7%; candle 0.5x the average 1-min range",
+    "11:24 Challenger: VETO -> no force: candle only 0.5x the recent average (needs 1x)",
+    "11:24 (shadow mode: challenger's veto recorded, trade still allowed)",
+    "11:24 Rejection candle, waiting 1 candle(s) for follow-through",
+    "11:25 ENTRY long @ 175.64, stop 171.83, target 181.35 (1.5R fixed), FVG 175.17-175.44"
+   ],
+   "fvg": [
+    175.17,
+    175.44
+   ],
+   "charts": [
+    "2026-11-11"
+   ],
+   "rules": null,
+   "shadow": null
   }
  ],
  "bots": {
@@ -2630,12 +3017,12 @@
    "news_day": 16,
    "no_breakout": 2,
    "no_data": 5,
-   "no_fvg": 1,
-   "no_retest": 7,
-   "traded": 16
+   "no_fvg": 2,
+   "no_retest": 8,
+   "traded": 19
   },
   "NR7": {
-   "news": 5,
+   "news": 10,
    "no_setup": 18,
    "traded": 2
   },
@@ -2643,7 +3030,7 @@
    "no_setup": 25
   },
   "Vol Breakout": {
-   "news": 5,
+   "news": 10,
    "no_setup": 3,
    "traded": 17
   }

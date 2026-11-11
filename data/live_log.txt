@@ -697,3 +697,57 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [15:50:00] RSI(2) AAPL: no setup (price 349.75, 200-day avg 299.79, RSI(2) 68.8)
 [15:50:27] 5 NR7 Breakout (Crabel): account $10,160.37
 [15:50:27] 6 Volatility Breakout (Williams): account $11,725.25
+===== Wed 11/11/2026 08:06:05 prior-day bots (GitHub) =====
+[08:06:11] 5 NR7 Breakout (Crabel) SPY 2026-11-10: news day (CPI), skipped
+[08:06:11] 5 NR7 Breakout (Crabel) QQQ 2026-11-10: news day (CPI), skipped
+[08:06:11] 5 NR7 Breakout (Crabel) NVDA 2026-11-10: news day (CPI), skipped
+[08:06:11] 5 NR7 Breakout (Crabel) TSLA 2026-11-10: news day (CPI), skipped
+[08:06:11] 5 NR7 Breakout (Crabel) AAPL 2026-11-10: news day (CPI), skipped
+[08:06:11] 5 NR7 Breakout (Crabel): account $10,160.37
+[08:06:11] 6 Volatility Breakout (Williams) SPY 2026-11-10: news day (CPI), skipped
+[08:06:11] 6 Volatility Breakout (Williams) QQQ 2026-11-10: news day (CPI), skipped
+[08:06:11] 6 Volatility Breakout (Williams) NVDA 2026-11-10: news day (CPI), skipped
+[08:06:11] 6 Volatility Breakout (Williams) TSLA 2026-11-10: news day (CPI), skipped
+[08:06:11] 6 Volatility Breakout (Williams) AAPL 2026-11-10: news day (CPI), skipped
+[08:06:11] 6 Volatility Breakout (Williams): account $11,725.25
+===== Wed 11/11/2026 08:06:11 morning (GitHub) =====
+[08:06:11] Risk per trade today: $103.67 (compound sizing, factor 1.04)
+[08:06:11] ORB bot (orb_fvg, 1-min) | paper | broker orders: ON
+[08:06:11] Waiting 84 min for the open...
+[09:30:05] Morning run: taking entries until 11:35 ET; Alpaca holds stops/targets after that
+[09:30:14] SPY: levels {'prior day high': 752.139, 'prior day low': 744.86, 'premarket high': 757.25, 'premarket low': 756.21}
+[09:30:14] QQQ: levels {'prior day high': 680.9499, 'prior day low': 667.0501, 'premarket high': 687.85, 'premarket low': 687.32}
+[09:30:14] NVDA: levels {'prior day high': 174.69, 'prior day low': 165.89, 'premarket high': 175.48, 'premarket low': 174.04}
+[09:30:14] TSLA: levels {'prior day high': 380.0, 'prior day low': 370.4, 'premarket high': 386.22, 'premarket low': 385.62}
+[09:30:14] AAPL: levels {'prior day high': 353.87, 'prior day low': 346.4605, 'premarket high': 349.61, 'premarket low': 346.7}
+[10:14:17] SPY: 10:13 ORB bot: SPY FVG 755.91-756.29 retested 50% deep; rejection candle body 100% of range, closed in the bottom 0%; candle 1.5x the average 1-min range
+[10:14:17] SPY: 10:13 Challenger: no objections -> DOUBLE ACCEPTED
+[10:15:24] SPY: ENTERED short 34 sh @ ~755.39 stop 757.90 target 751.64 (1.5R fixed)
+[10:15:24] SPY: Panel vote on SPY: 11 for, 3 against (net +8)
+[10:15:24] SPY:   FOR: vwap (entry below VWAP 756.34); ema_trend (EMA9 below EMA20); daily_trend (yesterday's close below the 20-day average); market (SPY -0.18% since the open); narrow_range (opening range = 18% of the 14-day ATR); time_of_day (entry 10:15); extension (entry 0.1x range width past the edge); fvg_depth (challenger: ok); candle_body (challenger: ok); close_location (challenger: ok); candle_force (challenger: ok)
+[10:15:24] SPY:   AGAINST: gap (gap +0.90% against the trade); volume (trigger candle volume 0.8x average); room (blocked by prior day high 752.14)
+[10:19:09] TSLA: 10:18 ORB bot: TSLA FVG 392.19-392.55 retested 82% deep; rejection candle body 33% of range, closed in the top 61%; candle 1.3x the average 1-min range
+[10:19:09] TSLA: 10:18 Challenger: VETO -> weak body: 33% of the candle (needs 50%); close not at the high: top 61% of the candle (needs 33%)
+[10:19:09] TSLA: 10:18 (shadow mode: challenger's veto recorded, trade still allowed)
+[10:20:12] TSLA: ENTERED long 14 sh @ ~393.86 stop 386.46 target 404.94 (1.5R fixed)
+[10:20:12] TSLA: Panel vote on TSLA: 9 for, 5 against (net +4)
+[10:20:12] TSLA:   FOR: vwap (entry above VWAP 390.29); ema_trend (EMA9 above EMA20); gap (gap +1.79% with the trade); rel_strength (TSLA +1.95% vs SPY since the open); room (clear path to target); time_of_day (entry 10:20); extension (entry 0.2x range width past the edge); fvg_depth (challenger: ok); candle_force (challenger: ok)
+[10:20:12] TSLA:   AGAINST: daily_trend (yesterday's close below the 20-day average); volume (trigger candle volume 0.6x average); market (SPY -0.07% since the open); candle_body (challenger: objects); close_location (challenger: objects)
+[10:51:43] SPY: EXIT stop @ 757.91  P&L $-80.58
+[10:51:43] SPY: LOSS review - voters who called it (argued against): gap, volume, room
+[11:25:17] NVDA: 11:24 ORB bot: NVDA FVG 175.17-175.44 retested 46% deep; rejection candle body 71% of range, closed in the top 7%; candle 0.5x the average 1-min range
+[11:25:17] NVDA: 11:24 Challenger: VETO -> no force: candle only 0.5x the recent average (needs 1x)
+[11:25:17] NVDA: 11:24 (shadow mode: challenger's veto recorded, trade still allowed)
+[11:26:06] NVDA: ENTERED long 27 sh @ ~175.64 stop 171.83 target 181.35 (1.5R fixed)
+[11:26:06] NVDA: Panel vote on NVDA: 11 for, 3 against (net +8)
+[11:26:06] NVDA:   FOR: vwap (entry above VWAP 174.13); ema_trend (EMA9 above EMA20); gap (gap +2.33% with the trade); volume (trigger candle volume 2.7x average); market (SPY +0.30% since the open); rel_strength (NVDA +1.40% vs SPY since the open); room (clear path to target); extension (entry 0.2x range width past the edge); fvg_depth (challenger: ok); candle_body (challenger: ok); close_location (challenger: ok)
+[11:26:06] NVDA:   AGAINST: daily_trend (yesterday's close below the 20-day average); time_of_day (entry 11:26); candle_force (challenger: objects)
+[11:35:08] SPY: traded
+[11:35:08] QQQ: no_fvg
+[11:35:08] NVDA: still open, Alpaca's stop/target protect it; close-out run handles 15:55
+[11:35:08] NVDA: traded
+[11:35:08] TSLA: still open, Alpaca's stop/target protect it; close-out run handles 15:55
+[11:35:08] TSLA: traded
+[11:35:08] AAPL: no_retest
+[11:35:08] Done for today.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
