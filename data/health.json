@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-11T11:35:10-05:00",
+ "generated": "2026-11-11T15:56:20-05:00",
  "alpaca": {
-  "orders_checked": 30,
+  "orders_checked": 32,
   "trades_checked": 21,
   "issues": [],
   "fills": {
@@ -122,14 +122,14 @@
    "12865": {
     "entry_fill": 393.66,
     "entry_at": "2026-11-11T15:20:13.615863+00:00",
-    "exit_fill": null,
-    "exit_at": null
+    "exit_fill": 388.949286,
+    "exit_at": "2026-11-11T20:55:10.295952+00:00"
    },
    "12866": {
     "entry_fill": 175.72037,
     "entry_at": "2026-11-11T16:26:09.790726+00:00",
-    "exit_fill": null,
-    "exit_at": null
+    "exit_fill": 173.496666,
+    "exit_at": "2026-11-11T20:55:59.682736+00:00"
    }
   }
  },
@@ -146,8 +146,8 @@
   "paper_rsi2": {
    "bot": "RSI(2)",
    "first_day": "2026-11-04",
-   "days_logged": 5,
-   "last_day": "2026-11-10",
+   "days_logged": 6,
+   "last_day": "2026-11-11",
    "missing": []
   },
   "paper_nr7": {

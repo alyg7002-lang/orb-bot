@@ -751,3 +751,21 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [11:35:08] AAPL: no_retest
 [11:35:08] Done for today.
 Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Wed 11/11/2026 14:42:35 close-out (GitHub) =====
+[14:42:36] Close-out: waiting 72 min until 15:55 ET
+[15:55:10] TSLA: EXIT time @ 388.95  P&L $-65.95
+[15:55:10] TSLA: LOSS review - voters who called it (argued against): daily_trend, volume, market, candle_body, close_location
+[15:55:10] NVDA: cancel of stop leg skipped ({"code":42210000,"message":"order pending cancel"})
+[15:56:00] NVDA: EXIT time @ 173.50  P&L $-60.04
+[15:56:00] NVDA: LOSS review - voters who called it (argued against): daily_trend, time_of_day, candle_force
+[15:56:00] Close-out done.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Wed 11/11/2026 15:56:00 RSI(2) bot (GitHub) =====
+[15:56:01] RSI(2) bot | account $10,000.00 | risk 1% per trade (2 x ATR risk unit) | journal-only paper
+[15:56:01] RSI(2) SPY: no setup (price 759.40, 200-day avg 731.31, RSI(2) 80.2)
+[15:56:01] RSI(2) QQQ: no setup (price 689.80, 200-day avg 681.71, RSI(2) 80.8)
+[15:56:01] RSI(2) NVDA: no setup (price 173.46, 200-day avg 204.46, RSI(2) 38.8)
+[15:56:01] RSI(2) TSLA: no setup (price 389.56, 200-day avg 383.03, RSI(2) 84.9)
+[15:56:01] RSI(2) AAPL: no setup (price 355.63, 200-day avg 300.27, RSI(2) 84.3)
+[15:56:18] 5 NR7 Breakout (Crabel): account $10,160.37
+[15:56:18] 6 Volatility Breakout (Williams): account $11,725.25

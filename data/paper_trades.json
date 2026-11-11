@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T11:35:10-05:00",
+ "generated": "2026-11-11T15:56:19-05:00",
  "trades": [
   {
    "id": 12827,
@@ -2748,12 +2748,12 @@
    "target": 404.94,
    "target_label": "1.5R fixed",
    "qty": 14,
-   "exit_time": null,
-   "exit": null,
-   "exit_reason": null,
-   "pnl": null,
-   "r_multiple": null,
-   "status": "open",
+   "exit_time": "2026-11-11T15:55:10.861003-05:00",
+   "exit": 388.9493,
+   "exit_reason": "time",
+   "pnl": -65.95,
+   "r_multiple": -0.655,
+   "status": "closed",
    "days": [
     "2026-11-11"
    ],
@@ -2876,12 +2876,12 @@
    "target": 181.355,
    "target_label": "1.5R fixed",
    "qty": 27,
-   "exit_time": null,
-   "exit": null,
-   "exit_reason": null,
-   "pnl": null,
-   "r_multiple": null,
-   "status": "open",
+   "exit_time": "2026-11-11T15:56:00.664935-05:00",
+   "exit": 173.4967,
+   "exit_reason": "time",
+   "pnl": -60.04,
+   "r_multiple": -0.572,
+   "status": "closed",
    "days": [
     "2026-11-11"
    ],
@@ -3027,7 +3027,7 @@
    "traded": 2
   },
   "RSI(2)": {
-   "no_setup": 25
+   "no_setup": 30
   },
   "Vol Breakout": {
    "news": 10,
