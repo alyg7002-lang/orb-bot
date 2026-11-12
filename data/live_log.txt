@@ -769,3 +769,38 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [15:56:01] RSI(2) AAPL: no setup (price 355.63, 200-day avg 300.27, RSI(2) 84.3)
 [15:56:18] 5 NR7 Breakout (Crabel): account $10,160.37
 [15:56:18] 6 Volatility Breakout (Williams): account $11,725.25
+===== Thu 11/12/2026 08:09:11 prior-day bots (GitHub) =====
+[08:09:25] 5 NR7 Breakout (Crabel) SPY 2026-11-11: no setup
+[08:09:25] 5 NR7 Breakout (Crabel) QQQ 2026-11-11: no setup
+[08:09:25] 5 NR7 Breakout (Crabel) NVDA 2026-11-11: no setup
+[08:09:25] 5 NR7 Breakout (Crabel) TSLA 2026-11-11: long 8 sh @ 386.75 09:30, stop 375.20, exit 389.05 15:55 (time) P&L $+18.24
+[08:09:25] 5 NR7 Breakout (Crabel) AAPL 2026-11-11: long 27 sh @ 353.88 09:45, stop 350.17, exit 355.40 15:55 (time) P&L $+40.63
+[08:09:25] 5 NR7 Breakout (Crabel): account $10,219.25
+[08:09:25] 6 Volatility Breakout (Williams) SPY 2026-11-11: long 32 sh @ 760.44 12:02, stop 756.80, exit 759.44 15:55 (time) P&L $-32.62
+[08:09:25] 6 Volatility Breakout (Williams) QQQ 2026-11-11: long 16 sh @ 694.23 12:22, stop 687.28, exit 689.89 15:55 (time) P&L $-69.76
+[08:09:25] 6 Volatility Breakout (Williams) NVDA 2026-11-11: long 26 sh @ 177.17 13:26, stop 172.77, exit 174.01 15:55 (time) P&L $-82.68
+[08:09:25] 6 Volatility Breakout (Williams) TSLA 2026-11-11: long 24 sh @ 391.55 09:32, stop 386.75, exit 386.75 09:41 (stop) P&L $-115.68
+[08:09:25] 6 Volatility Breakout (Williams) AAPL 2026-11-11: long 30 sh @ 353.19 09:32, stop 349.49, exit 355.40 15:55 (time) P&L $+65.71
+[08:09:25] 6 Volatility Breakout (Williams): account $11,490.22
+===== Thu 11/12/2026 08:09:26 morning (GitHub) =====
+[08:09:26] Risk per trade today: $101.61 (compound sizing, factor 1.02)
+[08:09:26] ORB bot (orb_fvg, 1-min) | paper | broker orders: ON
+[08:09:26] Waiting 81 min for the open...
+[09:30:05] Morning run: taking entries until 11:35 ET; Alpaca holds stops/targets after that
+[09:30:22] SPY: levels {'prior day high': 762.51, 'prior day low': 754.9, 'premarket high': 756.08, 'premarket low': 753.51}
+[09:30:22] QQQ: levels {'prior day high': 695.57, 'prior day low': 683.5617, 'premarket high': 682.12, 'premarket low': 680.26}
+[09:30:22] NVDA: levels {'prior day high': 177.54, 'prior day low': 170.77, 'premarket high': 160.03, 'premarket low': 150.3}
+[09:30:22] TSLA: levels {'prior day high': 395.43, 'prior day low': 386.354, 'premarket high': 386.83, 'premarket low': 384.59}
+[09:30:22] AAPL: levels {'prior day high': 355.91, 'prior day low': 349.325, 'premarket high': 358.43, 'premarket low': 356.99}
+[09:58:07] AAPL: 09:57 ORB bot: AAPL FVG 358.44-358.87 retested 41% deep; rejection candle body 2% of range, closed in the top 31%; candle 1.0x the average 1-min range
+[09:58:07] AAPL: 09:57 Challenger: VETO -> weak body: 2% of the candle (needs 50%)
+[09:58:07] AAPL: 09:57 (shadow mode: challenger's veto recorded, trade still allowed)
+[10:02:14] AAPL: 10:01 ORB bot: AAPL FVG 358.44-358.87 retested 100% deep; rejection candle body 59% of range, closed in the top 1%; candle 1.7x the average 1-min range
+[10:02:14] AAPL: 10:01 Challenger: no objections -> DOUBLE ACCEPTED
+[11:35:07] SPY: fvg_failed
+[11:35:07] QQQ: no_retest
+[11:35:07] NVDA: filtered
+[11:35:07] TSLA: filtered
+[11:35:07] AAPL: fvg_failed
+[11:35:07] Done for today.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
