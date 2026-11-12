@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-12T11:35:08-05:00",
+ "generated": "2026-11-12T15:50:46-05:00",
  "alpaca": {
   "orders_checked": 32,
   "trades_checked": 21,
@@ -146,8 +146,8 @@
   "paper_rsi2": {
    "bot": "RSI(2)",
    "first_day": "2026-11-04",
-   "days_logged": 6,
-   "last_day": "2026-11-11",
+   "days_logged": 7,
+   "last_day": "2026-11-12",
    "missing": []
   },
   "paper_nr7": {
