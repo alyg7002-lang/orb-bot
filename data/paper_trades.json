@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13T11:35:10-05:00",
+ "generated": "2026-11-13T15:56:32-05:00",
  "trades": [
   {
    "id": 12827,
@@ -3555,12 +3555,12 @@
    "target": 669.79,
    "target_label": "1.5R fixed",
    "qty": 13,
-   "exit_time": null,
-   "exit": null,
-   "exit_reason": null,
-   "pnl": null,
-   "r_multiple": null,
-   "status": "open",
+   "exit_time": "2026-11-13T15:55:14.486642-05:00",
+   "exit": 680.3954,
+   "exit_reason": "time",
+   "pnl": 12.65,
+   "r_multiple": 0.134,
+   "status": "closed",
    "days": [
     "2026-11-13"
    ],
@@ -3687,12 +3687,12 @@
    "target": 744.57,
    "target_label": "1.5R fixed",
    "qty": 16,
-   "exit_time": null,
-   "exit": null,
-   "exit_reason": null,
-   "pnl": null,
-   "r_multiple": null,
-   "status": "open",
+   "exit_time": "2026-11-13T15:55:55.851458-05:00",
+   "exit": 754.2256,
+   "exit_reason": "time",
+   "pnl": -3.05,
+   "r_multiple": -0.032,
+   "status": "closed",
    "days": [
     "2026-11-13"
    ],
@@ -3819,12 +3819,12 @@
    "target": 353.4025,
    "target_label": "1.5R fixed",
    "qty": 34,
-   "exit_time": null,
-   "exit": null,
-   "exit_reason": null,
-   "pnl": null,
-   "r_multiple": null,
-   "status": "open",
+   "exit_time": "2026-11-13T15:56:18.889781-05:00",
+   "exit": 356.0847,
+   "exit_reason": "time",
+   "pnl": 57.98,
+   "r_multiple": 0.564,
+   "status": "closed",
    "days": [
     "2026-11-13"
    ],
@@ -3966,7 +3966,7 @@
    "traded": 6
   },
   "RSI(2)": {
-   "no_setup": 35
+   "no_setup": 40
   },
   "Vol Breakout": {
    "news": 10,
