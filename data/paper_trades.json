@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-12T15:50:46-05:00",
+ "generated": "2026-11-13T11:35:10-05:00",
  "trades": [
   {
    "id": 12827,
@@ -3315,6 +3315,620 @@
    ],
    "rules": null,
    "shadow": null
+  },
+  {
+   "id": 12874,
+   "bot": "NR7",
+   "mode": "paper_nr7",
+   "n": 5,
+   "symbol": "TSLA",
+   "session_date": "2026-11-12",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-12T09:30:00-05:00",
+   "entry_time": "2026-11-12T09:30:00-05:00",
+   "entry": 386.344,
+   "stop": 390.892,
+   "target": null,
+   "target_label": "5 NR7 Breakout (Crabel) (journal-only paper)",
+   "qty": 22,
+   "exit_time": "2026-11-12T09:30:00-05:00",
+   "exit": 390.892,
+   "exit_reason": "stop",
+   "pnl": -100.5,
+   "r_multiple": -1.004,
+   "status": "closed",
+   "days": [
+    "2026-11-12"
+   ],
+   "votes": [],
+   "log": [
+    "short 22 sh @ 386.34 09:30, stop 390.89, exit 390.89 09:30 (stop) P&L $-100.50"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-12"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12875,
+   "bot": "NR7",
+   "mode": "paper_nr7",
+   "n": 6,
+   "symbol": "AAPL",
+   "session_date": "2026-11-12",
+   "direction": "long",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-12T09:30:00-05:00",
+   "entry_time": "2026-11-12T09:30:00-05:00",
+   "entry": 357.81,
+   "stop": 352.6175,
+   "target": null,
+   "target_label": "5 NR7 Breakout (Crabel) (journal-only paper)",
+   "qty": 19,
+   "exit_time": "2026-11-12T15:55:00-05:00",
+   "exit": 354.925,
+   "exit_reason": "time",
+   "pnl": -55.19,
+   "r_multiple": -0.559,
+   "status": "closed",
+   "days": [
+    "2026-11-12"
+   ],
+   "votes": [],
+   "log": [
+    "long 19 sh @ 357.81 09:30, stop 352.62, exit 354.93 15:55 (time) P&L $-55.19"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-12"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12879,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 23,
+   "symbol": "TSLA",
+   "session_date": "2026-11-12",
+   "direction": "long",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-12T09:30:00-05:00",
+   "entry_time": "2026-11-12T09:30:00-05:00",
+   "entry": 390.893,
+   "stop": 386.355,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 26,
+   "exit_time": "2026-11-12T09:30:00-05:00",
+   "exit": 386.355,
+   "exit_reason": "stop",
+   "pnl": -118.51,
+   "r_multiple": -1.004,
+   "status": "closed",
+   "days": [
+    "2026-11-12"
+   ],
+   "votes": [],
+   "log": [
+    "long 26 sh @ 390.89 09:30, stop 386.36, exit 386.36 09:30 (stop) P&L $-118.51"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-12"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12878,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 24,
+   "symbol": "NVDA",
+   "session_date": "2026-11-12",
+   "direction": "long",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-12T09:32:00-05:00",
+   "entry_time": "2026-11-12T09:32:00-05:00",
+   "entry": 154.375,
+   "stop": 150.99,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 33,
+   "exit_time": "2026-11-12T15:55:00-05:00",
+   "exit": 165.45,
+   "exit_reason": "time",
+   "pnl": 364.81,
+   "r_multiple": 3.266,
+   "status": "closed",
+   "days": [
+    "2026-11-12"
+   ],
+   "votes": [],
+   "log": [
+    "long 33 sh @ 154.38 09:32, stop 150.99, exit 165.45 15:55 (time) P&L $+364.81"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-12"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12877,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 25,
+   "symbol": "QQQ",
+   "session_date": "2026-11-12",
+   "direction": "long",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-12T09:36:00-05:00",
+   "entry_time": "2026-11-12T09:36:00-05:00",
+   "entry": 686.2941,
+   "stop": 680.29,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 19,
+   "exit_time": "2026-11-12T15:55:00-05:00",
+   "exit": 687.78,
+   "exit_reason": "time",
+   "pnl": 27.85,
+   "r_multiple": 0.244,
+   "status": "closed",
+   "days": [
+    "2026-11-12"
+   ],
+   "votes": [],
+   "log": [
+    "long 19 sh @ 686.29 09:36, stop 680.29, exit 687.78 15:55 (time) P&L $+27.85"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-12"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12876,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 26,
+   "symbol": "SPY",
+   "session_date": "2026-11-12",
+   "direction": "long",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-12T09:40:00-05:00",
+   "entry_time": "2026-11-12T09:40:00-05:00",
+   "entry": 757.795,
+   "stop": 753.99,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 30,
+   "exit_time": "2026-11-12T15:55:00-05:00",
+   "exit": 756.74,
+   "exit_reason": "time",
+   "pnl": -32.25,
+   "r_multiple": -0.283,
+   "status": "closed",
+   "days": [
+    "2026-11-12"
+   ],
+   "votes": [],
+   "log": [
+    "long 30 sh @ 757.79 09:40, stop 753.99, exit 756.74 15:55 (time) P&L $-32.25"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-12"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12880,
+   "bot": "ORB",
+   "mode": "paper",
+   "n": 22,
+   "symbol": "QQQ",
+   "session_date": "2026-11-13",
+   "direction": "short",
+   "or_high": 688.64,
+   "or_low": 684.12,
+   "breakout_time": "2026-11-13T09:49:00-05:00",
+   "entry_time": "2026-11-13T09:57:00-05:00",
+   "entry": 681.3685,
+   "stop": 688.64,
+   "target": 669.79,
+   "target_label": "1.5R fixed",
+   "qty": 13,
+   "exit_time": null,
+   "exit": null,
+   "exit_reason": null,
+   "pnl": null,
+   "r_multiple": null,
+   "status": "open",
+   "days": [
+    "2026-11-13"
+   ],
+   "votes": [
+    {
+     "voter": "candle_body",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "candle_force",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "close_location",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "daily_trend",
+     "vote": 1,
+     "why": "yesterday's close below the 20-day average"
+    },
+    {
+     "voter": "ema_trend",
+     "vote": 1,
+     "why": "EMA9 below EMA20"
+    },
+    {
+     "voter": "fvg_depth",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "market",
+     "vote": 1,
+     "why": "SPY -0.77% since the open"
+    },
+    {
+     "voter": "narrow_range",
+     "vote": 1,
+     "why": "opening range = 25% of the 14-day ATR"
+    },
+    {
+     "voter": "rel_strength",
+     "vote": 1,
+     "why": "QQQ -0.28% vs SPY since the open"
+    },
+    {
+     "voter": "time_of_day",
+     "vote": 1,
+     "why": "entry 09:57"
+    },
+    {
+     "voter": "vwap",
+     "vote": 1,
+     "why": "entry below VWAP 684.91"
+    },
+    {
+     "voter": "extension",
+     "vote": 0,
+     "why": "entry 0.7x range width past the edge"
+    },
+    {
+     "voter": "gap",
+     "vote": 0,
+     "why": "no real gap (+0.02%)"
+    },
+    {
+     "voter": "rsi",
+     "vote": 0,
+     "why": "RSI 33: neutral"
+    },
+    {
+     "voter": "room",
+     "vote": -1,
+     "why": "blocked by prior day low 679.83"
+    },
+    {
+     "voter": "volume",
+     "vote": -1,
+     "why": "trigger candle volume 0.2x average"
+    }
+   ],
+   "log": [
+    "Range set: 684.12 - 688.64",
+    "09:49 Breakout short, close 683.11",
+    "09:50 FVG short 683.04-684.73",
+    "09:52 ORB bot: QQQ FVG 683.04-684.73 retested 12% deep; rejection candle body 84% of range, closed in the bottom 15%; candle 0.9x the average 1-min range",
+    "09:52 Challenger: VETO -> shallow retest: only 12% into the gap (needs 25%); no force: candle only 0.9x the recent average (needs 1x)",
+    "09:52 (shadow mode: challenger's veto recorded, trade still allowed)",
+    "09:52 Rejection candle, waiting 1 candle(s) for follow-through",
+    "09:54 Follow-through failed: closed back into the FVG",
+    "09:55 ORB bot: QQQ FVG 683.04-684.73 retested 43% deep; rejection candle body 100% of range, closed in the bottom 0%; candle 2.1x the average 1-min range",
+    "09:55 Challenger: no objections -> DOUBLE ACCEPTED",
+    "09:55 Rejection candle, waiting 1 candle(s) for follow-through",
+    "09:56 ENTRY short @ 681.10, stop 688.64, target 669.79 (1.5R fixed), FVG 683.04-684.73"
+   ],
+   "fvg": [
+    683.04,
+    684.73
+   ],
+   "charts": [
+    "2026-11-13"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12881,
+   "bot": "ORB",
+   "mode": "paper",
+   "n": 23,
+   "symbol": "SPY",
+   "session_date": "2026-11-13",
+   "direction": "short",
+   "or_high": 760.07,
+   "or_low": 755.905,
+   "breakout_time": "2026-11-13T09:49:00-05:00",
+   "entry_time": "2026-11-13T10:01:00-05:00",
+   "entry": 754.035,
+   "stop": 760.07,
+   "target": 744.57,
+   "target_label": "1.5R fixed",
+   "qty": 16,
+   "exit_time": null,
+   "exit": null,
+   "exit_reason": null,
+   "pnl": null,
+   "r_multiple": null,
+   "status": "open",
+   "days": [
+    "2026-11-13"
+   ],
+   "votes": [
+    {
+     "voter": "candle_body",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "candle_force",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "close_location",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "daily_trend",
+     "vote": 1,
+     "why": "yesterday's close below the 20-day average"
+    },
+    {
+     "voter": "ema_trend",
+     "vote": 1,
+     "why": "EMA9 below EMA20"
+    },
+    {
+     "voter": "extension",
+     "vote": 1,
+     "why": "entry 0.5x range width past the edge"
+    },
+    {
+     "voter": "fvg_depth",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "market",
+     "vote": 1,
+     "why": "SPY -0.81% since the open"
+    },
+    {
+     "voter": "time_of_day",
+     "vote": 1,
+     "why": "entry 10:01"
+    },
+    {
+     "voter": "volume",
+     "vote": 1,
+     "why": "trigger candle volume 1.6x average"
+    },
+    {
+     "voter": "vwap",
+     "vote": 1,
+     "why": "entry below VWAP 756.43"
+    },
+    {
+     "voter": "narrow_range",
+     "vote": 0,
+     "why": "opening range = 34% of the 14-day ATR"
+    },
+    {
+     "voter": "rel_strength",
+     "vote": 0,
+     "why": "SPY itself"
+    },
+    {
+     "voter": "gap",
+     "vote": -1,
+     "why": "gap +0.37% against the trade"
+    },
+    {
+     "voter": "room",
+     "vote": -1,
+     "why": "blocked by prior day low 753.67"
+    },
+    {
+     "voter": "rsi",
+     "vote": -1,
+     "why": "RSI 28: already stretched"
+    }
+   ],
+   "log": [
+    "Range set: 755.90 - 760.07",
+    "09:49 Breakout short, close 755.62",
+    "09:50 FVG short 755.45-756.26",
+    "09:52 ORB bot: SPY FVG 755.45-756.26 retested 26% deep; rejection candle body 72% of range, closed in the bottom 17%; candle 0.8x the average 1-min range",
+    "09:52 Challenger: VETO -> no force: candle only 0.8x the recent average (needs 1x)",
+    "09:52 (shadow mode: challenger's veto recorded, trade still allowed)",
+    "09:52 Rejection candle, waiting 1 candle(s) for follow-through",
+    "09:54 Follow-through failed: closed back into the FVG",
+    "09:55 ORB bot: SPY FVG 755.45-756.26 retested 42% deep; rejection candle body 91% of range, closed in the bottom 4%; candle 1.8x the average 1-min range",
+    "09:55 Challenger: no objections -> DOUBLE ACCEPTED",
+    "09:55 Rejection candle, waiting 1 candle(s) for follow-through",
+    "10:00 ENTRY short @ 753.87, stop 760.07, target 744.57 (1.5R fixed), FVG 755.45-756.26"
+   ],
+   "fvg": [
+    755.45,
+    756.26
+   ],
+   "charts": [
+    "2026-11-13"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12882,
+   "bot": "ORB",
+   "mode": "paper",
+   "n": 24,
+   "symbol": "AAPL",
+   "session_date": "2026-11-13",
+   "direction": "short",
+   "or_high": 360.815,
+   "or_low": 357.93,
+   "breakout_time": "2026-11-13T10:14:00-05:00",
+   "entry_time": "2026-11-13T11:12:00-05:00",
+   "entry": 357.79,
+   "stop": 360.815,
+   "target": 353.4025,
+   "target_label": "1.5R fixed",
+   "qty": 34,
+   "exit_time": null,
+   "exit": null,
+   "exit_reason": null,
+   "pnl": null,
+   "r_multiple": null,
+   "status": "open",
+   "days": [
+    "2026-11-13"
+   ],
+   "votes": [
+    {
+     "voter": "close_location",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "ema_trend",
+     "vote": 1,
+     "why": "EMA9 below EMA20"
+    },
+    {
+     "voter": "extension",
+     "vote": 1,
+     "why": "entry 0.0x range width past the edge"
+    },
+    {
+     "voter": "fvg_depth",
+     "vote": 1,
+     "why": "challenger: ok"
+    },
+    {
+     "voter": "market",
+     "vote": 1,
+     "why": "SPY -1.22% since the open"
+    },
+    {
+     "voter": "volume",
+     "vote": 1,
+     "why": "trigger candle volume 1.1x average"
+    },
+    {
+     "voter": "vwap",
+     "vote": 1,
+     "why": "entry below VWAP 359.11"
+    },
+    {
+     "voter": "narrow_range",
+     "vote": 0,
+     "why": "opening range = 30% of the 14-day ATR"
+    },
+    {
+     "voter": "rsi",
+     "vote": 0,
+     "why": "RSI 33: neutral"
+    },
+    {
+     "voter": "candle_body",
+     "vote": -1,
+     "why": "challenger: objects"
+    },
+    {
+     "voter": "candle_force",
+     "vote": -1,
+     "why": "challenger: objects"
+    },
+    {
+     "voter": "daily_trend",
+     "vote": -1,
+     "why": "yesterday's close above the 20-day average"
+    },
+    {
+     "voter": "gap",
+     "vote": -1,
+     "why": "gap +0.85% against the trade"
+    },
+    {
+     "voter": "rel_strength",
+     "vote": -1,
+     "why": "AAPL +1.20% vs SPY since the open"
+    },
+    {
+     "voter": "room",
+     "vote": -1,
+     "why": "blocked by prior day low 354.41, prior close 354.92"
+    },
+    {
+     "voter": "time_of_day",
+     "vote": -1,
+     "why": "entry 11:12"
+    }
+   ],
+   "log": [
+    "Range set: 357.93 - 360.81",
+    "10:14 Breakout short, close 357.60",
+    "11:04 FVG short 358.10-358.38",
+    "11:09 ORB bot: AAPL FVG 358.10-358.38 retested 46% deep; rejection candle body 23% of range, closed in the bottom 0%; candle 0.5x the average 1-min range",
+    "11:09 Challenger: VETO -> weak body: 23% of the candle (needs 50%); no force: candle only 0.5x the recent average (needs 1x)",
+    "11:09 (shadow mode: challenger's veto recorded, trade still allowed)",
+    "11:09 Rejection candle, waiting 1 candle(s) for follow-through",
+    "11:11 ENTRY short @ 357.85, stop 360.81, target 353.40 (1.5R fixed), FVG 358.10-358.38"
+   ],
+   "fvg": [
+    358.1,
+    358.38
+   ],
+   "charts": [
+    "2026-11-13"
+   ],
+   "rules": null,
+   "shadow": null
   }
  ],
  "bots": {
@@ -3337,27 +3951,27 @@
  },
  "outcomes": {
   "ORB": {
-   "filtered": 19,
+   "filtered": 21,
    "fvg_failed": 8,
    "news_day": 16,
    "no_breakout": 2,
    "no_data": 5,
    "no_fvg": 2,
    "no_retest": 9,
-   "traded": 19
+   "traded": 22
   },
   "NR7": {
    "news": 10,
-   "no_setup": 21,
-   "traded": 4
+   "no_setup": 24,
+   "traded": 6
   },
   "RSI(2)": {
    "no_setup": 35
   },
   "Vol Breakout": {
    "news": 10,
-   "no_setup": 3,
-   "traded": 22
+   "no_setup": 4,
+   "traded": 26
   }
  },
  "shadow_start": "2026-11-04"
