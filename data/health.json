@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-13T15:56:32-05:00",
+ "generated": "2026-11-16T11:35:14-05:00",
  "alpaca": {
-  "orders_checked": 38,
-  "trades_checked": 24,
+  "orders_checked": 42,
+  "trades_checked": 26,
   "issues": [],
   "fills": {
    "12827": {
@@ -148,6 +148,18 @@
     "entry_at": "2026-11-13T16:12:11.610532+00:00",
     "exit_fill": 356.084705,
     "exit_at": "2026-11-13T20:56:18.732795+00:00"
+   },
+   "12889": {
+    "entry_fill": 665.631765,
+    "entry_at": "2026-11-16T15:04:20.397130+00:00",
+    "exit_fill": null,
+    "exit_at": null
+   },
+   "12890": {
+    "entry_fill": 353.851935,
+    "entry_at": "2026-11-16T15:04:21.619494+00:00",
+    "exit_fill": null,
+    "exit_at": null
    }
   }
  },
@@ -155,8 +167,8 @@
   "paper": {
    "bot": "ORB",
    "first_day": "2026-10-21",
-   "days_logged": 17,
-   "last_day": "2026-11-13",
+   "days_logged": 18,
+   "last_day": "2026-11-16",
    "missing": [
     "2026-10-26"
    ]
@@ -171,15 +183,15 @@
   "paper_nr7": {
    "bot": "NR7",
    "first_day": "2026-11-03",
-   "days_logged": 8,
-   "last_day": "2026-11-12",
+   "days_logged": 9,
+   "last_day": "2026-11-13",
    "missing": []
   },
   "paper_vol_breakout": {
    "bot": "Vol Breakout",
    "first_day": "2026-11-03",
-   "days_logged": 8,
-   "last_day": "2026-11-12",
+   "days_logged": 9,
+   "last_day": "2026-11-13",
    "missing": []
   }
  },
