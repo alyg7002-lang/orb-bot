@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-16T11:35:13-05:00",
+ "generated": "2026-11-17T15:55:21-05:00",
  "trades": [
   {
    "id": 12827,
@@ -4219,6 +4219,80 @@
    }
   },
   {
+   "id": 12894,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 32,
+   "symbol": "AAPL",
+   "session_date": "2026-11-16",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-16T09:31:00-05:00",
+   "entry_time": "2026-11-16T09:31:00-05:00",
+   "entry": 354.585,
+   "stop": 357.125,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 45,
+   "exit_time": "2026-11-16T15:55:00-05:00",
+   "exit": 352.01,
+   "exit_reason": "time",
+   "pnl": 114.97,
+   "r_multiple": 1.006,
+   "status": "closed",
+   "days": [
+    "2026-11-16"
+   ],
+   "votes": [],
+   "log": [
+    "short 45 sh @ 354.58 09:31, stop 357.12, exit 352.01 15:55 (time) P&L $+114.97"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-16"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12893,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 33,
+   "symbol": "TSLA",
+   "session_date": "2026-11-16",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-16T10:00:00-05:00",
+   "entry_time": "2026-11-16T10:00:00-05:00",
+   "entry": 377.7251,
+   "stop": 387.01,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 12,
+   "exit_time": "2026-11-16T15:55:00-05:00",
+   "exit": 379.36,
+   "exit_reason": "time",
+   "pnl": -19.86,
+   "r_multiple": -0.178,
+   "status": "closed",
+   "days": [
+    "2026-11-16"
+   ],
+   "votes": [],
+   "log": [
+    "short 12 sh @ 377.73 10:00, stop 387.01, exit 379.36 15:55 (time) P&L $-19.86"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-16"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
    "id": 12889,
    "bot": "ORB",
    "mode": "paper",
@@ -4235,14 +4309,15 @@
    "target": 657.22,
    "target_label": "1.5R fixed",
    "qty": 17,
-   "exit_time": null,
-   "exit": null,
-   "exit_reason": null,
-   "pnl": null,
-   "r_multiple": null,
-   "status": "open",
+   "exit_time": "2026-11-17T10:31:48.721856-05:00",
+   "exit": 657.1188,
+   "exit_reason": "target",
+   "pnl": 144.72,
+   "r_multiple": 1.387,
+   "status": "closed",
    "days": [
-    "2026-11-16"
+    "2026-11-16",
+    "2026-11-17"
    ],
    "votes": [
     {
@@ -4341,10 +4416,33 @@
     669.42
    ],
    "charts": [
-    "2026-11-16"
+    "2026-11-16",
+    "2026-11-17"
    ],
    "rules": null,
-   "shadow": null
+   "shadow": {
+    "current": {
+     "exit": 662.21,
+     "why": "time",
+     "at": "2026-11-16T15:55:00-05:00",
+     "pnl": 57.83,
+     "r": 0.554
+    },
+    "full": {
+     "exit": 665.07,
+     "why": "green",
+     "at": "2026-11-16T10:34:00-05:00",
+     "pnl": 9.21,
+     "r": 0.088
+    },
+    "reds": {
+     "exit": 662.21,
+     "why": "time",
+     "at": "2026-11-16T15:55:00-05:00",
+     "pnl": 57.83,
+     "r": 0.554
+    }
+   }
   },
   {
    "id": 12890,
@@ -4363,14 +4461,15 @@
    "target": 348.8175,
    "target_label": "1.5R fixed",
    "qty": 31,
-   "exit_time": null,
-   "exit": null,
-   "exit_reason": null,
-   "pnl": null,
-   "r_multiple": null,
-   "status": "open",
+   "exit_time": "2026-11-17T15:55:08.199822-05:00",
+   "exit": 351.49,
+   "exit_reason": "stale_close",
+   "pnl": 73.22,
+   "r_multiple": 0.749,
+   "status": "closed",
    "days": [
-    "2026-11-16"
+    "2026-11-16",
+    "2026-11-17"
    ],
    "votes": [
     {
@@ -4469,6 +4568,107 @@
     354.25
    ],
    "charts": [
+    "2026-11-16",
+    "2026-11-17"
+   ],
+   "rules": {
+    "exit": 352.01,
+    "pnl": 57.1,
+    "r": 0.584
+   },
+   "shadow": {
+    "current": {
+     "exit": 352.09,
+     "why": "time",
+     "at": "2026-11-16T15:55:00-05:00",
+     "pnl": 54.0,
+     "r": 0.552
+    },
+    "full": {
+     "exit": 353.8519,
+     "why": "even",
+     "at": "2026-11-16T11:43:00-05:00",
+     "pnl": -0.62,
+     "r": -0.006
+    },
+    "reds": {
+     "exit": 353.8519,
+     "why": "even",
+     "at": "2026-11-16T11:43:00-05:00",
+     "pnl": -0.62,
+     "r": -0.006
+    }
+   }
+  },
+  {
+   "id": 12891,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 34,
+   "symbol": "SPY",
+   "session_date": "2026-11-16",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-16T10:25:00-05:00",
+   "entry_time": "2026-11-16T10:25:00-05:00",
+   "entry": 743.55,
+   "stop": 749.67,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 18,
+   "exit_time": "2026-11-16T15:55:00-05:00",
+   "exit": 739.72,
+   "exit_reason": "time",
+   "pnl": 68.58,
+   "r_multiple": 0.623,
+   "status": "closed",
+   "days": [
+    "2026-11-16"
+   ],
+   "votes": [],
+   "log": [
+    "short 18 sh @ 743.55 10:25, stop 749.67, exit 739.72 15:55 (time) P&L $+68.58"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-16"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12892,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 35,
+   "symbol": "QQQ",
+   "session_date": "2026-11-16",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-16T13:28:00-05:00",
+   "entry_time": "2026-11-16T13:28:00-05:00",
+   "entry": 662.5055,
+   "stop": 671.04,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 13,
+   "exit_time": "2026-11-16T15:55:00-05:00",
+   "exit": 662.19,
+   "exit_reason": "time",
+   "pnl": 3.84,
+   "r_multiple": 0.035,
+   "status": "closed",
+   "days": [
+    "2026-11-16"
+   ],
+   "votes": [],
+   "log": [
+    "short 13 sh @ 662.51 13:28, stop 671.04, exit 662.19 15:55 (time) P&L $+3.84"
+   ],
+   "fvg": null,
+   "charts": [
     "2026-11-16"
    ],
    "rules": null,
@@ -4506,16 +4706,16 @@
   },
   "NR7": {
    "news": 10,
-   "no_setup": 28,
+   "no_setup": 33,
    "traded": 7
   },
   "RSI(2)": {
-   "no_setup": 40
+   "no_setup": 45
   },
   "Vol Breakout": {
    "news": 10,
-   "no_setup": 4,
-   "traded": 31
+   "no_setup": 5,
+   "traded": 35
   }
  },
  "shadow_start": "2026-11-04"
