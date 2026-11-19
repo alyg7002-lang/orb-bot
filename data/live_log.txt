@@ -999,3 +999,26 @@ Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
 [15:50:17] 6 Volatility Breakout (Williams) TSLA 2026-11-17: short 16 sh @ 375.11 10:49, stop 382.19, exit 382.19 12:06 (stop) P&L $-113.67
 [15:50:17] 6 Volatility Breakout (Williams) AAPL 2026-11-17: short 40 sh @ 349.92 12:39, stop 352.83, exit 351.54 15:55 (time) P&L $-65.80
 [15:50:17] 6 Volatility Breakout (Williams): account $11,695.59
+===== Thu 11/19/2026 15:27:48 close-out (GitHub) =====
+[15:27:49] Close-out: no open trades.
+Dashboard: /home/runner/work/orb-bot/orb-bot/reports/dashboard.html
+===== Thu 11/19/2026 15:27:49 RSI(2) bot (GitHub) =====
+[15:27:50] RSI(2): waiting 22 min until 15:50 ET to decide
+[15:50:00] RSI(2) bot | account $10,000.00 | risk 1% per trade (2 x ATR risk unit) | journal-only paper
+[15:50:00] RSI(2) SPY: no setup (price 717.26, 200-day avg 732.70, RSI(2) 1.3)
+[15:50:00] RSI(2) QQQ: no setup (price 647.87, 200-day avg 683.02, RSI(2) 9.4)
+[15:50:00] RSI(2) NVDA: no setup (price 147.44, 200-day avg 203.58, RSI(2) 1.2)
+[15:50:00] RSI(2) TSLA: no setup (price 376.26, 200-day avg 381.93, RSI(2) 20.6)
+[15:50:00] RSI(2) AAPL: no setup (price 348.70, 200-day avg 302.90, RSI(2) 10.3)
+[15:50:09] 5 NR7 Breakout (Crabel) SPY 2026-11-18: no setup
+[15:50:09] 5 NR7 Breakout (Crabel) QQQ 2026-11-18: no setup
+[15:50:09] 5 NR7 Breakout (Crabel) NVDA 2026-11-18: news day (Nvidia earnings reaction (Nov 17 after close; confirmed)), skipped
+[15:50:09] 5 NR7 Breakout (Crabel) TSLA 2026-11-18: long 14 sh @ 385.24 09:30, stop 378.49, exit 378.49 11:20 (stop) P&L $-94.85
+[15:50:09] 5 NR7 Breakout (Crabel) AAPL 2026-11-18: no setup
+[15:50:09] 5 NR7 Breakout (Crabel): account $9,868.33
+[15:50:09] 6 Volatility Breakout (Williams) SPY 2026-11-18: short 18 sh @ 726.97 11:20, stop 733.35, exit 733.35 12:28 (stop) P&L $-115.20
+[15:50:09] 6 Volatility Breakout (Williams) QQQ 2026-11-18: no setup
+[15:50:09] 6 Volatility Breakout (Williams) NVDA 2026-11-18: news day (Nvidia earnings reaction (Nov 17 after close; confirmed)), skipped
+[15:50:09] 6 Volatility Breakout (Williams) TSLA 2026-11-18: short 26 sh @ 380.88 09:34, stop 385.24, exit 385.24 09:58 (stop) P&L $-113.75
+[15:50:09] 6 Volatility Breakout (Williams) AAPL 2026-11-18: long 40 sh @ 354.89 09:32, stop 352.05, exit 352.05 11:44 (stop) P&L $-114.60
+[15:50:09] 6 Volatility Breakout (Williams): account $11,352.04

@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-18T15:50:18-05:00",
+ "generated": "2026-11-19T15:50:10-05:00",
  "trades": [
   {
    "id": 12827,
@@ -4858,6 +4858,154 @@
    ],
    "rules": null,
    "shadow": null
+  },
+  {
+   "id": 12900,
+   "bot": "NR7",
+   "mode": "paper_nr7",
+   "n": 8,
+   "symbol": "TSLA",
+   "session_date": "2026-11-18",
+   "direction": "long",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-18T09:30:00-05:00",
+   "entry_time": "2026-11-18T09:30:00-05:00",
+   "entry": 385.24,
+   "stop": 378.485,
+   "target": null,
+   "target_label": "5 NR7 Breakout (Crabel) (journal-only paper)",
+   "qty": 14,
+   "exit_time": "2026-11-18T11:20:00-05:00",
+   "exit": 378.485,
+   "exit_reason": "stop",
+   "pnl": -94.85,
+   "r_multiple": -1.003,
+   "status": "closed",
+   "days": [
+    "2026-11-18"
+   ],
+   "votes": [],
+   "log": [
+    "long 14 sh @ 385.24 09:30, stop 378.49, exit 378.49 11:20 (stop) P&L $-94.85"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-18"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12903,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 41,
+   "symbol": "AAPL",
+   "session_date": "2026-11-18",
+   "direction": "long",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-18T09:32:00-05:00",
+   "entry_time": "2026-11-18T09:32:00-05:00",
+   "entry": 354.895,
+   "stop": 352.05,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 40,
+   "exit_time": "2026-11-18T11:44:00-05:00",
+   "exit": 352.05,
+   "exit_reason": "stop",
+   "pnl": -114.6,
+   "r_multiple": -1.007,
+   "status": "closed",
+   "days": [
+    "2026-11-18"
+   ],
+   "votes": [],
+   "log": [
+    "long 40 sh @ 354.89 09:32, stop 352.05, exit 352.05 11:44 (stop) P&L $-114.60"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-18"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12902,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 42,
+   "symbol": "TSLA",
+   "session_date": "2026-11-18",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-18T09:34:00-05:00",
+   "entry_time": "2026-11-18T09:34:00-05:00",
+   "entry": 380.885,
+   "stop": 385.24,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 26,
+   "exit_time": "2026-11-18T09:58:00-05:00",
+   "exit": 385.24,
+   "exit_reason": "stop",
+   "pnl": -113.75,
+   "r_multiple": -1.005,
+   "status": "closed",
+   "days": [
+    "2026-11-18"
+   ],
+   "votes": [],
+   "log": [
+    "short 26 sh @ 380.88 09:34, stop 385.24, exit 385.24 09:58 (stop) P&L $-113.75"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-18"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12901,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 43,
+   "symbol": "SPY",
+   "session_date": "2026-11-18",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-18T11:20:00-05:00",
+   "entry_time": "2026-11-18T11:20:00-05:00",
+   "entry": 726.97,
+   "stop": 733.35,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 18,
+   "exit_time": "2026-11-18T12:28:00-05:00",
+   "exit": 733.35,
+   "exit_reason": "stop",
+   "pnl": -115.2,
+   "r_multiple": -1.003,
+   "status": "closed",
+   "days": [
+    "2026-11-18"
+   ],
+   "votes": [],
+   "log": [
+    "short 18 sh @ 726.97 11:20, stop 733.35, exit 733.35 12:28 (stop) P&L $-115.20"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-18"
+   ],
+   "rules": null,
+   "shadow": null
   }
  ],
  "bots": {
@@ -4890,17 +5038,17 @@
    "traded": 24
   },
   "NR7": {
-   "news": 10,
-   "no_setup": 38,
-   "traded": 7
+   "news": 11,
+   "no_setup": 41,
+   "traded": 8
   },
   "RSI(2)": {
-   "no_setup": 50
+   "no_setup": 55
   },
   "Vol Breakout": {
-   "news": 10,
-   "no_setup": 5,
-   "traded": 40
+   "news": 11,
+   "no_setup": 6,
+   "traded": 43
   }
  },
  "shadow_start": "2026-11-04"
