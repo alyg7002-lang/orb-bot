@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-19T15:50:10-05:00",
+ "generated": "2026-11-20T15:50:08-05:00",
  "trades": [
   {
    "id": 12827,
@@ -5006,6 +5006,302 @@
    ],
    "rules": null,
    "shadow": null
+  },
+  {
+   "id": 12905,
+   "bot": "NR7",
+   "mode": "paper_nr7",
+   "n": 9,
+   "symbol": "QQQ",
+   "session_date": "2026-11-19",
+   "direction": "long",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-19T09:30:00-05:00",
+   "entry_time": "2026-11-19T09:30:00-05:00",
+   "entry": 671.09,
+   "stop": 657.9244,
+   "target": null,
+   "target_label": "5 NR7 Breakout (Crabel) (journal-only paper)",
+   "qty": 7,
+   "exit_time": "2026-11-19T10:37:00-05:00",
+   "exit": 657.9244,
+   "exit_reason": "stop",
+   "pnl": -92.3,
+   "r_multiple": -1.002,
+   "status": "closed",
+   "days": [
+    "2026-11-19"
+   ],
+   "votes": [],
+   "log": [
+    "long 7 sh @ 671.09 09:30, stop 657.92, exit 657.92 10:37 (stop) P&L $-92.30"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-19"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12906,
+   "bot": "NR7",
+   "mode": "paper_nr7",
+   "n": 10,
+   "symbol": "AAPL",
+   "session_date": "2026-11-19",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-19T09:36:00-05:00",
+   "entry_time": "2026-11-19T09:36:00-05:00",
+   "entry": 351.4606,
+   "stop": 353.9453,
+   "target": null,
+   "target_label": "5 NR7 Breakout (Crabel) (journal-only paper)",
+   "qty": 39,
+   "exit_time": "2026-11-19T15:55:00-05:00",
+   "exit": 349.17,
+   "exit_reason": "time",
+   "pnl": 88.55,
+   "r_multiple": 0.914,
+   "status": "closed",
+   "days": [
+    "2026-11-19"
+   ],
+   "votes": [],
+   "log": [
+    "short 39 sh @ 351.46 09:36, stop 353.95, exit 349.17 15:55 (time) P&L $+88.55"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-19"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12911,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 44,
+   "symbol": "AAPL",
+   "session_date": "2026-11-19",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-19T09:37:00-05:00",
+   "entry_time": "2026-11-19T09:37:00-05:00",
+   "entry": 350.5353,
+   "stop": 353.01,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 47,
+   "exit_time": "2026-11-19T15:55:00-05:00",
+   "exit": 349.17,
+   "exit_reason": "time",
+   "pnl": 63.23,
+   "r_multiple": 0.544,
+   "status": "closed",
+   "days": [
+    "2026-11-19"
+   ],
+   "votes": [],
+   "log": [
+    "short 47 sh @ 350.54 09:37, stop 353.01, exit 349.17 15:55 (time) P&L $+63.23"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-19"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12909,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 45,
+   "symbol": "NVDA",
+   "session_date": "2026-11-19",
+   "direction": "long",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-19T09:43:00-05:00",
+   "entry_time": "2026-11-19T09:43:00-05:00",
+   "entry": 157.56,
+   "stop": 152.91,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 25,
+   "exit_time": "2026-11-19T10:31:00-05:00",
+   "exit": 152.91,
+   "exit_reason": "stop",
+   "pnl": -116.75,
+   "r_multiple": -1.004,
+   "status": "closed",
+   "days": [
+    "2026-11-19"
+   ],
+   "votes": [],
+   "log": [
+    "long 25 sh @ 157.56 09:43, stop 152.91, exit 152.91 10:31 (stop) P&L $-116.75"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-19"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12907,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 46,
+   "symbol": "SPY",
+   "session_date": "2026-11-19",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-19T10:15:00-05:00",
+   "entry_time": "2026-11-19T10:15:00-05:00",
+   "entry": 733.3275,
+   "stop": 737.46,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 27,
+   "exit_time": "2026-11-19T15:55:00-05:00",
+   "exit": 717.51,
+   "exit_reason": "time",
+   "pnl": 426.53,
+   "r_multiple": 3.823,
+   "status": "closed",
+   "days": [
+    "2026-11-19"
+   ],
+   "votes": [],
+   "log": [
+    "short 27 sh @ 733.33 10:15, stop 737.46, exit 717.51 15:55 (time) P&L $+426.53"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-19"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12910,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 47,
+   "symbol": "TSLA",
+   "session_date": "2026-11-19",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-19T10:15:00-05:00",
+   "entry_time": "2026-11-19T10:15:00-05:00",
+   "entry": 384.45,
+   "stop": 389.905,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 21,
+   "exit_time": "2026-11-19T15:55:00-05:00",
+   "exit": 376.01,
+   "exit_reason": "time",
+   "pnl": 176.82,
+   "r_multiple": 1.544,
+   "status": "closed",
+   "days": [
+    "2026-11-19"
+   ],
+   "votes": [],
+   "log": [
+    "short 21 sh @ 384.45 10:15, stop 389.90, exit 376.01 15:55 (time) P&L $+176.82"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-19"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12908,
+   "bot": "Vol Breakout",
+   "mode": "paper_vol_breakout",
+   "n": 48,
+   "symbol": "QQQ",
+   "session_date": "2026-11-19",
+   "direction": "short",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-19T10:19:00-05:00",
+   "entry_time": "2026-11-19T10:19:00-05:00",
+   "entry": 666.2156,
+   "stop": 671.09,
+   "target": null,
+   "target_label": "6 Volatility Breakout (Williams) (journal-only paper)",
+   "qty": 24,
+   "exit_time": "2026-11-19T11:54:00-05:00",
+   "exit": 671.09,
+   "exit_reason": "stop",
+   "pnl": -117.47,
+   "r_multiple": -1.004,
+   "status": "closed",
+   "days": [
+    "2026-11-19"
+   ],
+   "votes": [],
+   "log": [
+    "short 24 sh @ 666.22 10:19, stop 671.09, exit 671.09 11:54 (stop) P&L $-117.47"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-19"
+   ],
+   "rules": null,
+   "shadow": null
+  },
+  {
+   "id": 12904,
+   "bot": "RSI(2)",
+   "mode": "paper_rsi2",
+   "n": 1,
+   "symbol": "AAPL",
+   "session_date": "2026-11-20",
+   "direction": "long",
+   "or_high": null,
+   "or_low": null,
+   "breakout_time": "2026-11-20T15:50:00.102079-05:00",
+   "entry_time": "2026-11-20T15:50:00.102080-05:00",
+   "entry": 344.32,
+   "stop": 326.2982,
+   "target": 350.132,
+   "target_label": "exit: close above 5-day avg (stop = 2xATR risk unit, not an order)",
+   "qty": 5,
+   "exit_time": null,
+   "exit": null,
+   "exit_reason": null,
+   "pnl": null,
+   "r_multiple": null,
+   "status": "open",
+   "days": [
+    "2026-11-20"
+   ],
+   "votes": [],
+   "log": [
+    "entered long: price 344.31, 200-day avg 303.25, RSI(2) 3.6; risk unit $18.02/sh"
+   ],
+   "fvg": null,
+   "charts": [
+    "2026-11-20"
+   ],
+   "rules": null,
+   "shadow": null
   }
  ],
  "bots": {
@@ -5039,16 +5335,17 @@
   },
   "NR7": {
    "news": 11,
-   "no_setup": 41,
-   "traded": 8
+   "no_setup": 44,
+   "traded": 10
   },
   "RSI(2)": {
-   "no_setup": 55
+   "no_setup": 59,
+   "traded": 1
   },
   "Vol Breakout": {
    "news": 11,
    "no_setup": 6,
-   "traded": 43
+   "traded": 48
   }
  },
  "shadow_start": "2026-11-04"

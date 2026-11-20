@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-19T15:50:10-05:00",
+ "generated": "2026-11-20T15:50:08-05:00",
  "alpaca": {
   "orders_checked": 41,
   "trades_checked": 26,
@@ -172,14 +172,15 @@
    "missing": [
     "2026-10-26",
     "2026-11-17",
-    "2026-11-18"
+    "2026-11-18",
+    "2026-11-19"
    ]
   },
   "paper_rsi2": {
    "bot": "RSI(2)",
    "first_day": "2026-11-04",
-   "days_logged": 11,
-   "last_day": "2026-11-19",
+   "days_logged": 12,
+   "last_day": "2026-11-20",
    "missing": [
     "2026-11-16"
    ]
@@ -187,15 +188,15 @@
   "paper_nr7": {
    "bot": "NR7",
    "first_day": "2026-11-03",
-   "days_logged": 12,
-   "last_day": "2026-11-18",
+   "days_logged": 13,
+   "last_day": "2026-11-19",
    "missing": []
   },
   "paper_vol_breakout": {
    "bot": "Vol Breakout",
    "first_day": "2026-11-03",
-   "days_logged": 12,
-   "last_day": "2026-11-18",
+   "days_logged": 13,
+   "last_day": "2026-11-19",
    "missing": []
   }
  },
